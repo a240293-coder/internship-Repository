@@ -7,6 +7,7 @@
   z-index: 1000;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  height: 70px;
 }
 
 .navbar.scrolled {
@@ -14,9 +15,9 @@
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 1.2rem 2rem;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -78,7 +79,7 @@
 
 .coursesMenu {
   position: fixed;
-  top: 80px;
+  top: 70px;
   left: 50%;
   transform: translateX(-50%);
   width: 1000px;
@@ -90,6 +91,7 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   z-index: 9999;
   animation: slideDownFade 0.25s ease-out;
+  backdrop-filter: blur(10px);
 }
 
 .menuContainer {
@@ -322,6 +324,10 @@
   width: 100%;
 }
 
+.moreDropdown {
+  position: relative;
+}
+
 .moreBtn {
   display: flex;
   align-items: center;
@@ -335,6 +341,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: Arial, Helvetica, sans-serif;
+  position: relative;
 }
 
 .moreBtn:hover {
@@ -353,29 +360,31 @@
 .moreMenu {
   position: absolute;
   top: 100%;
-  right: 0;
-  background: black;
+  left: 0;
+  background: #000;
   border-radius: 8px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  padding: 0.5rem 0;
-  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  width: 160px;
   z-index: 1500;
-  animation: fadeInDown 0.2s ease;
+  animation: fadeInDown 0.18s ease-out;
+  margin-top: 2px;
 }
 
 .moreMenu a {
   display: block;
-  padding: 0.75rem 1.5rem;
-  color: white;
+  padding: 12px 14px;
+  color: #fff;
   text-decoration: none;
   font-weight: 500;
   font-size: 14px;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
+  text-align: left;
 }
 
 .moreMenu a:hover {
-  background: #333;
-  color: #cc0000;
+  background: #111;
+  color: #fff;
 }
 
 .moreMenu a:focus {
@@ -385,14 +394,14 @@
 
 .divider {
   height: 1px;
-  background: white;
-  margin: 0.25rem 1rem;
+  background: #333;
+  margin: 8px 14px;
 }
 
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -406,8 +415,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: transparent;
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
   z-index: 999;
   cursor: pointer;
 }
@@ -467,12 +476,15 @@
   letter-spacing: 0.5px;
   text-transform: uppercase;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 4px 12px rgba(204, 0, 0, 0.3);
+  text-align: center;
+  display: inline-block;
 }
 
 .btnSignIn:hover {
   background: #b30000;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+  box-shadow: 0 6px 16px rgba(204, 0, 0, 0.4);
 }
 
 .btnSignIn:focus {
@@ -483,7 +495,7 @@
 /* Banner */
 .banner {
   position: fixed;
-  top: 75px;
+  top: 70px;
   left: 0;
   width: 100%;
   background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 50%, #e10600 100%);
@@ -499,7 +511,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
   position: relative;
 }
 
@@ -508,12 +519,21 @@
   font-size: 0.9rem;
 }
 
+.bannerTextGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .bannerText {
   color: #000;
   font-weight: 600;
   font-size: 1rem;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   text-align: center;
+  white-space: nowrap;
+  display: inline-block;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .btnBookNow {
@@ -528,8 +548,6 @@
   transition: all 0.3s ease;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
-  position: absolute;
-  right: 2rem;
 }
 
 .btnBookNow:hover {
@@ -585,7 +603,7 @@
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 768px) {
   .container {
     padding: 0.75rem 1rem;
   }
@@ -609,24 +627,33 @@
   }
   
   .banner {
-    top: 50px;
+    top: 48px;
   }
   
   .bannerContent {
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-direction: row;
     padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .bannerTextGroup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
   
   .bannerText {
     font-size: 0.85rem;
     text-align: center;
-  }
+    white-space: normal;
+    transition: opacity 0.3s ease-in-out;
+}
   
   .btnBookNow {
-    margin-left: 0;
-    width: 100%;
+    width: auto;
     position: static;
+    margin-left: 10px;
   }
   
   .coursesDropdown {
@@ -643,5 +670,17 @@
   
   .logo {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bannerTextGroup {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  
+  .btnBookNow {
+    margin-left: 0;
   }
 }

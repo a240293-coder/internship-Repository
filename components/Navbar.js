@@ -11,6 +11,16 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
   const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isFading, setIsFading] = useState(false);
+
+  const bannerTexts = [
+    "▶  Book a live demo session ⏱️ Next cohort starts on 26th Dec, 2025",
+    "Your Success, Our Mission!",
+    "781 Careers Launched in 2024 — Be Next!",
+    "Learn skills. Get internships. Build careers.",
+    "Industry-ready internships with real projects"
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +30,18 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsFading(true);
+      setTimeout(() => {
+        setCurrentTextIndex(prevIndex => (prevIndex + 1) % bannerTexts.length);
+        setIsFading(false);
+      }, 150);
+    }, 60000); // Change text every 60 seconds
+
+    return () => clearInterval(interval); // Clean up interval on unmount
+  }, [bannerTexts.length]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -88,7 +110,13 @@ export default function Navbar() {
               </button>
               
               {showCourses && (
-                <div className={styles.coursesMenu}>
+                <div className={styles.coursesMenu}
+                  onMouseEnter={() => {
+                    if (closeTimeout) clearTimeout(closeTimeout);
+                  }}
+                  onMouseLeave={() => {
+                    setCloseTimeout(setTimeout(() => setShowCourses(false), 300));
+                  }}>
                   <div className={styles.menuContainer}>
                     <div className={styles.categories}>
                       <ul>
@@ -161,10 +189,17 @@ export default function Navbar() {
               <span className={styles.freeText}>FREE</span> Practice
             </a>
             <a href="#hire">Hire From Us</a>
-            <div className={styles.moreDropdown}>
+            <div className={styles.moreDropdown}
+              onMouseEnter={() => {
+                if (closeTimeout) clearTimeout(closeTimeout);
+                setShowMore(true);
+              }}
+              onMouseLeave={() => {
+                setCloseTimeout(setTimeout(() => setShowMore(false), 300));
+              }}
+            >
               <button 
                 className={styles.moreBtn}
-                onClick={handleMoreClick}
                 aria-label="Toggle more options dropdown"
               >
                 More
@@ -173,12 +208,17 @@ export default function Navbar() {
                 </svg>
               </button>
               {showMore && (
-                <div className={styles.moreMenu}>
+                <div className={styles.moreMenu}
+                  onMouseEnter={() => {
+                    if (closeTimeout) clearTimeout(closeTimeout);
+                  }}
+                  onMouseLeave={() => {
+                    setCloseTimeout(setTimeout(() => setShowMore(false), 300));
+                  }}
+                >
                   <a href="#blog">Blog</a>
                   <div className={styles.divider}></div>
                   <a href="#news">In the News</a>
-                  <div className={styles.divider}></div>
-                  <a href="#about">About Us</a>
                 </div>
               )}
             </div>
@@ -246,14 +286,16 @@ export default function Navbar() {
       <div className={styles.banner}>
         <div className={styles.bannerContent}>
           <span className={styles.arrow}></span>
-          <span className={styles.bannerText}>
-            ▶  Book a live demo session ⏱️ Next cohort starts on 26th Dec, 2025
-          </span>
-          <button className={styles.btnBookNow} aria-label="Book a live demo session">Book Now</button>
+          <div className={styles.bannerTextGroup}>
+            <span className={styles.bannerText} style={{ opacity: isFading ? 0 : 1 }}>
+              {bannerTexts[currentTextIndex]}
+            </span>
+            <button className={styles.btnBookNow} aria-label="Book a live demo session">Book Now</button>
+          </div>
         </div>
       </div>
       
-      {showMore && <div className={styles.overlay} onClick={handleOverlayClick}></div>}
+      {/* Overlay removed for hover-based dropdown */}
     </>
   );
 }
