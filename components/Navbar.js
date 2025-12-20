@@ -14,8 +14,8 @@ export default function Navbar() {
   const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
-  // Sign In Dropdown state (click-based)
-  const [isSignInOpen, setIsSignInOpen] = useState(false);
+  // Sign In Dropdown state (hover-based for desktop)
+  const [showSignInDropdown, setShowSignInDropdown] = useState(false);
 
   const bannerTexts = [
     "▶  Book a live demo session ⏱️ Next cohort starts on 26th Dec, 2025",
@@ -87,20 +87,7 @@ export default function Navbar() {
     setShowMore(false);
   };
 
-  // Close dropdowns on outside click
-  // Dropdown close on outside click (Sign In only)
-  const signInDropdownRef = useRef(null);
-  useEffect(() => {
-    function handleClick(e) {
-      if (isSignInOpen && signInDropdownRef.current && !signInDropdownRef.current.contains(e.target)) {
-        setIsSignInOpen(false);
-      }
-    }
-    if (isSignInOpen) {
-      document.addEventListener("mousedown", handleClick);
-    }
-    return () => document.removeEventListener("mousedown", handleClick);
-  });
+  // No document click listeners for Sign In dropdown (hover only)
 
   return (
     <>
@@ -242,23 +229,22 @@ export default function Navbar() {
             </div>
           </nav>
           
-          {/* Sign In Dropdown Button - hover logic on wrapper */}
+          {/* Sign In Dropdown Button - hover logic only */}
           <div
             className={styles.signinWrapper}
-            onMouseEnter={() => {
-              if (window.innerWidth > 1024) setIsSignInOpen(true);
-            }}
+            onMouseEnter={() => setShowSignInDropdown(true)}
+            onMouseLeave={() => setShowSignInDropdown(false)}
             style={{ position: 'relative', height: '100%' }}
           >
             <button
               className={styles.signInDropdownBtn}
               aria-haspopup="true"
-              aria-expanded={isSignInOpen ? "true" : "false"}
-              onClick={() => setIsSignInOpen((v) => !v)}
+              aria-expanded={showSignInDropdown ? "true" : "false"}
+              // No onClick for hover-based dropdown
             >
               Sign In <span style={{fontSize: '1em', marginLeft: 4}}>▾</span>
             </button>
-            {isSignInOpen && (
+            {showSignInDropdown && (
               <div
                 className={styles.signInDropdown}
                 style={{ pointerEvents: 'auto', zIndex: 2000, position: 'absolute', top: '100%', left: 0 }}
