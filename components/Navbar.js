@@ -266,10 +266,14 @@ export default function Navbar() {
                 <a
                   href="/auth/signin/student"
                   className={styles.signInDropdownItem}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >Student Sign In</a>
                 <a
                   href="/auth/signin/mentor"
                   className={styles.signInDropdownItem}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >Mentor Sign In</a>
               </div>
             )}
