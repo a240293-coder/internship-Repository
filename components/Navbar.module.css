@@ -1,8 +1,29 @@
 
+
+.signInDropdown {
+  background-color: #000000; /* pure black */
+  border-radius: 8px;
+  padding: 6px 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.signInDropdown a {
+  color: #ffffff;
+  padding: 10px 16px;
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.signInDropdown a:hover {
+  background-color: #111111; /* subtle hover */
+}
+
 .dropdownDivider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.15);
-  margin: 6px 0;
+  background-color: rgba(255, 255, 255, 0.12);
+  margin: 4px 0;
 }
 /* Wrapper for Sign In button and dropdown */
 .signinWrapper {
