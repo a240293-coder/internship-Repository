@@ -129,6 +129,7 @@ export default function Navbar() {
     <>
       <header
         className={`${styles.navbar} navbar-global ${scrolled ? styles.scrolled : ""}`}
+        onMouseLeave={disableBlur}
       >
         <div className={styles.container}>
           <div className={styles.leftSection}>
