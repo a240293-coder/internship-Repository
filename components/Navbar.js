@@ -2,40 +2,38 @@
 
 import styles from "./Navbar.module.css";
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [showCourses, setShowCourses] = useState(false);
-  const [showMore, setShowMore] = useState(false);
-  const [closeTimeout, setCloseTimeout] = useState(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // Separate mobile states for dropdowns
+  // Desktop hover dropdown states
+  const [isDesktopCoursesOpen, setIsDesktopCoursesOpen] = useState(false);
+  const [isDesktopMoreOpen, setIsDesktopMoreOpen] = useState(false);
+  // Small close delays via refs to avoid re-renders
+  const coursesCloseTimerRef = useRef(null);
+  const moreCloseTimerRef = useRef(null);
+  // Mobile menu and nested dropdowns
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showMobileCourses, setShowMobileCourses] = useState(false);
   const [showMobileMore, setShowMobileMore] = useState(false);
   const [showMobileSignIn, setShowMobileSignIn] = useState(false);
+  // Banner rotation
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
   // Sign In Dropdown state (hover-based for desktop)
   const [showSignInDropdown, setShowSignInDropdown] = useState(false);
-  // Mobile Sign In Dropdown state
-  const [showMobileSignInDropdown, setShowMobileSignInDropdown] = useState(false);
-  // Close mobile Sign In dropdown when mobile menu closes
+  // Close mobile nested dropdowns when mobile menu closes
   useEffect(() => {
-    if (!mobileMenuOpen) {
-      setShowMobileSignInDropdown(false);
+    if (!isMobileMenuOpen) {
       setShowMobileCourses(false);
       setShowMobileMore(false);
       setShowMobileSignIn(false);
     }
-  }, [mobileMenuOpen]);
+  }, [isMobileMenuOpen]);
 
   const bannerTexts = [
-    "▶  Book a live demo session ⏱️ Next cohort starts on 26th Dec, 2025",
-    "Your Success, Our Mission!",
-    "781 Careers Launched in 2024 — Be Next!",
-    "Learn skills. Get internships. Build careers.",
-    "Industry-ready internships with real projects"
+    "🚀 Your Success, Our Mission!",
+    "🎓 Next cohort starts on 26th Dec, 2025",
+    "💼 Internship opportunities with real industry projects"
   ];
 
   useEffect(() => {
@@ -48,57 +46,54 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsFading(true);
-      setTimeout(() => {
-        setCurrentTextIndex(prevIndex => (prevIndex + 1) % bannerTexts.length);
-        setIsFading(false);
-      }, 150);
-    }, 60000); // Change text every 60 seconds
+    const mql = window.matchMedia('(min-width: 768px)');
+    let intervalId = null;
 
-    return () => clearInterval(interval); // Clean up interval on unmount
+    const setupRotation = () => {
+      if (mql.matches) {
+        // Laptop/tablet rotation every 5 seconds with smooth fade
+        intervalId = setInterval(() => {
+          setIsFading(true);
+          setTimeout(() => {
+            setCurrentTextIndex(prev => (prev + 1) % bannerTexts.length);
+            setIsFading(false);
+          }, 300);
+        }, 5000);
+      } else {
+        // Ensure no fading state persists on mobile
+        setIsFading(false);
+      }
+    };
+
+    setupRotation();
+
+    const handleChange = () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+      setupRotation();
+    };
+
+    mql.addEventListener('change', handleChange);
+    return () => {
+      mql.removeEventListener('change', handleChange);
+      if (intervalId) clearInterval(intervalId);
+    };
   }, [bannerTexts.length]);
 
+  // Lock body scroll only for mobile menu
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (showCourses && !e.target.closest(`.${styles.coursesDropdown}`)) {
-        setShowCourses(false);
-      }
-      if (showMore && !e.target.closest(`.${styles.moreDropdown}`)) {
-        setShowMore(false);
-      }
-    };
-
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setShowMore(false);
-        setShowCourses(false);
-      }
-    };
-
-    if (showMore || showCourses) {
-      document.addEventListener("click", handleClickOutside);
-      document.addEventListener("keydown", handleKeyDown);
+    if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
-
     return () => {
-      document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [showMore, showCourses]);
-
-  const handleMoreClick = (e) => {
-    e.preventDefault();
-    setShowMore(!showMore);
-  };
-
-  const handleOverlayClick = () => {
-    setShowMore(false);
-  };
+  }, [isMobileMenuOpen]);
+  // No global listeners for desktop hover menus
 
   // No document click listeners for Sign In dropdown (hover only)
 
@@ -109,14 +104,17 @@ export default function Navbar() {
           <div className={styles.leftSection}>
             <h1 className={styles.logo}>Learn<span className={styles.logoHighlight}>Better</span></h1>
             
-            <div className={styles.coursesDropdown} 
-                 onMouseEnter={() => {
-                   if (closeTimeout) clearTimeout(closeTimeout);
-                   setShowCourses(true);
-                 }} 
-                 onMouseLeave={() => {
-                   setCloseTimeout(setTimeout(() => setShowCourses(false), 200));
-                 }}>
+            <div
+              className={styles.coursesDropdown}
+              onMouseEnter={() => {
+                if (coursesCloseTimerRef.current) clearTimeout(coursesCloseTimerRef.current);
+                setIsDesktopCoursesOpen(true);
+              }}
+              onMouseLeave={() => {
+                if (coursesCloseTimerRef.current) clearTimeout(coursesCloseTimerRef.current);
+                coursesCloseTimerRef.current = setTimeout(() => setIsDesktopCoursesOpen(false), 120);
+              }}
+            >
               <button 
                 className={styles.coursesBtn}
                 aria-label="Courses dropdown"
@@ -127,14 +125,8 @@ export default function Navbar() {
                 </svg>
               </button>
               
-              {showCourses && (
-                <div className={styles.coursesMenu}
-                  onMouseEnter={() => {
-                    if (closeTimeout) clearTimeout(closeTimeout);
-                  }}
-                  onMouseLeave={() => {
-                    setCloseTimeout(setTimeout(() => setShowCourses(false), 300));
-                  }}>
+              {isDesktopCoursesOpen && (
+                <div className={styles.coursesMenu}>
                   <div className={styles.menuContainer}>
                     <div className={styles.categories}>
                       <ul>
@@ -207,13 +199,15 @@ export default function Navbar() {
               <span className={styles.freeText}>FREE</span> Practice
             </a>
             <a href="#hire">Hire From Us</a>
-            <div className={styles.moreDropdown}
+            <div
+              className={styles.moreDropdown}
               onMouseEnter={() => {
-                if (closeTimeout) clearTimeout(closeTimeout);
-                setShowMore(true);
+                if (moreCloseTimerRef.current) clearTimeout(moreCloseTimerRef.current);
+                setIsDesktopMoreOpen(true);
               }}
               onMouseLeave={() => {
-                setCloseTimeout(setTimeout(() => setShowMore(false), 300));
+                if (moreCloseTimerRef.current) clearTimeout(moreCloseTimerRef.current);
+                moreCloseTimerRef.current = setTimeout(() => setIsDesktopMoreOpen(false), 120);
               }}
             >
               <button 
@@ -225,15 +219,8 @@ export default function Navbar() {
                   <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none"/>
                 </svg>
               </button>
-              {showMore && (
-                <div className={styles.moreMenu}
-                  onMouseEnter={() => {
-                    if (closeTimeout) clearTimeout(closeTimeout);
-                  }}
-                  onMouseLeave={() => {
-                    setCloseTimeout(setTimeout(() => setShowMore(false), 300));
-                  }}
-                >
+              {isDesktopMoreOpen && (
+                <div className={styles.moreMenu}>
                   <a href="#blog">Blog</a>
                   <div className={styles.divider}></div>
                   <a href="#news">In the News</a>
@@ -279,7 +266,7 @@ export default function Navbar() {
             )}
           </div>
           
-          <button className={styles.hamburger} onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle mobile menu">
+          <button className={styles.hamburger} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle mobile menu">
             <span></span>
             <span></span>
             <span></span>
@@ -287,11 +274,11 @@ export default function Navbar() {
         </div>
       </header>
       
-      {mobileMenuOpen && (
+      {isMobileMenuOpen && (
         <>
           <div
             className={styles.mobileOverlay}
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={() => setIsMobileMenuOpen(false)}
           />
           <div
             className={styles.mobileMenu}
@@ -299,9 +286,18 @@ export default function Navbar() {
           >
             <div className={styles.mobileMenuHeader}>
               <h1 className={styles.mobileLogo}>Learn<span className={styles.logoHighlight}>Better</span></h1>
-              <button className={styles.closeBtn} onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">×</button>
+              <button className={styles.closeBtn} onClick={() => setIsMobileMenuOpen(false)} aria-label="Close menu">×</button>
             </div>
-            <nav className={styles.mobileNav}>
+            <nav
+              className={styles.mobileNav}
+              onClick={(e) => {
+                const t = e.target;
+                // Close menu when a link is selected
+                if (t && t.tagName === 'A') {
+                  setIsMobileMenuOpen(false);
+                }
+              }}
+            >
               <button
                 className={styles.mobileMenuItem}
                 onClick={e => {
@@ -340,9 +336,9 @@ export default function Navbar() {
               </button>
               {showMobileMore && (
                 <div className={styles.mobileSubmenu}>
-                  <a href="/blog" className={styles.mobileSubItem}>Blog</a>
-                  <a href="/news" className={styles.mobileSubItem}>In the News</a>
-                  <a href="#about" className={styles.mobileSubItem}>About Us</a>
+                   <a href="/blog" className={styles.mobileSubItem}>Blog</a>
+                   <a href="/news" className={styles.mobileSubItem}>In the News</a>
+                   <a href="#about" className={styles.mobileSubItem}>About Us</a>
                 </div>
               )}
               {/* Mobile Sign In Dropdown */}
@@ -379,10 +375,23 @@ export default function Navbar() {
         <div className={styles.bannerContent}>
           <span className={styles.arrow}></span>
           <div className={styles.bannerTextGroup}>
-            <span className={styles.bannerText} style={{ opacity: isFading ? 0 : 1 }}>
+            <span
+              className={`${styles.bannerText} ${isFading ? styles.bannerTextFading : styles.bannerTextVisible}`}
+            >
               {bannerTexts[currentTextIndex]}
             </span>
             <button className={styles.btnBookNow} aria-label="Book a live demo session">Book Now</button>
+          </div>
+          {/* Mobile-specific compact announcement layout */}
+          <div className={styles.mobileBannerRow}>
+            <div className={styles.mobileBannerLeft}>
+              <span className={styles.bannerIcon}>🚀</span>
+              <div className={styles.mobileBannerText}>
+                <div className={styles.mobileBannerHeadline}>Your Success, Our Mission!</div>
+                <div className={styles.mobileBannerSubtext}>Next cohort starts on 26th Dec, 2025</div>
+              </div>
+            </div>
+            <button className={styles.btnMobileBook} aria-label="Book a live demo session">Book Now</button>
           </div>
         </div>
       </div>

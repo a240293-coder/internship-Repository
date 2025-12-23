@@ -16,6 +16,7 @@ export default function Hero() {
           <div className={styles.ctaSection}>
             <div className={styles.primaryActions}>
               <button className={styles.btnPrimary} aria-label="Apply for the MS in Computer Science program">Apply Now</button>
+              <div className={styles.divider} />
               <div className={styles.secondaryContent}>
                 <div className={styles.batchInfo}>Batch starting on 26th Dec '25</div>
                 <a href="#" className={styles.downloadLink} aria-label="Download program brochure">

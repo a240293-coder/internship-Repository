@@ -4,6 +4,7 @@
   padding: 4rem 0 2rem;
   position: relative;
   overflow: hidden;
+  font-family: Arial, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 .footer::before {

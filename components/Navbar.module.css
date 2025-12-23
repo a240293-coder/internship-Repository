@@ -350,6 +350,16 @@
   font-size: 11px;
 }
 
+@media (min-width: 1025px) {
+  .navLinks {
+    gap: 1.45rem;
+  }
+
+  .freeText {
+    font-size: 10px;
+  }
+}
+
 .coursesDropdown {
   position: relative;
   display: flex;
@@ -764,6 +774,9 @@
   box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
 }
 
+/* Hide mobile-only banner row by default to protect desktop layout */
+.mobileBannerRow { display: none; }
+
 .btnBookNow:hover {
   background: #b30000;
   transform: translateY(-2px);
@@ -934,22 +947,35 @@
   .container {
     padding: 0 1rem;
     gap: 0.5rem;
+    justify-content: space-between;
+    align-items: center; /* ensure vertical alignment of logo + hamburger */
   }
 
   .leftSection {
-    gap: 1rem;
+    gap: 0.5rem;
   }
 
   .logo {
-    font-size: 1.2rem;
+    font-size: 1.35rem; /* ~21.6px for readability */
+    font-family: Arial, sans-serif;
+    align-items: center;
   }
 
   .navLinks {
     display: none;
   }
 
+  /* Hide desktop-only controls on mobile top bar */
+  .coursesDropdown,
+  .signinWrapper {
+    display: none;
+  }
+
   .hamburger {
     display: flex;
+    position: relative;
+    z-index: 1100; /* above banner */
+    align-self: center;
   }
 
   .signInDropdownBtn {
@@ -1018,6 +1044,71 @@
   }
 }
 
+/* Mobile announcement bar compaction (<=768px only) */
+@media (max-width: 768px) {
+  .banner {
+    padding: 0.25rem 0; /* significantly slimmer without fixed height */
+  }
+  .bannerContent {
+    padding: 0.2rem 0.75rem; /* compact inner padding */
+    justify-content: center; /* center text + button */
+    gap: 6px;
+    box-sizing: border-box;
+  }
+  .bannerTextGroup {
+    flex-direction: column; /* stack lines like AlmaBetter style */
+    flex-wrap: wrap; /* allow neat 2-line wrap */
+    gap: 6px;
+    justify-content: center;
+    text-align: center;
+    max-width: 100%;
+  }
+  .bannerText {
+    font-size: 0.74rem; /* slightly reduced for mobile */
+    line-height: 1.25;
+    white-space: normal; /* allow wrapping */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* clamp to two lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+  }
+  .btnBookNow {
+    padding: 0.45rem 0.9rem; /* compact but tappable */
+    font-size: 11px;
+    min-height: 40px; /* ensure comfortable tap target as per guidance */
+  }
+}
+
+/* Laptop/Tablet centering for premium feel */
+@media (min-width: 768px) {
+  .arrow { display: none; }
+  .bannerContent { position: relative; }
+  .bannerTextGroup { position: relative; }
+  .bannerText {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .bannerTextVisible {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  .bannerTextFading {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  .btnBookNow {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
 @media (max-width: 600px) {
   .navbar {
     height: 52px;
@@ -1073,10 +1164,18 @@
   .hamburger {
     width: 24px;
     height: 20px;
+    outline: none;
   }
 
   .hamburger span {
     height: 2px;
+  }
+
+  /* remove blue focus outlines / debug boxes on tap */
+  .hamburger:focus,
+  .hamburger:focus-visible {
+    outline: none;
+    box-shadow: none;
   }
 }
 
@@ -1167,3 +1266,70 @@
     margin-left: 0;
   }
 }
+
+/* Final mobile-only override: enlarge logo and underline without affecting desktop */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1.3rem; /* more readable on mobile */
+    letter-spacing: -0.4px;
+    align-items: center; /* keep vertical alignment */
+    padding: 0.2rem 0.75rem; /* compact inner padding */
+    justify-content: space-between; /* row layout for mobile variant */
+    height: 5px; /* scale underline proportionally */
+    bottom: -6px;
+  }
+}
+  /* Hide desktop banner content on mobile */
+  .arrow,
+  .bannerTextGroup { display: none; }
+
+  /* Show mobile compact banner row */
+  .mobileBannerRow {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .mobileBannerLeft {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0; /* enable text truncation */
+  }
+  .bannerIcon { font-size: 16px; }
+  .mobileBannerText { display: flex; flex-direction: column; min-width: 0; }
+  .mobileBannerHeadline {
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mobileBannerSubtext {
+    font-family: Arial, sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    opacity: 0.95;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .btnMobileBook {
+    padding: 0.4rem 0.9rem;
+    background: #e10600;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 11.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 12px rgba(225, 6, 0, 0, 0.25);
+    min-height: 36px;
+    flex-shrink: 0;
+  }
+  .btnMobileBook:hover { transform: translateY(-1px); }

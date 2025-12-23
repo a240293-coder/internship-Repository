@@ -5,7 +5,7 @@
   background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('/hero-background.jpg') center right/cover no-repeat scroll;
   position: relative;
   overflow: hidden;
-  padding-top: 165px;
+  padding-top: 145px;
 }
 
 .container {
@@ -59,9 +59,9 @@
 
 .primaryActions {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.25rem;
 }
 
 .btnPrimary {
@@ -84,8 +84,8 @@
 
 .divider {
   width: 1px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.3);
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .secondaryContent {
@@ -279,7 +279,13 @@
   .btnPrimary {
     width: 100%;
     text-align: center;
-    padding: 1.25rem;
+    padding: 0.8rem 1rem; /* slimmer vertical padding on mobile */
+    font-size: 0.95rem;   /* slightly smaller text */
+    min-height: 40px;     /* ensure comfortable tap target */
+  }
+
+  .divider {
+    display: none;
   }
 
   .secondaryContent {
