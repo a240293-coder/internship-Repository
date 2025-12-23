@@ -127,8 +127,6 @@ export default function Navbar() {
     <>
       <header
         className={`${styles.navbar} navbar-global ${scrolled ? styles.scrolled : ""}`}
-        onMouseEnter={enableBlur}
-        onMouseLeave={disableBlur}
       >
         <div className={styles.container}>
           <div className={styles.leftSection}>
@@ -146,12 +144,14 @@ export default function Navbar() {
             <div
               className={styles.coursesDropdown}
               onMouseEnter={() => {
+                enableBlur();
                 if (coursesCloseTimerRef.current) clearTimeout(coursesCloseTimerRef.current);
                 setIsDesktopCoursesOpen(true);
               }}
               onMouseLeave={() => {
                 if (coursesCloseTimerRef.current) clearTimeout(coursesCloseTimerRef.current);
                 coursesCloseTimerRef.current = setTimeout(() => setIsDesktopCoursesOpen(false), 120);
+                disableBlur();
               }}
             >
               <button 
@@ -231,18 +231,24 @@ export default function Navbar() {
             </div>
           </div>
           
-          <nav className={styles.navLinks}>
+          <nav
+            className={styles.navLinks}
+            onMouseEnter={enableBlur}
+            onMouseLeave={disableBlur}
+          >
             <a href="#placements">Placements</a>
             <a href="#masterclass">Masterclass</a>
             <div
               className={styles.practiceDropdown}
               onMouseEnter={() => {
+                enableBlur();
                 if (practiceCloseTimerRef.current) clearTimeout(practiceCloseTimerRef.current);
                 setIsDesktopPracticeOpen(true);
               }}
               onMouseLeave={() => {
                 if (practiceCloseTimerRef.current) clearTimeout(practiceCloseTimerRef.current);
                 practiceCloseTimerRef.current = setTimeout(() => setIsDesktopPracticeOpen(false), 120);
+                disableBlur();
               }}
             >
               <button className={`${styles.practiceBtn} ${styles.freePracticeLink}`} aria-label="Practice dropdown">
@@ -271,12 +277,14 @@ export default function Navbar() {
             <div
               className={styles.moreDropdown}
               onMouseEnter={() => {
+                enableBlur();
                 if (moreCloseTimerRef.current) clearTimeout(moreCloseTimerRef.current);
                 setIsDesktopMoreOpen(true);
               }}
               onMouseLeave={() => {
                 if (moreCloseTimerRef.current) clearTimeout(moreCloseTimerRef.current);
                 moreCloseTimerRef.current = setTimeout(() => setIsDesktopMoreOpen(false), 120);
+                disableBlur();
               }}
             >
               <button 
@@ -305,9 +313,7 @@ export default function Navbar() {
             onMouseLeave={() => setShowSignInDropdown(false)}
             style={{ position: 'relative', height: '100%' }}
             onFocus={disableBlur}
-            onBlur={enableBlur}
             onMouseOver={disableBlur}
-            onMouseOut={enableBlur}
           >
             <button
               className={styles.signInDropdownBtn}
