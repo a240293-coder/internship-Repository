@@ -453,11 +453,11 @@ export default function Navbar() {
                 </button>
                 {showMobileSignIn && (
                   <div className={styles.mobileSignInDropdown}>
-                    <a href="/auth/student-signin" target="_blank" rel="noopener noreferrer">
+                    <a href="/auth/signin/student" target="_blank" rel="noopener noreferrer">
                       Student Sign In
                     </a>
                     <div className={styles.dropdownDivider} />
-                    <a href="/auth/mentor-signin" target="_blank" rel="noopener noreferrer">
+                    <a href="/auth/signin/mentor" target="_blank" rel="noopener noreferrer">
                       Mentor Sign In
                     </a>
                   </div>
