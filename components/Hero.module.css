@@ -71,7 +71,7 @@
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, opacity 0.2s ease;
   letter-spacing: -0.01em;
   background: #e10600;
   color: white;
@@ -80,6 +80,12 @@
   display: inline-block;
   font-family: Arial, system-ui, -apple-system, "Segoe UI", sans-serif;
   align-self: flex-start;
+  position: relative;
+}
+
+.btnPrimaryLoading {
+  cursor: wait;
+  opacity: 0.9;
 }
 
 .divider {
@@ -109,6 +115,13 @@
 .btnPrimary:active {
   transform: translateY(0);
   box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
+}
+
+.btnPrimary:disabled {
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 6px 18px rgba(225, 6, 0, 0.28);
+  opacity: 0.85;
 }
 
 .downloadLink {

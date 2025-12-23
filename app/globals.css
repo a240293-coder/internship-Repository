@@ -26,6 +26,22 @@ body {
   font-weight: 400;
 }
 
+body.apply-theme {
+  margin: 0;
+  padding: 0;
+  background: #0b0c10;
+}
+
+/* Blur page content when navbar hover toggles nav-blur */
+body.nav-blur main > *:not(.navbar-global) {
+  filter: blur(8px);
+  transition: filter 0.2s ease;
+}
+
+body.nav-blur .navbar-global {
+  filter: none !important;
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

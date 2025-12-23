@@ -1,15 +1,17 @@
 "use client";
 
 import styles from "./Navbar.module.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   // Desktop hover dropdown states
   const [isDesktopCoursesOpen, setIsDesktopCoursesOpen] = useState(false);
+  const [isDesktopPracticeOpen, setIsDesktopPracticeOpen] = useState(false);
   const [isDesktopMoreOpen, setIsDesktopMoreOpen] = useState(false);
   // Small close delays via refs to avoid re-renders
   const coursesCloseTimerRef = useRef(null);
+  const practiceCloseTimerRef = useRef(null);
   const moreCloseTimerRef = useRef(null);
   // Mobile menu and nested dropdowns
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -97,12 +99,47 @@ export default function Navbar() {
 
   // No document click listeners for Sign In dropdown (hover only)
 
+  const handleLogoClick = useCallback(() => {
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    }
+  }, []);
+
+  const enableBlur = useCallback(() => {
+    if (typeof document !== "undefined") {
+      document.body.classList.add("nav-blur");
+    }
+  }, []);
+
+  const disableBlur = useCallback(() => {
+    if (typeof document !== "undefined") {
+      document.body.classList.remove("nav-blur");
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      disableBlur();
+    };
+  }, [disableBlur]);
+
   return (
     <>
-      <header className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
+      <header
+        className={`${styles.navbar} navbar-global ${scrolled ? styles.scrolled : ""}`}
+        onMouseEnter={enableBlur}
+        onMouseLeave={disableBlur}
+      >
         <div className={styles.container}>
           <div className={styles.leftSection}>
-            <h1 className={styles.logo}>Learn<span className={styles.logoHighlight}>Better</span></h1>
+            <button
+              type="button"
+              className={styles.logoButton}
+              onClick={handleLogoClick}
+              aria-label="Refresh LearnBetter homepage"
+            >
+              <span className={styles.logo}>Learn<span className={styles.logoHighlight}>Better</span></span>
+            </button>
             
             <div
               className={styles.coursesDropdown}
@@ -195,9 +232,39 @@ export default function Navbar() {
           <nav className={styles.navLinks}>
             <a href="#placements">Placements</a>
             <a href="#masterclass">Masterclass</a>
-            <a href="#practice" className={styles.freePracticeLink}>
-              <span className={styles.freeText}>FREE</span> Practice
-            </a>
+            <div
+              className={styles.practiceDropdown}
+              onMouseEnter={() => {
+                if (practiceCloseTimerRef.current) clearTimeout(practiceCloseTimerRef.current);
+                setIsDesktopPracticeOpen(true);
+              }}
+              onMouseLeave={() => {
+                if (practiceCloseTimerRef.current) clearTimeout(practiceCloseTimerRef.current);
+                practiceCloseTimerRef.current = setTimeout(() => setIsDesktopPracticeOpen(false), 120);
+              }}
+            >
+              <button className={`${styles.practiceBtn} ${styles.freePracticeLink}`} aria-label="Practice dropdown">
+                <span className={styles.freeText}>Free</span>
+                <span className={styles.practiceLabel}>Practice</span>
+              </button>
+              {isDesktopPracticeOpen && (
+                <div className={styles.practiceMenu}>
+                  <a href="#tutorials" className={`${styles.practiceItem} ${styles.practiceItemHighlight}`}>Tutorials</a>
+                  <div className={styles.practiceDivider}></div>
+                  <a href="#articles" className={styles.practiceItem}>Articles</a>
+                  <div className={styles.practiceDivider}></div>
+                  <a href="#coding-problems" className={styles.practiceItem}>Coding Problems</a>
+                  <div className={styles.practiceDivider}></div>
+                  <a href="#quizzes" className={styles.practiceItem}>Quizzes</a>
+                  <div className={styles.practiceDivider}></div>
+                  <a href="#videos" className={styles.practiceItem}>Learning Videos</a>
+                  <div className={styles.practiceDivider}></div>
+                  <a href="#compilers" className={styles.practiceItem}>Online Compilers</a>
+                  <div className={styles.practiceDivider}></div>
+                  <a href="#cheatsheet" className={styles.practiceItem}>Cheat Sheet</a>
+                </div>
+              )}
+            </div>
             <a href="#hire">Hire From Us</a>
             <div
               className={styles.moreDropdown}
@@ -285,7 +352,14 @@ export default function Navbar() {
             onClick={e => e.stopPropagation()}
           >
             <div className={styles.mobileMenuHeader}>
-              <h1 className={styles.mobileLogo}>Learn<span className={styles.logoHighlight}>Better</span></h1>
+              <button
+                type="button"
+                className={styles.mobileLogoButton}
+                onClick={handleLogoClick}
+                aria-label="Refresh LearnBetter homepage"
+              >
+                <span className={styles.mobileLogo}>Learn<span className={styles.logoHighlight}>Better</span></span>
+              </button>
               <button className={styles.closeBtn} onClick={() => setIsMobileMenuOpen(false)} aria-label="Close menu">×</button>
             </div>
             <nav
