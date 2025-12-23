@@ -107,8 +107,7 @@ export default function Navbar() {
 
   const enableBlur = useCallback(() => {
     if (typeof document !== "undefined") {
-      // Keep the page sharp by removing any lingering blur class
-      document.body.classList.remove("nav-blur");
+      document.body.classList.add("nav-blur");
     }
   }, []);
 
@@ -137,8 +136,6 @@ export default function Navbar() {
               type="button"
               className={styles.logoButton}
               onClick={handleLogoClick}
-              onMouseEnter={disableBlur}
-              onMouseLeave={enableBlur}
               aria-label="Refresh LearnBetter homepage"
             >
               <span className={styles.logo}>Learn<span className={styles.logoHighlight}>Better</span></span>
@@ -147,14 +144,12 @@ export default function Navbar() {
             <div
               className={styles.coursesDropdown}
               onMouseEnter={() => {
-                enableBlur();
                 if (coursesCloseTimerRef.current) clearTimeout(coursesCloseTimerRef.current);
                 setIsDesktopCoursesOpen(true);
               }}
               onMouseLeave={() => {
                 if (coursesCloseTimerRef.current) clearTimeout(coursesCloseTimerRef.current);
                 coursesCloseTimerRef.current = setTimeout(() => setIsDesktopCoursesOpen(false), 120);
-                disableBlur();
               }}
             >
               <button 
@@ -237,13 +232,9 @@ export default function Navbar() {
           <nav className={styles.navLinks}>
             <a
               href="#placements"
-              onMouseEnter={enableBlur}
-              onMouseLeave={disableBlur}
             >Placements</a>
             <a
               href="#masterclass"
-              onMouseEnter={enableBlur}
-              onMouseLeave={disableBlur}
             >Masterclass</a>
             <div
               className={styles.practiceDropdown}
@@ -323,8 +314,6 @@ export default function Navbar() {
             onMouseEnter={() => setShowSignInDropdown(true)}
             onMouseLeave={() => setShowSignInDropdown(false)}
             style={{ position: 'relative', height: '100%' }}
-            onFocus={disableBlur}
-            onMouseOver={disableBlur}
           >
             <button
               className={styles.signInDropdownBtn}
