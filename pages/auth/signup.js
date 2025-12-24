@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from '../../styles/Auth.module.css';
 import AuthLayout from '../../components/AuthLayout';
 
@@ -33,12 +34,12 @@ export default function SignUp() {
       {/* Bottom Toggle Text */}
       <div className={styles.bottomText}>
         <span><strong>Already have an account?</strong></span>
-        <a 
+        <Link 
           href="/auth/signin"
           className={styles.outlineButton}
         >
           Sign In
-        </a>
+        </Link>
       </div>
     </AuthLayout>
   );

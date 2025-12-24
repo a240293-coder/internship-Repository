@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './ProgramValue.module.css';
 
 export default function ProgramValue() {
@@ -11,10 +12,14 @@ export default function ProgramValue() {
         <div className={styles.content}>
           <div className={styles.visual}>
             <div className={styles.visualPlaceholder}>
-              <img
+              <Image
                 src="/img.jpg"
                 alt="Global recognition illustration"
                 className={styles.visualImage}
+                width={840}
+                height={560}
+                sizes="(max-width: 768px) 100vw, 40vw"
+                priority
               />
             </div>
           </div>

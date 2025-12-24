@@ -33,7 +33,7 @@ export default function SignInLayout({ heading, subtext, emailBtnText }) {
       </button>
 
       <p className={styles.termsText}>
-        By signing in, I accept AlmaBetter's{' '}
+        By signing in, I accept AlmaBetter&apos;s{' '}
         <a href="#" className={styles.termsLink}>Terms of Services</a>{' '}and acknowledge the{' '}
         <a href="#" className={styles.termsLink}>Privacy Policy</a>.
       </p>
