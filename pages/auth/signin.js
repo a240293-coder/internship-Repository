@@ -49,7 +49,7 @@ export default function SignIn() {
       </button>
 
       <div className={styles.bottomText}>
-        <span><strong>Don't have an account?</strong></span>
+        <span><strong>Don&#39;t have an account?</strong></span>
         {/* Important: Sign Up should link back to the signup page, ideally in the same tab since we are already in a new tab */}
         <Link href="/auth/signup" className={styles.outlineButtonRedText}>
           Sign Up

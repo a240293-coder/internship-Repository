@@ -1,7 +1,7 @@
 .programValue {
   background: white;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  padding: 4rem 0;
+  padding: 2.5rem 0;
   font-family: Arial, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -32,17 +32,33 @@
 }
 
 .visualPlaceholder {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: transparent;
   width: 100%;
-  max-width: 400px;
-  aspect-ratio: 1;
-  border-radius: 20px;
+  max-width: 420px;
+  border-radius: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+  padding: 0.35rem;
+  box-shadow: none;
+  transition: background-color 0.25s ease, transform 0.25s ease;
 }
+
+.visualPlaceholder:hover {
+  background: #ffe7f1;
+  transform: translateY(-3px);
+}
+
+.visualImage {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  margin: 0.25rem 0;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
 
 .visualIcon {
   font-size: 6rem;
@@ -50,9 +66,9 @@
 }
 
 .visualText {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 700;
+  color: #f9fafb;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
 .description {
@@ -87,28 +103,75 @@
 }
 
 @media (max-width: 768px) {
+  .programValue {
+    padding: 1rem 0 1.5rem;
+  }
+
   .content {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .title {
-    font-size: 2rem;
+    font-size: 1.65rem;
+    font-weight: 600;
   }
 
   .descTitle {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
   }
 
   .descText {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
   }
 
   .visualIcon {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
 
   .visualText {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
+  }
+
+  .visualPlaceholder {
+    max-width: 300px;
+    padding: 0.2rem;
+    border-radius: 16px;
+    background: transparent;
+  }
+
+  .visualImage {
+    width: 100%;
+    max-width: 260px;
+    margin: 0.15rem 0;
+    border-radius: 14px;
+  }
+
+
+  .visualPlaceholder:hover {
+    transform: translateY(-2px);
+    background: #ffe7f1;
+  }
+
+  .visualText {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f9fafb;
+  }
+
+  .description {
+    padding: 0 0.5rem;
+  }
+
+  .benefitsList {
+    margin-top: 1rem;
+  }
+
+  .benefitsList li {
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    line-height: 1.45;
   }
 }

@@ -8,15 +8,12 @@ export default function Navbar() {
   // Desktop hover dropdown states
   const [isDesktopCoursesOpen, setIsDesktopCoursesOpen] = useState(false);
   const [isDesktopPracticeOpen, setIsDesktopPracticeOpen] = useState(false);
-  const [isDesktopMoreOpen, setIsDesktopMoreOpen] = useState(false);
   // Small close delays via refs to avoid re-renders
   const coursesCloseTimerRef = useRef(null);
   const practiceCloseTimerRef = useRef(null);
-  const moreCloseTimerRef = useRef(null);
   // Mobile menu and nested dropdowns
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showMobileCourses, setShowMobileCourses] = useState(false);
-  const [showMobileMore, setShowMobileMore] = useState(false);
   const [showMobileSignIn, setShowMobileSignIn] = useState(false);
   // Banner rotation
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -27,7 +24,6 @@ export default function Navbar() {
   useEffect(() => {
     if (!isMobileMenuOpen) {
       setShowMobileCourses(false);
-      setShowMobileMore(false);
       setShowMobileSignIn(false);
     }
   }, [isMobileMenuOpen]);
@@ -277,36 +273,8 @@ export default function Navbar() {
               onMouseEnter={enableBlur}
               onMouseLeave={disableBlur}
             >Hire From Us</a>
-            <div
-              className={styles.moreDropdown}
-              onMouseEnter={() => {
-                enableBlur();
-                if (moreCloseTimerRef.current) clearTimeout(moreCloseTimerRef.current);
-                setIsDesktopMoreOpen(true);
-              }}
-              onMouseLeave={() => {
-                if (moreCloseTimerRef.current) clearTimeout(moreCloseTimerRef.current);
-                moreCloseTimerRef.current = setTimeout(() => setIsDesktopMoreOpen(false), 120);
-                disableBlur();
-              }}
-            >
-              <button 
-                className={styles.moreBtn}
-                aria-label="Toggle more options dropdown"
-              >
-                More
-                <svg width="12" height="8" viewBox="0 0 12 8" fill="currentColor">
-                  <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none"/>
-                </svg>
-              </button>
-              {isDesktopMoreOpen && (
-                <div className={styles.moreMenu}>
-                  <a href="#blog">Blog</a>
-                  <div className={styles.divider}></div>
-                  <a href="#news">In the News</a>
-                </div>
-              )}
-            </div>
+            <a href="#contact">Contact Us</a>
+            <a href="#about">About Us</a>
           </nav>
           
           {/* Sign In Dropdown Button - hover logic only */}
@@ -408,25 +376,8 @@ export default function Navbar() {
               <a href="#placements" className={styles.mobileMenuItem}>Placements</a>
               <a href="#masterclass" className={styles.mobileMenuItem}>Masterclass</a>
               <a href="#practice" className={styles.mobileMenuItem}>FREE Practice</a>
-              <button
-                className={styles.mobileMenuItem}
-                onClick={e => {
-                  e.stopPropagation();
-                  setShowMobileMore(prev => !prev);
-                }}
-              >
-                More
-                <svg className={`${styles.chevron} ${showMobileMore ? styles.rotated : ''}`} width="12" height="8" viewBox="0 0 12 8" fill="currentColor">
-                  <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none"/>
-                </svg>
-              </button>
-              {showMobileMore && (
-                <div className={styles.mobileSubmenu}>
-                   <a href="/blog" className={styles.mobileSubItem}>Blog</a>
-                   <a href="/news" className={styles.mobileSubItem}>In the News</a>
-                   <a href="#about" className={styles.mobileSubItem}>About Us</a>
-                </div>
-              )}
+              <a href="#contact" className={styles.mobileMenuItem}>Contact Us</a>
+              <a href="#about" className={styles.mobileMenuItem}>About Us</a>
               {/* Mobile Sign In Dropdown */}
               <div className={styles.mobileSignInDropdownWrapper}>
                 <button
@@ -442,11 +393,21 @@ export default function Navbar() {
                 </button>
                 {showMobileSignIn && (
                   <div className={styles.mobileSignInDropdown}>
-                    <a href="/auth/signin/student" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href="/auth/signin/student"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.mobileSignInDropdownItem}
+                    >
                       Student Sign In
                     </a>
                     <div className={styles.dropdownDivider} />
-                    <a href="/auth/signin/mentor" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href="/auth/signin/mentor"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.mobileSignInDropdownItem}
+                    >
                       Mentor Sign In
                     </a>
                   </div>

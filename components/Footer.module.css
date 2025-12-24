@@ -1,7 +1,7 @@
 .footer {
   background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
   color: white;
-  padding: 4rem 0 2rem;
+  padding: 3rem 0 1.5rem;
   position: relative;
   overflow: hidden;
   font-family: Arial, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -190,6 +190,10 @@
 }
 
 @media (max-width: 768px) {
+  .footer {
+    padding: 2rem 0 1rem;
+  }
+
   .footerContent {
     flex-direction: column;
     gap: 3rem;
@@ -219,7 +223,7 @@
 
 @media (max-width: 480px) {
   .footer {
-    padding: 3rem 0 1.5rem;
+    padding: 2rem 0 1.25rem;
   }
 
   .brandName {

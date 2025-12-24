@@ -1,6 +1,6 @@
 .testimonials {
-  background: white;
-  padding: 4rem 0;
+  background: #f9fafb;
+  padding: 3.5rem 0 4.5rem;
   font-family: Arial, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -12,10 +12,26 @@
 
 .title {
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 600;
   text-align: center;
   color: #1f2937;
   margin-bottom: 1rem;
+}
+
+.titleHighlight {
+  position: relative;
+  display: inline-block;
+}
+
+.titleHighlight::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 3px;
+  background: #e10600;
+  border-radius: 999px;
 }
 
 .subtitle {
@@ -30,6 +46,45 @@
   max-width: 900px;
   margin: 0 auto;
   min-height: 400px;
+  padding-bottom: 4rem;
+}
+
+.arrows {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  position: relative;
+  z-index: 3;
+}
+
+.arrow {
+  background: transparent;
+  color: #e10600;
+  border: 1.5px solid #e10600;
+  border-radius: 999px;
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: none;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease;
+}
+
+.arrow:hover {
+  transform: translateY(-2px);
+  background: rgba(225, 6, 0, 0.06);
+  box-shadow: 0 6px 12px rgba(225, 6, 0, 0.12);
+}
+
+.arrow:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(225, 6, 0, 0.12);
 }
 
 .testimonialCard {
@@ -38,23 +93,36 @@
   left: 0;
   width: 100%;
   opacity: 0;
-  transform: translateX(50px);
-  transition: all 0.5s ease;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
   pointer-events: none;
 }
 
 .testimonialCard.active {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
 .cardContent {
-  background: #f9fafb;
-  padding: 3rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(180deg, #fff7fb 0%, #fef2f8 100%);
+  padding: 1.35rem;
+  border-radius: 13px;
+  border: 1px solid #fbcfe8;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
   text-align: center;
+  transition: transform 180ms ease-out, box-shadow 220ms ease-out;
+}
+
+.cardContent:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+  background: #ffe7f1;
+}
+
+.cardContent:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 .testimonialImage {
@@ -93,10 +161,7 @@
 }
 
 .dots {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2.5rem;
+  display: none;
 }
 
 .dot {
@@ -121,19 +186,73 @@
 }
 
 @media (max-width: 768px) {
+  .testimonials {
+    padding: 2.75rem 0 3.5rem;
+  }
+
   .title {
     font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .titleHighlight::after {
+    bottom: -5px;
+    height: 2.5px;
   }
 
   .cardContent {
-    padding: 2rem;
+    padding: 1.05rem;
+    border-radius: 11px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 
   .testimonialText {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
   }
 
   .testimonialImage {
-    font-size: 3.5rem;
+    font-size: 3.1rem;
+  }
+
+  .testimonialName {
+    font-size: 1.05rem;
+  }
+
+  .testimonialRole {
+    font-size: 0.9rem;
+  }
+
+  .companyLogo {
+    font-size: 0.9rem;
+    padding: 0.45rem 1.15rem;
+    border-radius: 7px;
+  }
+
+  .arrows {
+    display: none;
+    margin-top: 0;
+  }
+
+  .arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.05rem;
+  }
+}
+
+/* Hide dots on tablet/desktop to declutter pagination there and add extra breathing room */
+@media (min-width: 769px) {
+  .testimonialWrapper {
+    padding-bottom: 5rem;
+  }
+
+  .cardContent {
+    padding: 1.6rem;
+    border-radius: 15px;
+  }
+
+  .arrows {
+    margin-top: 2.75rem;
   }
 }

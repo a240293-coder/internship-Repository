@@ -160,11 +160,12 @@
 }
 
 .subtitle {
-  font-size: 16px;
-  color: #6b7280;
-  line-height: 1.5;
-  margin: 0 0 32px;
+  font-size: 20px;
+  color: #4b5563;
+  line-height: 1.4;
+  margin: 0 0 28px;
   text-align: center;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* GOOGLE BUTTON */
@@ -292,6 +293,24 @@
 }
 
 .forgotPassword:hover {
+  text-decoration: underline;
+}
+
+.termsText {
+  text-align: center;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: -8px 0 18px;
+}
+
+.termsLink {
+  color: #ef4444;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.termsLink:hover {
   text-decoration: underline;
 }
 

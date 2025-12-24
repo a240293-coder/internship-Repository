@@ -695,13 +695,16 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
   height: 100vh;
   background: #000000;
   z-index: 10000;
   display: flex;
   flex-direction: column;
   animation: slideInLeft 0.3s ease;
+  overflow-x: hidden;
 }
 
 @keyframes slideInLeft {
@@ -711,6 +714,13 @@
   to {
     transform: translateX(0);
   }
+}
+
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 }
 
 .mobileMenuHeader {
@@ -1140,6 +1150,38 @@
   }
 }
 
+/* Laptop-only: slightly smaller mobile menu text without affecting phones */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .mobileMenuItem {
+    font-size: 0.92rem;
+    padding: 0.85rem 0;
+  }
+
+  .mobileSubItem {
+    font-size: 0.86rem;
+    padding: 0.65rem 0.9rem;
+  }
+
+  .mobileLogo {
+    font-size: 1.3rem;
+  }
+
+  .mobileSignIn {
+    font-size: 0.95rem;
+    padding: 0.65rem 1.25rem;
+  }
+
+  .mobileSignInDropdownBtn {
+    font-size: 0.95rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .mobileSignInDropdownItem {
+    font-size: 0.95rem;
+    padding: 10px 16px;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
     height: 56px;
@@ -1478,13 +1520,18 @@
 /* Final mobile-only override: enlarge logo and underline without affecting desktop */
 @media (max-width: 768px) {
   .logo {
-    font-size: 1.3rem; /* more readable on mobile */
-    letter-spacing: -0.4px;
-    align-items: center; /* keep vertical alignment */
-    padding: 0.2rem 0.75rem; /* compact inner padding */
-    justify-content: space-between; /* row layout for mobile variant */
-    height: 5px; /* scale underline proportionally */
-    bottom: -6px;
+    font-size: 1.25rem;
+    letter-spacing: -0.25px;
+    align-items: center;
+    padding: 0;
+    justify-content: center;
+    height: auto;
+    line-height: 1.1;
+  }
+
+  .logoHighlight::after {
+    bottom: -2px;
+    height: 2px;
   }
 }
   /* Hide desktop banner content on mobile */

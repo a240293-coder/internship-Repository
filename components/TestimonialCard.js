@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from '../styles/Auth.module.css';
 
 const TestimonialCard = () => {
@@ -5,10 +6,12 @@ const TestimonialCard = () => {
     <div className={styles.leftSection}>
       <div className={styles.testimonialCard}>
         <div className={styles.profileHeader}>
-          <img 
+          <Image 
             src="https://randomuser.me/api/portraits/women/44.jpg" 
             alt="Profile" 
             className={styles.profileImage} 
+            width={64}
+            height={64}
           />
           <div className={styles.profileInfo}>
             <h3>Priya Sharma</h3>
@@ -17,7 +20,7 @@ const TestimonialCard = () => {
           </div>
         </div>
         <p className={styles.quote}>
-          "The structured curriculum and mentorship at LearnBetter helped me transition from a sales role to a Data Analyst position in just 6 months. Best decision of my career!"
+          &quot;The structured curriculum and mentorship at LearnBetter helped me transition from a sales role to a Data Analyst position in just 6 months. Best decision of my career!&quot;
         </p>
       </div>
 

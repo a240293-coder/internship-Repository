@@ -57,6 +57,10 @@
 }
 
 @media (max-width: 768px) {
+  .hiringPartners {
+    padding: 2rem 0;
+  }
+
   .logosGrid {
     grid-template-columns: repeat(4, 1fr);
   }

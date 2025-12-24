@@ -11,7 +11,9 @@ export default function Stats() {
   return (
     <section className={styles.stats} id="outcomes">
       <div className={styles.container}>
-        <h2 className={styles.title}>Program Statistics</h2>
+        <h2 className={styles.title}>
+          Program <span className={styles.titleHighlight}>Statistics</span>
+        </h2>
         <p className={styles.subtitle}>Real outcomes from our graduates</p>
 
         <div className={styles.grid}>

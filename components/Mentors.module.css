@@ -1,6 +1,6 @@
 .mentors {
   background: #f9fafb;
-  padding: 4rem 0;
+  padding: 2.5rem 0;
   font-family: Arial, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -12,10 +12,26 @@
 
 .title {
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 600;
   text-align: center;
   color: #1f2937;
   margin-bottom: 1rem;
+}
+
+.titleHighlight {
+  position: relative;
+  display: inline-block;
+}
+
+.titleHighlight::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 3px;
+  background: #e10600;
+  border-radius: 999px;
 }
 
 .subtitle {
@@ -32,18 +48,25 @@
 }
 
 .mentorCard {
-  background: white;
+  background: linear-gradient(180deg, #fff7fb 0%, #fef2f8 100%);
   padding: 2.5rem;
   border-radius: 16px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  border: 1px solid #fbcfe8;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: transform 180ms ease-out, box-shadow 220ms ease-out;
   cursor: pointer;
 }
 
 .mentorCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
+  background: linear-gradient(180deg, #ffe4f1 0%, #ffd7ec 100%);
+}
+
+.mentorCard:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 .mentorImage {
@@ -79,21 +102,99 @@
 }
 
 @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .mentors {
+    padding: 1.1rem 0;
   }
-}
 
-@media (max-width: 768px) {
+  .container {
+    overflow: visible;
+    height: auto;
+  }
+
   .grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    min-height: 320px; /* reserve space so the absolute cards stay visible */
+  }
+
+  .mentorCard {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(180deg, #fff7fb 0%, #fef2f8 100%);
+    box-shadow: none;
+    border: 1px solid #f9a8d4;
+    cursor: default;
+    transition: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+.mentorCard:hover,
+  .mentorCard:active,
+  .mentorCard:focus {
+    box-shadow: none;
+    transform: translateX(0); /* prevent accidental jumps on tap */
+    outline: none;
+  }
+
+  .mentorCard:active {
+    background: linear-gradient(180deg, #ffe4f1 0%, #ffd7ec 100%);
   }
 
   .title {
     font-size: 2rem;
+    font-weight: 600;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    color: #1f2937;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+
+  .titleHighlight::after {
+    bottom: -5px;
+    height: 2.5px;
+  }
+
+  .subtitle {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    color: #6b7280;
+    transform: none;
+    transition: none;
+    animation: none;
   }
 
   .mentorImage {
-    font-size: 4rem;
+    font-size: 3.25rem;
+  }
+
+  .mentorName {
+    font-size: 1.25rem;
+  }
+
+  .mentorRole {
+    font-size: 1rem;
+  }
+
+  .mentorCompany {
+    font-size: 0.95rem;
+  }
+
+  .mentorBio {
+    font-size: 0.95rem;
+    line-height: 1.45;
   }
 }

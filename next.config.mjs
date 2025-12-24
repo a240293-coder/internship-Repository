@@ -6,6 +6,14 @@ const nextConfig = {
     config.cache = false;
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "randomuser.me",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

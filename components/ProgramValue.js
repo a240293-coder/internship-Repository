@@ -11,8 +11,11 @@ export default function ProgramValue() {
         <div className={styles.content}>
           <div className={styles.visual}>
             <div className={styles.visualPlaceholder}>
-              <span className={styles.visualIcon}>🌍</span>
-              <p className={styles.visualText}>Global Recognition</p>
+              <img
+                src="/img.jpg"
+                alt="Global recognition illustration"
+                className={styles.visualImage}
+              />
             </div>
           </div>
 

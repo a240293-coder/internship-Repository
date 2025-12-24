@@ -2,6 +2,8 @@
 html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 *, *::before, *::after {
@@ -21,9 +23,13 @@ body {
   color: #1f2937;
   background: white;
   line-height: 1.6;
-  overflow-x: hidden;
   font-size: 16px;
   font-weight: 400;
+}
+
+#__next, main {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body.apply-theme {

@@ -7,9 +7,7 @@ import Stats from '../components/Stats';
 import ProgramValue from '../components/ProgramValue';
 import Mentors from '../components/Mentors';
 import Testimonials from '../components/Testimonials';
-import HiringPartners from '../components/HiringPartners';
 import Footer from '../components/Footer';
-import FloatingButtons from '../components/FloatingButtons';
 
 export default function Home() {
   return (
@@ -27,9 +25,7 @@ export default function Home() {
         <ProgramValue />
         <Mentors />
         <Testimonials />
-        <HiringPartners />
         <Footer />
-        <FloatingButtons />
       </main>
     </>
   );
