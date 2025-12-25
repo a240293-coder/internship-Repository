@@ -22,7 +22,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #1f2937;
   background: white;
-  line-height: 1.6;
+  line-height: 1.75;
   font-size: 16px;
   font-weight: 400;
 }
@@ -467,4 +467,36 @@ button:focus {
   --shadow-sm: 0 8px 20px rgba(16,24,40,0.06);
   --shadow-md: 0 18px 40px rgba(16,24,40,0.10);
   --shadow-lg: 0 28px 80px rgba(16,24,40,0.14);
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-duration: 250ms;
+  --card-radius: 12px;
+  --card-padding: 1rem;
+}
+
+/* Interaction standardization for buttons and interactive elements */
+.btn-primary,
+.btn-secondary,
+button,
+a.btn,
+.btn {
+  transition: transform var(--motion-duration) var(--motion-ease),
+              box-shadow var(--motion-duration) var(--motion-ease),
+              opacity var(--motion-duration) var(--motion-ease);
+  will-change: transform, opacity;
+}
+
+/* Subtle hover/tap feedback: translate up and stronger shadow (transform only) */
+.btn-primary:hover,
+.btn-secondary:hover,
+button:hover,
+a.btn:hover,
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(16,24,40,0.08);
+}
+
+/* Mobile comfort: increase tap target and remove tap highlight */
+button, a.btn {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
