@@ -267,22 +267,42 @@ ul, ol {
 }
 
 /* Scrollbar Styles */
+/* Scrollbar Styles - dark theme */
+/* WebKit-based browsers */
 ::-webkit-scrollbar {
   width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #0b0b0b; /* dark track */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  background: #000; /* black thumb */
   border-radius: 6px;
-  border: 2px solid #f1f5f9;
+  border: 2px solid #0b0b0b; /* blend with track */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #764ba2 0%, #667eea 100%);
+  background: #2b2b2b;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #000 #0b0b0b; /* thumb, track */
+}
+
+/* Apply dark scrollbar settings broadly (Firefox) so scrollable elements inherit */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #000 #0b0b0b;
+}
+
+/* For elements that create their own scrollbars (overflow:auto/scroll) ensure track is dark */
+*:where([style*="overflow"], [style*="overflow-x"], [style*="overflow-y"]) {
+  scrollbar-color: #000 #0b0b0b;
 }
 
 /* Responsive Typography */

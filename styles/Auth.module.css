@@ -6,11 +6,17 @@
   position: relative;
 }
 
+/* RIGHT SECTION */
+.rightSection {
+  width: 60%;
+  display: flex;
+  align-items: flex-start; /* keep form slightly down from top */
+  justify-content: center; /* center form horizontally */
+  padding: 80px 48px;
+  min-height: 100vh;
+}
+
 .logoWrapper {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  z-index: 100;
   display: flex;
   align-items: center;
   font-family: 'Arial', sans-serif;
@@ -138,25 +144,80 @@
   align-items: center;
 }
 
-.logoText {
-  color: white;
-  font-weight: bold;
-}
-
-/* RIGHT SECTION */
-.rightSection {
-  width: 60%;
-  background: #ffffff;
+/* Logo group container (logo + small icons) */
+.logoGroup {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  z-index: 100;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 2rem;
+  gap: 20px;
+  justify-content: space-between;
 }
 
+/* Small Home icon next to the logo */
+.homeButtonLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: white;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  text-decoration: none;
+  transition: transform 0.12s ease, opacity 0.12s ease, box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+  box-shadow: 0 4px 12px rgba(2,6,23,0.08);
+}
+
+.homeButtonLogo:hover {
+  transform: scale(1.05);
+  opacity: 0.95;
+  background-color: #ffeef4; /* light pink */
+  color: #ef4444; /* pink icon */
+  border-color: rgba(239,68,68,0.12);
+  box-shadow: 0 12px 32px rgba(239,68,68,0.12);
+}
+
+.homeButtonLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; /* tap target */
+  height: 44px; /* tap target */
+  border-radius: 50%; /* round */
+  color: #0f1724; /* dark icon color */
+  background: white; /* white circular background */
+  border: 1px solid rgba(2,6,23,0.08);
+  text-decoration: none;
+  transition: transform 0.12s ease, opacity 0.12s ease, box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+  box-shadow: 0 4px 12px rgba(2,6,23,0.08);
+}
+
+.homeButtonLogo:hover {
+  transform: scale(1.03);
+  opacity: 0.98;
+  background-color: #ffeef4; /* light pink */
+  color: #ef4444; /* pink icon */
+  border-color: rgba(239,68,68,0.12);
+  box-shadow: 0 12px 32px rgba(239,68,68,0.12);
+}
+
+.homeButtonLogo:active {
+  transform: scale(0.98);
+}
+
+.homeButtonLogo:focus {
+  outline: 2px solid rgba(15,23,36,0.12);
+  outline-offset: 2px;
+}
 .formContainer {
   width: 100%;
   max-width: 420px;
+  position: relative; /* allow absolutely-positioned home icon inside */
 }
 
 .title {
@@ -292,7 +353,7 @@
 /* LINKS & HELPERS */
 .forgotPassword {
   display: block;
-  text-align: right;
+  text-align: center;
   color: #ef4444;
   font-size: 14px;
   font-weight: 500;
@@ -439,6 +500,18 @@
     top: 20px;
     left: 20px;
     color: #1a202c; /* Dark text on white background */
+  }
+
+  .logoGroup {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    justify-content: space-between;
+  }
+
+  .homeButtonLogo {
+    color: #1a202c;
+    border: 1px solid rgba(15,23,36,0.06);
   }
 
   /* Right Section (Form) comes FIRST */
