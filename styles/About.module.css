@@ -109,8 +109,44 @@
    Targets common arrow/button classnames used by carousel libraries
    when they are placed inside the carousel containers. */
 .statCarousel :is(.swiper-button-prev, .swiper-button-next, .slick-prev, .slick-next, .carousel-control-prev, .carousel-control-next, .prev, .next, .arrow-prev, .arrow-next, .btn-prev, .btn-next) {
-  top: calc(50% + 0.5rem) !important;
+  /* anchor arrows below the carousel so they never overlap the card area */
+  top: calc(100% + 12px) !important;
+  position: absolute !important;
+  /* no vertical translate — top places them beneath the carousel */
+  transform: none !important;
   z-index: 20; /* ensure arrows remain on top and clickable */
+}
+
+/* On small screens the arrows should be closer to vertical center to avoid
+   overlapping other UI — reduce the downward nudge on narrow viewports */
+@media (max-width: 640px) {
+  .statCarousel :is(.swiper-button-prev, .swiper-button-next, .slick-prev, .slick-next, .carousel-control-prev, .carousel-control-next, .prev, .next, .arrow-prev, .arrow-next, .btn-prev, .btn-next) {
+    /* keep arrows below the carousel on small screens too */
+    top: calc(100% + 8px) !important;
+    transform: none !important;
+  }
+}
+
+/* Force a precise, horizontally-centered pair of arrows beneath the carousel
+   by anchoring both controls to the carousel center and shifting them left/right.
+   This keeps perfect center alignment regardless of library-specific left/right
+   values. Tweak the horizontal offset (36px) to change spacing between arrows. */
+.statCarousel :is(.prev, .slick-prev, .arrow-prev, .btn-prev, .swiper-button-prev) {
+  left: calc(50% - 36px) !important;
+  transform: translateY(-50%) !important; /* keep vertical centering */
+}
+.statCarousel :is(.next, .slick-next, .arrow-next, .btn-next, .swiper-button-next) {
+  left: calc(50% + 36px) !important;
+  transform: translateY(-50%) !important;
+}
+
+@media (max-width: 640px) {
+  .statCarousel :is(.prev, .slick-prev, .arrow-prev, .btn-prev, .swiper-button-prev) {
+    left: calc(50% - 30px) !important;
+  }
+  .statCarousel :is(.next, .slick-next, .arrow-next, .btn-next, .swiper-button-next) {
+    left: calc(50% + 30px) !important;
+  }
 }
 
 .statTrack {
@@ -198,8 +234,23 @@
 
 /* Apply same small downward nudge for card carousels */
 .cardCarousel :is(.swiper-button-prev, .swiper-button-next, .slick-prev, .slick-next, .carousel-control-prev, .carousel-control-next, .prev, .next, .arrow-prev, .arrow-next, .btn-prev, .btn-next) {
-  top: calc(50% + 0.5rem) !important;
+  /* anchor card-carousel arrows beneath the cards to avoid overlap */
+  top: calc(100% + 10px) !important;
+  position: absolute !important;
+  transform: none !important;
   z-index: 20;
+}
+
+@media (max-width: 640px) {
+  .cardCarousel :is(.swiper-button-prev, .swiper-button-next, .slick-prev, .slick-next, .carousel-control-prev, .carousel-control-next, .prev, .next, .arrow-prev, .arrow-next, .btn-prev, .btn-next) {
+    top: calc(100% + 6px) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .cardCarousel :is(.swiper-button-prev, .swiper-button-next, .slick-prev, .slick-next, .carousel-control-prev, .carousel-control-next, .prev, .next, .arrow-prev, .arrow-next, .btn-prev, .btn-next) {
+    top: calc(50% + 0.75rem) !important;
+  }
 }
 
 .cardTrack {

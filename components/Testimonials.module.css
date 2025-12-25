@@ -54,7 +54,8 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-top: 1.25rem;
+  /* increase vertical gap so arrows sit further below testimonial cards */
+  margin-top: 2rem;
   position: relative;
   z-index: 3;
 }
@@ -247,6 +248,6 @@
   }
 
   .arrows {
-    margin-top: 1.6rem;
+    margin-top: 2.4rem;
   }
 }
