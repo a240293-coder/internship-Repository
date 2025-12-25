@@ -137,6 +137,7 @@ button {
   background: #e10600;
   color: white;
   box-shadow: 0 4px 12px rgba(225, 6, 0, 0.2);
+  border: 1px solid rgba(225,6,0,0.18);
   text-align: center;
   display: inline-block;
 }
@@ -196,6 +197,50 @@ button {
     padding: 0.875rem 1.5rem;
     font-size: 0.9375rem;
   }
+}
+
+/* Remove borders/outline when buttons are clicked or focused (touch/mouse)
+   Keep visible focus ring for keyboard users using :focus-visible */
+button:active,
+button:focus,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-secondary:active,
+.btn-secondary:focus,
+a.btn:active,
+a.btn:focus,
+button.btn:active,
+button.btn:focus {
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Accessible keyboard focus ring */
+button:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+a.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(225,6,0,0.18);
+  border-color: transparent;
+}
+
+/* Prevent anchors with .btn from turning purple (visited/active) */
+a.btn,
+a.btn:visited,
+a.btn:active,
+a.btn:focus,
+.btnGhost,
+.btnGhost:visited,
+.btnGhost:active,
+.btnGhost:focus,
+.btnPrimary,
+.btnPrimary:visited,
+.btnPrimary:active,
+.btnPrimary:focus {
+  color: inherit !important;
+  text-decoration: none !important;
 }
 
 /* Images */
@@ -415,4 +460,11 @@ button:focus {
   h3 {
     page-break-after: avoid;
   }
+}
+
+:root {
+  --shadow-xs: 0 4px 12px rgba(16,24,40,0.04);
+  --shadow-sm: 0 8px 20px rgba(16,24,40,0.06);
+  --shadow-md: 0 18px 40px rgba(16,24,40,0.10);
+  --shadow-lg: 0 28px 80px rgba(16,24,40,0.14);
 }
