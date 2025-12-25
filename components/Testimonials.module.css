@@ -45,8 +45,9 @@
   position: relative;
   max-width: 900px;
   margin: 0 auto;
-  min-height: 400px;
-  padding-bottom: 4rem;
+  /* slightly reduced height to tighten card area */
+  min-height: 320px;
+  padding-bottom: 3rem;
 }
 
 .arrows {
@@ -76,24 +77,23 @@
   transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease;
 }
 
-.arrow:hover {
-  transform: translateY(-2px);
-  background: rgba(225, 6, 0, 0.06);
-  box-shadow: 0 6px 12px rgba(225, 6, 0, 0.12);
+.arrow {
+  background: transparent;
+  color: #e10600;
+  border: 1.5px solid #e10600;
+  border-radius: 999px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: none;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease;
 }
-
-.arrow:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 10px rgba(225, 6, 0, 0.12);
-}
-
-.testimonialCard {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: 0;
-  transform: translateY(12px);
   transition: opacity 0.35s ease, transform 0.35s ease;
   pointer-events: none;
 }
@@ -106,8 +106,9 @@
 
 .cardContent {
   background: linear-gradient(180deg, #fff7fb 0%, #fef2f8 100%);
-  padding: 1.35rem;
-  border-radius: 13px;
+  /* tightened padding and slightly smaller radius for compact cards */
+  padding: 0.9rem;
+  border-radius: 10px;
   border: 1px solid #fbcfe8;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
   text-align: center;
@@ -115,8 +116,8 @@
 }
 
 .cardContent:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
   background: #ffe7f1;
 }
 
@@ -126,29 +127,30 @@
 }
 
 .testimonialImage {
-  font-size: 5rem;
-  margin-bottom: 1.5rem;
+  /* scale down avatar/icon size for a more compact card */
+  font-size: 3.6rem;
+  margin-bottom: 1rem;
 }
 
 .testimonialText {
-  font-size: 1.2rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.6;
   color: #4b5563;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
   font-style: italic;
 }
 
 .testimonialName {
-  font-size: 1.3rem;
+  font-size: 1.06rem;
   font-weight: 700;
   color: #1f2937;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .testimonialRole {
-  font-size: 1rem;
+  font-size: 0.92rem;
   color: #6b7280;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .companyLogo {
@@ -201,26 +203,27 @@
   }
 
   .cardContent {
-    padding: 1.05rem;
-    border-radius: 11px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 0.85rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   }
 
   .testimonialText {
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.85rem;
+    line-height: 1.55;
   }
 
   .testimonialImage {
-    font-size: 3.1rem;
+    font-size: 2.8rem;
+    margin-bottom: 0.75rem;
   }
 
   .testimonialName {
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
 
   .testimonialRole {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .companyLogo {
