@@ -185,3 +185,41 @@
     margin-bottom: 0.6rem;
   }
 }
+
+/* Very small phones: show 4 compact square cards per row (mobile-only) */
+@media (max-width: 420px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .card {
+    padding: 8px;
+    border-radius: 12px;
+    /* make the card visually square */
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+    margin-bottom: 0.4rem;
+    border-radius: 10px;
+  }
+
+  /* keep titles readable but allow wrapping; do not change font-size per requirements */
+  .cardTitle {
+    line-height: 1.05;
+  }
+
+  .cardSubtitle {
+    display: none; /* hide subtitle to preserve compactness while keeping text content unchanged in source */
+  }
+}
