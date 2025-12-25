@@ -274,7 +274,11 @@ export default function Navbar() {
               onMouseLeave={disableBlur}
             >Hire From Us</a>
             <a href="#contact">Contact Us</a>
-            <a href="#about">About Us</a>
+            <a
+              href="/about"
+              target="_blank"
+              rel="noopener noreferrer"
+            >About Us</a>
           </nav>
           
           {/* Sign In Dropdown Button - hover logic only */}
@@ -377,7 +381,12 @@ export default function Navbar() {
               <a href="#masterclass" className={styles.mobileMenuItem}>Masterclass</a>
               <a href="#practice" className={styles.mobileMenuItem}>FREE Practice</a>
               <a href="#contact" className={styles.mobileMenuItem}>Contact Us</a>
-              <a href="#about" className={styles.mobileMenuItem}>About Us</a>
+              <a
+                href="/about"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.mobileMenuItem}
+              >About Us</a>
               {/* Mobile Sign In Dropdown */}
               <div className={styles.mobileSignInDropdownWrapper}>
                 <button

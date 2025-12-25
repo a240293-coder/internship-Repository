@@ -36,37 +36,37 @@
 }
 
 :global(h1) {
-  font-size: 3.5rem;
+  font-size: 3.375rem;
   font-weight: 800;
   line-height: 1.1;
 }
 
 :global(h2) {
-  font-size: 2.75rem;
+  font-size: 2.625rem;
   font-weight: 700;
   line-height: 1.2;
 }
 
 :global(h3) {
-  font-size: 2.25rem;
+  font-size: 2.125rem;
   font-weight: 700;
   line-height: 1.25;
 }
 
 :global(h4) {
-  font-size: 1.75rem;
+  font-size: 1.625rem;
   font-weight: 600;
   line-height: 1.3;
 }
 
 :global(h5) {
-  font-size: 1.375rem;
+  font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.4;
 }
 
 :global(h6) {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.5;
 }

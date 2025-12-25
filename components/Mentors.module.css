@@ -11,7 +11,7 @@
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2.375rem;
   font-weight: 600;
   text-align: center;
   color: #1f2937;
@@ -151,7 +151,7 @@
   }
 
   .title {
-    font-size: 2rem;
+    font-size: 1.875rem;
     font-weight: 600;
     display: block;
     visibility: visible;
