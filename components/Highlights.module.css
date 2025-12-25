@@ -163,4 +163,25 @@
   .cardTitle {
     font-size: 1.1rem;
   }
+
+  /* Mobile-only: make highlight cards compact box-style and more square/consistent */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .card {
+    /* tighter padding and uniform near-square min-height for touch-friendliness */
+    padding: 12px;
+    border-radius: 14px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .icon {
+    margin-bottom: 0.6rem;
+  }
 }
