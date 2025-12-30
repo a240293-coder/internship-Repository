@@ -113,12 +113,18 @@ export default function Contact() {
             <p>
               Prefer email? Write to <a href="mailto:support@learnbetter.com">support@learnbetter.com</a>
             </p>
-            <p>
-              Return to <Link href="/" legacyBehavior><a className={styles.homeLink}>Home</a></Link>
-            </p>
           </div>
         </div>
       </main>
+      {/* Home icon button (fixed, right side below navbar) */}
+      <Link href="/" legacyBehavior>
+        <a className={styles.homeIconButton} aria-label="Home">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <path d="M3 10.5L12 4l9 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M5 21V11.5h14V21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </a>
+      </Link>
     </>
   );
 }
