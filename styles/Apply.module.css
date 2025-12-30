@@ -10,6 +10,14 @@
   box-sizing: border-box;
 }
 
+.container {
+  width: 100%;
+  max-width: 1024px; /* center constraint for desktop */
+  margin: 0 auto;
+  padding: 0 1rem; /* keep internal breathing room */
+  box-sizing: border-box;
+}
+
 .siteHeader {
   position: sticky;
   top: 0;
@@ -153,17 +161,18 @@
 }
 
 .panel {
-  width: min(100%, 760px);
-  background: transparent;
-  border-radius: 20px;
-  box-shadow: none;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 18px 40px rgba(2,6,23,0.6);
   padding: clamp(2.75rem, 6vw, 3.5rem) clamp(1.8rem, 6vw, 3.75rem) clamp(2.5rem, 6.5vw, 3.6rem);
   position: relative;
   overflow: visible;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2.25rem;
 }
 
 .panel::before {
@@ -259,12 +268,12 @@
 }
 
 .highlightCard {
-  background: linear-gradient(165deg, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0) 50%),
+  background: linear-gradient(165deg, rgba(37, 99, 235, 0.06) 0%, rgba(37, 99, 235, 0) 50%),
     #ffffff;
-  border: 1px solid rgba(37, 99, 235, 0.18);
-  border-radius: 18px;
-  padding: 1.4rem 1.35rem 1.3rem;
-  box-shadow: 0 16px 28px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  border-radius: 14px;
+  padding: 1.25rem 1.2rem 1.15rem;
+  box-shadow: 0 10px 22px rgba(2,6,23,0.45);
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -403,8 +412,8 @@
 .textArea {
   width: 100%;
   border-radius: 12px;
-  border: 1px solid #dbe3f0;
-  background: #f8fafc;
+  border: 1px solid rgba(148,163,184,0.12);
+  background: #ffffff;
   padding: 0.9rem 1rem;
   font-size: 1rem;
   color: #0f172a;
@@ -415,9 +424,9 @@
 .input:focus,
 .textArea:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #e10600;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+  box-shadow: 0 0 0 4px rgba(225, 6, 0, 0.14);
   transform: translateY(-1px);
 }
 
@@ -440,7 +449,7 @@
 }
 
 .submitBtn {
-  align-self: flex-start;
+  align-self: center;
   padding: 0.95rem 2.75rem;
   background: linear-gradient(135deg, #f97316 0%, #e10600 50%, #b91c1c 100%);
   color: #ffffff;
@@ -513,6 +522,7 @@
   .panel {
     padding: clamp(2rem, 10vw, 2.3rem) clamp(1.35rem, 8vw, 1.7rem);
     border-radius: 16px;
+    box-shadow: 0 14px 30px rgba(2,6,23,0.6);
   }
 
   .metaList {

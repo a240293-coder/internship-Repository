@@ -1,6 +1,7 @@
 "use client";
 
 import styles from "./Navbar.module.css";
+import coursesData from "../data/courses";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/router";
 import Link from 'next/link';
@@ -18,9 +19,13 @@ export default function Navbar() {
   const practiceCloseTimerRef = useRef(null);
   const expertiseCloseTimerRef = useRef(null);
   const coursesMenuRef = useRef(null);
+  const prevBodyOverflowRef = useRef(null);
   const router = useRouter();
   const isCourseRoute = router && typeof router.asPath === 'string' && (
     router.asPath.startsWith('/courses/') || router.asPath.startsWith('/certificate')
+  );
+  const isApplyRoute = router && typeof router.asPath === 'string' && (
+    router.asPath === '/apply' || router.asPath === '/apply/'
   );
   // Keep selectedDomain in sync with the current route so active state persists
   useEffect(() => {
@@ -123,10 +128,30 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
   // Lock body scroll when Courses dropdown is open (prevent background scroll)
   useEffect(() => {
-    // Do not lock or modify body scroll when desktop Courses dropdown opens.
-    // Allow the page (including the announcement/banner) to remain scrollable.
-    // This effect intentionally no-ops so we don't trap scroll on desktop.
-    return;
+    if (typeof document === 'undefined') return;
+    // Only apply for desktop-style dropdown (not mobile menu)
+    if (isDesktopCoursesOpen) {
+      // store previous overflow so we can restore
+      prevBodyOverflowRef.current = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+    } else {
+      // restore previous overflow
+      if (prevBodyOverflowRef.current !== undefined && prevBodyOverflowRef.current !== null) {
+        document.body.style.overflow = prevBodyOverflowRef.current;
+        prevBodyOverflowRef.current = null;
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    return () => {
+      if (prevBodyOverflowRef.current !== undefined && prevBodyOverflowRef.current !== null) {
+        document.body.style.overflow = prevBodyOverflowRef.current;
+        prevBodyOverflowRef.current = null;
+      } else {
+        document.body.style.overflow = '';
+      }
+    };
   }, [isDesktopCoursesOpen]);
 
   // clear openCategory when the dropdown itself closes
@@ -146,10 +171,13 @@ export default function Navbar() {
   // No document click listeners for Sign In dropdown (hover only)
 
   const handleLogoClick = useCallback(() => {
-    if (typeof window !== "undefined") {
-      window.location.reload();
+    if (router && typeof router.push === 'function') {
+      router.push('/');
+    } else if (typeof window !== "undefined") {
+      // fallback
+      window.location.href = '/';
     }
-  }, []);
+  }, [router]);
 
   const enableBlur = useCallback(() => {
     if (typeof document !== "undefined") {
@@ -194,6 +222,8 @@ export default function Navbar() {
               onMouseEnter={() => {
                 if (coursesCloseTimerRef.current) clearTimeout(coursesCloseTimerRef.current);
                 setIsDesktopCoursesOpen(true);
+                // default open category for clearer UX
+                setOpenCategory(prev => prev || 'marketing');
               }}
               onMouseLeave={() => {
                 if (coursesCloseTimerRef.current) clearTimeout(coursesCloseTimerRef.current);
@@ -213,46 +243,66 @@ export default function Navbar() {
 
               {isDesktopCoursesOpen && (
                 <div ref={coursesMenuRef} className={styles.coursesMenu} role="menu" aria-label="Courses menu">
-                  <div className={styles.menuContainer}>
-                    <div className={styles.categories}>
+                  <div className={styles.menuPanel} onMouseLeave={() => setOpenCategory('')}>
+                    <div className={styles.menuLeft} role="list">
+                      <div className={styles.allCoursesPill}>All Courses (9)</div>
                       {Object.entries(categories).map(([key, cat]) => (
-                        <div
+                        <button
                           key={key}
+                          type="button"
+                          role="listitem"
                           onMouseEnter={() => setOpenCategory(key)}
-                          onMouseLeave={() => setOpenCategory('')}
+                          onClick={() => setOpenCategory(key)}
+                          className={`${styles.categoryButton} ${openCategory === key ? styles.categoryActive : ''}`}
                         >
-                          <button
-                            type="button"
-                            className={styles.domainHeading + ' ' + styles.domainBoard + (selectedDomain === key ? ` ${styles.domainActive}` : '')}
-                            onClick={() => setOpenCategory(prev => (prev === key ? '' : key))}
-                            aria-expanded={openCategory === key ? 'true' : 'false'}
-                          >
-                            {cat.title}
-                          </button>
+                          {cat.title}
+                          <span className={styles.leftIndicator} aria-hidden />
+                        </button>
+                      ))}
+                    </div>
 
-                          <div className={styles.practiceListWrapper + (openCategory === key ? ` ${styles.open}` : '')}>
-                            {cat.courses.map((c) => {
-                              const href = c.slug === 'ecommerce' ? `/courses/ecommerce` : `/courses/${key}/${c.slug}`;
+                    <div className={styles.menuRight} role="region" aria-live="polite">
+                      {openCategory ? (
+                        <div className={styles.rightPanelInner}>
+                          <header className={styles.panelHeader}>
+                            <h3 className={styles.panelTitle}>{categories[openCategory].title}</h3>
+                            <p className={styles.panelSubtitle}>{(
+                              {
+                                marketing: 'Build real-world marketing skills with hands-on projects, tools, and mentor guidance.',
+                                technology: 'Learn to build scalable web and app products with industry-standard tools.',
+                                data: 'Turn data into insights with practical analysis and projects.',
+                                operations: 'Master operations and design workflows used by real businesses.'
+                              }[openCategory]
+                            )}</p>
+                          </header>
+
+                          <div className={styles.cardsGrid}>
+                            {categories[openCategory].courses.map((c) => {
+                              const href = c.slug === 'ecommerce' ? `/courses/ecommerce` : `/courses/${openCategory}/${c.slug}`;
+                              const courseMeta = (coursesData[openCategory] && coursesData[openCategory][c.slug]) || {};
+                              const desc = courseMeta.why || courseMeta.heroText || courseMeta.heroSubtitle || '';
                               return (
-                                <Link
-                                  key={c.slug}
-                                  href={href}
-                                  className={styles.practiceItem}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={() => {
-                                    setSelectedDomain(key);
-                                    setIsDesktopCoursesOpen(false);
-                                    setOpenCategory('');
-                                  }}
-                                >
-                                  {c.title}
-                                </Link>
+                                <div key={c.slug} className={styles.courseCard}>
+                                  <div className={styles.courseCardBody}>
+                                    <div className={styles.courseCardTitle}>{c.title}</div>
+                                    <div className={styles.courseCardDesc}>{desc}</div>
+                                  </div>
+                                  <Link href={href} className={styles.courseCardCta} target="_blank" rel="noopener noreferrer" onClick={() => { setSelectedDomain(openCategory); setIsDesktopCoursesOpen(false); setOpenCategory(''); }}>
+                                    <span>Explore course</span>
+                                    <span className={styles.ctaArrow} aria-hidden>→</span>
+                                  </Link>
+                                </div>
                               );
                             })}
                           </div>
+
+                          <div className={styles.panelFooter}>
+                            <Link href={`/courses/${openCategory}`} className={styles.viewAllCta} target="_blank" rel="noopener noreferrer" onClick={() => { setSelectedDomain(openCategory); setIsDesktopCoursesOpen(false); setOpenCategory(''); }}>
+                              View all {categories[openCategory].title} courses →
+                            </Link>
+                          </div>
                         </div>
-                      ))}
+                      ) : null}
                     </div>
                   </div>
                 </div>
@@ -548,7 +598,7 @@ export default function Navbar() {
         </>
       )}
       
-      {!isCourseRoute && (
+      {!isCourseRoute && !isApplyRoute && (
         <div className={styles.banner}>
           <div className={styles.bannerContent}>
             <span className={styles.arrow}></span>

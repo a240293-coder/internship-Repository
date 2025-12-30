@@ -3,12 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useMemo, useState, useEffect } from "react";
 import styles from "../styles/Apply.module.css";
+import Navbar from "../components/Navbar";
 
 const initialValues = {
   name: "",
   email: "",
   phone: "",
-  experience: "",
+  interestedDomain: "",
+  highestQualification: "",
 };
 
 export default function ApplyPage() {
@@ -105,8 +107,12 @@ export default function ApplyPage() {
       nextErrors.phone = "Enter a valid phone number.";
     }
 
-    if (formValues.experience && formValues.experience.length > 120) {
-      nextErrors.experience = "Keep experience summary under 120 characters.";
+    if (!formValues.interestedDomain || !formValues.interestedDomain.trim()) {
+      nextErrors.interestedDomain = "Please select the domain you are interested in.";
+    }
+
+    if (!formValues.highestQualification || !formValues.highestQualification.trim()) {
+      nextErrors.highestQualification = "Please select your highest qualification.";
     }
 
     return nextErrors;
@@ -142,29 +148,10 @@ export default function ApplyPage() {
       <Head>
         <title>Apply Now | LearnBetter</title>
       </Head>
-      <header className={styles.siteHeader}>
-        <div className={styles.headerContent}>
-          <button type="button" className={`${styles.brand} ${styles.brandButton}`} onClick={handleBrandReload} aria-label="Reload LearnBetter">
-            <span className={styles.brandLogo}>
-              <Image src="/favicon.jpg" alt="LearnBetter logo" width={40} height={40} priority />
-            </span>
-            <span className={styles.brandText}>
-              <span className={styles.brandTextPrimary}>Learn</span>
-              <span className={styles.brandTextAccent}>Better</span>
-            </span>
-          </button>
-          <nav className={styles.headerNav} aria-label="Apply page navigation">
-            <Link href="/" className={styles.navLink}>
-              Back to homepage
-            </Link>
-            <Link href="/auth/signup" className={styles.navLinkPrimary}>
-              Student login
-            </Link>
-          </nav>
-        </div>
-      </header>
-      <main className={styles.page}>
-        <section className={styles.panel}>
+      <main>
+        <Navbar />
+        <div className={styles.container}>
+          <section className={styles.panel}>
           <header className={styles.header}>
             <h1 className={styles.title}>MS in Computer Science Application</h1>
             <p className={styles.subtitle}>{reassuranceText}</p>
@@ -265,24 +252,67 @@ export default function ApplyPage() {
             </div>
 
             <div className={styles.fieldGroup}>
-              <label htmlFor="apply-experience" className={styles.label}>
-                Experience (optional)
+              <label htmlFor="apply-domain" className={styles.label}>
+                Interested Domain
               </label>
-              <textarea
-                id="apply-experience"
-                name="experience"
-                value={formValues.experience}
-                onChange={handleFieldChange("experience")}
-                placeholder="Tell us briefly about your background"
-                className={`${styles.textArea} ${errors.experience ? styles.inputError : ""}`}
-                rows={3}
-                aria-describedby={
-                  errors.experience ? "apply-experience-error" : undefined
-                }
-              />
-              {errors.experience ? (
-                <p id="apply-experience-error" className={styles.errorText} role="alert">
-                  {errors.experience}
+              <select
+                id="apply-domain"
+                name="interestedDomain"
+                value={formValues.interestedDomain}
+                onChange={handleFieldChange("interestedDomain")}
+                className={`${styles.input} ${errors.interestedDomain ? styles.inputError : ""}`}
+                aria-invalid={errors.interestedDomain ? "true" : "false"}
+                aria-describedby={errors.interestedDomain ? "apply-domain-error" : undefined}
+                required
+              >
+                <option value="" disabled>
+                  Select the domain you are interested in
+                </option>
+                  <option value="Digital Marketing">Digital Marketing</option>
+                  <option value="Social Media">Social Media</option>
+                  <option value="Public Relation & Outreach">Public Relation & Outreach</option>
+                  <option value="Ecommerce">Ecommerce</option>
+                  <option value="Web Development – Strategic Partner">Web Development – Strategic Partner</option>
+                  <option value="App Development">App Development</option>
+                  <option value="Data Science">Data Science</option>
+                  <option value="Logistics & Operations">Logistics & Operations</option>
+                  <option value="Designing">Designing</option>
+              </select>
+              {errors.interestedDomain ? (
+                <p id="apply-domain-error" className={styles.errorText} role="alert">
+                  {errors.interestedDomain}
+                </p>
+              ) : null}
+            </div>
+
+            <div className={styles.fieldGroup}>
+              <label htmlFor="apply-qualification" className={styles.label}>
+                Highest Qualification
+              </label>
+              <select
+                id="apply-qualification"
+                name="highestQualification"
+                value={formValues.highestQualification}
+                onChange={handleFieldChange("highestQualification")}
+                className={`${styles.input} ${errors.highestQualification ? styles.inputError : ""}`}
+                aria-invalid={errors.highestQualification ? "true" : "false"}
+                aria-describedby={errors.highestQualification ? "apply-qualification-error" : undefined}
+                required
+              >
+                <option value="" disabled>
+                    Select your highest qualification
+                </option>
+                  <option value="10th Pass">10th Pass</option>
+                  <option value="12th Pass">12th Pass</option>
+                  <option value="Diploma">Diploma</option>
+                  <option value="Undergraduate">Undergraduate</option>
+                  <option value="Postgraduate">Postgraduate</option>
+                  <option value="Working Professional">Working Professional</option>
+                  <option value="Other">Other</option>
+              </select>
+              {errors.highestQualification ? (
+                <p id="apply-qualification-error" className={styles.errorText} role="alert">
+                  {errors.highestQualification}
                 </p>
               ) : null}
             </div>
@@ -312,6 +342,7 @@ export default function ApplyPage() {
             ))}
           </div>
         </section>
+        </div>
       </main>
       <footer className={styles.siteFooter}>
         <div className={styles.footerInner}>
@@ -341,3 +372,4 @@ export default function ApplyPage() {
     </>
   );
 }
+

@@ -27,6 +27,13 @@ body {
   font-weight: 400;
 }
 
+/* CSS Custom Properties (global) */
+:root {
+  --primary: #2563eb;
+  --muted: #6b7280;
+  --bg: #fbfdfe;
+  --card: #ffffff;
+}
 #__next, main {
   width: 100%;
   overflow-x: hidden;

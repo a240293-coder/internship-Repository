@@ -411,6 +411,89 @@
   transition: color 0.2s ease;
 }
 
+/* Courses dropdown two-column panel */
+.coursesMenu {
+  /* desktop-centered dropdown using viewport space but capped */
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 1320px);
+  max-width: 1320px;
+  background: #fff;
+  color: #0b1220;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(2,6,23,0.12);
+  border: 1px solid rgba(15,23,42,0.06);
+  z-index: 1500;
+  overflow: hidden;
+}
+
+.menuPanel{display:grid;grid-template-columns:300px 1fr;gap:32px;min-height:220px;align-items:start}
+.menuLeft{width:300px;border-right:1.5px solid #eaeaea;display:flex;flex-direction:column;align-items:stretch;padding:12px 24px 12px 12px}
+.menuRight{flex:1;padding:24px;overflow:auto;max-height:calc(100vh - 160px);overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.categoryButton{background:transparent;border:none;text-align:left;padding:14px 12px;font-size:18px;font-weight:600;cursor:pointer;color:#111;position:relative;border-radius:8px;margin-bottom:6px;transition:background 200ms ease,color 200ms ease}
+.categoryButton:hover{color:#e10600;background:rgba(225,6,0,0.02)}
+.categoryButton.categoryActive{color:#e10600;font-weight:700;background:rgba(225,6,0,0.06);position:relative}
+/* prominent left indicator bar for active category */
+.categoryButton.categoryActive::before{content:'';position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:4px;height:70%;background:#e10600;border-radius:4px}
+.leftIndicator{position:absolute;left:0;top:12px;width:0;height:calc(100% - 24px);background:#e10600;border-radius:2px;opacity:0;transition:opacity 220ms ease,width 220ms}
+.categoryActive .leftIndicator{width:3px;opacity:1}
+.coursesList{display:flex;flex-direction:column;gap:8px}
+.courseItem{display:block;padding:10px 14px;border-radius:8px;text-decoration:none;color:inherit;background:transparent;border:1px solid transparent;transition:all 160ms ease}
+.courseItem:hover{background:rgba(225,6,0,0.04);border-color:rgba(225,6,0,0.06);transform:none;color:#e10600}
+.coursesEmpty{padding:28px;color:var(--muted)}
+
+/* Right panel enhancements */
+.rightPanelInner{display:flex;flex-direction:column;gap:16px;padding:16px}
+.panelHeader{padding:8px 0}
+.allCoursesPill{display:inline-block;background:#fff1f1;color:#e10600;font-weight:600;padding:6px 12px;border-radius:999px;font-size:14px;margin-bottom:14px}
+.panelTitle{margin:0;font-size:18px;font-weight:700;color:#0b1220}
+.panelSubtitle{margin:6px 0 0;color:rgba(11,18,32,0.7);font-size:13px}
+.cardsGrid{display:block;gap:16px;margin-top:12px}
+.courseCard{display:block;background:#fff6f6;border-radius:18px;padding:32px 36px;border:2px solid rgba(225,6,0,0.25);min-height:180px;margin-bottom:28px;transition:background 200ms ease,border-color 200ms ease,box-shadow 200ms ease;box-shadow:0 6px 20px rgba(2,6,23,0.04)}
+.courseCard:hover{background:#fff1f1;border-color:rgba(192,0,0,0.32);cursor:pointer;box-shadow:0 12px 36px rgba(2,6,23,0.08)}
+.courseCardBody{margin-bottom:14px;max-width:100%}
+.courseCardTitle{font-weight:700;color:#111;font-size:22px;margin-bottom:12px}
+.courseCardDesc{font-size:15.5px;color:#444;line-height:1.6;margin-bottom:14px}
+.courseCardCta{display:inline-flex;align-items:center;gap:8px;color:#e10600;text-decoration:none;font-weight:600;margin-top:16px;box-shadow:0 2px 8px rgba(2,6,23,0.06);transition:box-shadow 160ms ease,color 160ms ease,border-color 160ms ease,background 160ms ease;padding:6px 10px;border-radius:8px;white-space:nowrap;align-self:flex-start;width:-moz-fit-content;width:fit-content;max-width:none;border:2px solid rgba(225,6,0,0.18);background:rgba(225,6,0,0.02);font-size:15px}
+/* Keep CTA red in all link states to avoid default visited coloring */
+.courseCardCta:visited,
+.courseCardCta:active,
+.courseCardCta:focus,
+.courseCardCta:focus-visible {
+  color: #e10600;
+}
+.courseCardCta span{display:inline-block}
+.ctaArrow{display:inline-block;margin-left:6px;transition:transform 140ms ease}
+.courseCardCta:hover{text-decoration:underline;box-shadow:0 8px 28px rgba(2,6,23,0.12);border-color:rgba(225,6,0,0.18);background:rgba(225,6,0,0.02)}
+.courseCardCta:hover .ctaArrow{transform:translateX(4px)}
+.courseCardCta:active{box-shadow:0 6px 20px rgba(2,6,23,0.14);border-color:rgba(225,6,0,0.22);transform:translateY(0)}
+.courseCardCta:focus-visible{outline:none;box-shadow:0 8px 28px rgba(2,6,23,0.12),0 0 0 4px rgba(225,6,0,0.06);border-color:rgba(225,6,0,0.22)}
+.panelFooter{display:flex;justify-content:flex-end;padding-top:6px}
+.viewAllCta{color:#e10600;text-decoration:none;font-weight:700}
+
+@media(max-width:900px){
+  .cardsGrid{display:block}
+  .rightPanelInner{padding:12px}
+  .coursesMenu{border-radius:10px}
+  .courseCard{padding:24px 22px;margin-bottom:18px;min-height:auto}
+  .courseCardTitle{font-size:20px}
+  .courseCardDesc{font-size:15px}
+}
+
+@media (max-width: 768px) {
+  .coursesMenu{position:static;border-radius:8px;box-shadow:none;background:transparent;min-width:auto;width:100%}
+  .menuPanel{display:grid;grid-template-columns:1fr;gap:16px}
+  .menuLeft{width:100%;border-right:none;padding:0;margin-bottom:16px}
+  .menuRight{max-height:none;padding:0}
+  .categoryButton{padding:12px 10px;font-size:16px}
+  .courseItem{padding:14px 16px;font-size:15px}
+  .courseCard{padding:22px 18px;border-radius:14px}
+  .courseCardTitle{font-size:20px}
+  .courseCardDesc{font-size:15px}
+}
+
 .practiceBtn:hover {
   color: #e10600;
 }
