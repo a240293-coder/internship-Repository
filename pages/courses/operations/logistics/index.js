@@ -99,7 +99,7 @@ export default function Logistics() {
 
         <div className={styles.finalCta}>
           <Link href="/apply" className={styles.ctaPrimary}>Apply Now</Link>
-          <a className={styles.ctaSecondary} href="/contact">Talk to Career Expert</a>
+          <Link href="/contact" className={styles.ctaSecondary}>Talk to Career Expert</Link>
         </div>
       </main>
     </>
