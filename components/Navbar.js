@@ -490,39 +490,38 @@ export default function Navbar() {
                 </svg>
               </button>
               {showMobileCourses && (
-                <div className={styles.mobileSubmenu}>
+                <div className={styles.mobileAccordionWrap}>
                   {Object.entries(categories).map(([k, cat]) => (
-                    <div key={k}>
+                    <div key={k} className={styles.mobileAccordion}>
                       <button
-                        className={styles.mobileSubItem}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setMobileOpenCategory(prev => (prev === k ? '' : k));
-                        }}
-                        style={{ fontWeight: 700, width: '100%', textAlign: 'left' }}
+                        className={`${styles.accordionRow} ${mobileOpenCategory === k ? styles.open : ''}`}
+                        onClick={(e) => { e.stopPropagation(); setMobileOpenCategory(prev => (prev === k ? '' : k)); }}
+                        aria-expanded={mobileOpenCategory === k ? 'true' : 'false'}
                       >
-                        {cat.title}
+                        <span className={styles.accordionTitle}>{cat.title}</span>
+                        <svg className={`${styles.chevron} ${mobileOpenCategory === k ? styles.rotated : ''}`} width="14" height="10" viewBox="0 0 12 8" fill="none" aria-hidden>
+                          <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none"/>
+                        </svg>
                       </button>
-                      {mobileOpenCategory === k && (
-                        <div style={{ paddingLeft: 12 }}>
-                          {cat.courses.map(c => (
-                            <Link
-                              key={c.slug}
-                              href={`/courses/${k}/${c.slug}`}
-                              className={styles.mobileSubItem}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={() => {
-                                setSelectedDomain(k);
-                                setIsMobileMenuOpen(false);
-                              }}
-                              style={{ fontWeight: 500 }}
-                            >
-                              {c.title}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
+
+                      <div className={`${styles.accordionContent} ${mobileOpenCategory === k ? styles.open : ''}`}>
+                        {cat.courses.map(c => (
+                          <a
+                            key={c.slug}
+                            href={`/courses/${k}/${c.slug}`}
+                            className={styles.accordionCourse}
+                            onClick={(ev) => {
+                              ev.preventDefault();
+                              setSelectedDomain(k);
+                              setIsMobileMenuOpen(false);
+                              try { if (typeof window !== 'undefined') window.scrollTo(0,0); } catch (err) {}
+                              router.push(`/courses/${k}/${c.slug}`);
+                            }}
+                          >
+                            {c.title}
+                          </a>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -540,16 +539,22 @@ export default function Navbar() {
                 </svg>
               </button>
               {showMobileExpertise && (
-                <div className={styles.mobileSubmenu}>
-                  <Link href="/courses/marketing/digital-marketing" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Digital Marketing</Link>
-                  <Link href="/courses/marketing/ecommerce" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Ecommerce</Link>
-                  <Link href="/courses/technology/web-development" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Web development - Strategic Partner</Link>
-                  <Link href="/courses/operations/logistics" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Logistics and operations</Link>
-                  <Link href="/courses/marketing/pr-outreach" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Public relation and outreach</Link>
-                  <Link href="/courses/operations/designing" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Designing</Link>
-                  <Link href="/courses/marketing/social-media" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Social Media</Link>
-                  <Link href="/courses/technology/app-development" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">App Development</Link>
-                  <Link href="/courses/data/data-science" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Data Science</Link>
+                <div className={styles.mobileAccordionWrap}>
+                  {[
+                    { title: 'Digital Marketing', href: '/courses/marketing/digital-marketing' },
+                    { title: 'Ecommerce', href: '/courses/marketing/ecommerce' },
+                    { title: 'Web development - Strategic Partner', href: '/courses/technology/web-development' },
+                    { title: 'Logistics and operations', href: '/courses/operations/logistics' },
+                    { title: 'Public relation and outreach', href: '/courses/marketing/pr-outreach' },
+                    { title: 'Designing', href: '/courses/operations/designing' },
+                    { title: 'Social Media', href: '/courses/marketing/social-media' },
+                    { title: 'App Development', href: '/courses/technology/app-development' },
+                    { title: 'Data Science', href: '/courses/data/data-science' },
+                  ].map(item => (
+                    <a key={item.href} href={item.href} className={styles.accordionCourse} onClick={(ev) => { ev.preventDefault(); setIsMobileMenuOpen(false); try { if (typeof window !== 'undefined') window.scrollTo(0,0); } catch(e){}; router.push(item.href); }}>
+                      {item.title}
+                    </a>
+                  ))}
                 </div>
               )}
               <a href="#placements" className={styles.mobileMenuItem}>Placements</a>
