@@ -50,6 +50,29 @@
   padding-bottom: 3rem;
 }
 
+/* ensure only one slide is visible at a time */
+.testimonialWrapper {
+  overflow: hidden;
+}
+
+/* allow vertical touch scrolling while we handle horizontal swipe in JS */
+.testimonialWrapper {
+  touch-action: pan-y;
+}
+
+.track {
+  display: flex;
+  width: 100%;
+  will-change: transform;
+  flex-wrap: nowrap;
+}
+
+/* minor performance hint for mobile */
+.track {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 .arrows {
   display: flex;
   justify-content: center;
@@ -78,19 +101,13 @@
 }
 
 .testimonialCard {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  pointer-events: none;
-}
-
-.testimonialCard.active {
+  flex: 0 0 100%;
+  box-sizing: border-box;
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+  transition: transform 0.35s ease;
   pointer-events: auto;
 }
 
@@ -118,8 +135,18 @@
 
 .testimonialImage {
   /* scale down avatar/icon size for a more compact card */
-  font-size: 3.6rem;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonialAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
 .testimonialText {
@@ -156,6 +183,16 @@
   display: none;
 }
 
+/* show dots on mobile for better paging feedback */
+@media (max-width: 768px) {
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+}
+
 .dot {
   width: 12px;
   height: 12px;
@@ -177,9 +214,19 @@
   background: #9ca3af;
 }
 
+/* dragging state to give visual feedback while swiping */
+.dragging {
+  cursor: grabbing;
+}
+
 @media (max-width: 768px) {
   .testimonials {
     padding: 2.75rem 0 3.5rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+    max-width: 720px;
   }
 
   .title {
@@ -204,8 +251,10 @@
   }
 
   .testimonialImage {
-    font-size: 2.8rem;
     margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .testimonialName {
@@ -234,6 +283,11 @@
   }
 }
 
+/* dragging state to give visual feedback while swiping */
+.dragging {
+  cursor: grabbing;
+}
+
 /* Hide dots on tablet/desktop to declutter pagination there and add extra breathing room */
 @media (min-width: 769px) {
   .testimonialWrapper {
@@ -249,5 +303,9 @@
 
   .arrows {
     margin-top: 2.4rem;
+  }
+  .container {
+    padding: 0 2rem;
+    max-width: 1200px;
   }
 }

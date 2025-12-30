@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>learnBetter - Masters in Computer Science: Cloud Computing & AI System Design</title>
+        <title>LearnBetter - Masters in Computer Science: Cloud Computing & AI System Design</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>

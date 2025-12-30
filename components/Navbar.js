@@ -2,22 +2,102 @@
 
 import styles from "./Navbar.module.css";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useRouter } from "next/router";
+import Link from 'next/link';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   // Desktop hover dropdown states
   const [isDesktopCoursesOpen, setIsDesktopCoursesOpen] = useState(false);
+  const [selectedDomain, setSelectedDomain] = useState("");
+  const [openCategory, setOpenCategory] = useState(""); // accordion state: 'marketing'|'technology'|'data'|'operations'
   const [isDesktopPracticeOpen, setIsDesktopPracticeOpen] = useState(false);
+  const [isDesktopExpertiseOpen, setIsDesktopExpertiseOpen] = useState(false);
   // Small close delays via refs to avoid re-renders
   const coursesCloseTimerRef = useRef(null);
   const practiceCloseTimerRef = useRef(null);
+  const expertiseCloseTimerRef = useRef(null);
+  const coursesMenuRef = useRef(null);
+  const router = useRouter();
+  const isCourseRoute = router && typeof router.asPath === 'string' && (
+    router.asPath.startsWith('/courses/') || router.asPath.startsWith('/certificate')
+  );
+  // Keep selectedDomain in sync with the current route so active state persists
+  useEffect(() => {
+    if (!router || !router.asPath) return;
+    const parts = router.asPath.split('/').filter(Boolean);
+    if (parts[0] === 'courses' && parts[1]) {
+      const slug = parts[1];
+      if (['marketing', 'technology', 'data', 'operations'].includes(slug)) {
+        setSelectedDomain(slug);
+        return;
+      }
+    }
+    setSelectedDomain('');
+  }, [router.asPath]);
+
+  const categories = {
+    marketing: {
+      title: 'Marketing & Growth',
+      courses: [
+        { slug: 'digital-marketing', title: 'Digital Marketing' },
+        { slug: 'social-media', title: 'Social Media' },
+        { slug: 'pr-outreach', title: 'Public Relation & Outreach' },
+        { slug: 'ecommerce', title: 'Ecommerce' },
+      ],
+    },
+    technology: {
+      title: 'Technology & Development',
+      courses: [
+        { slug: 'web-development', title: 'Web Development (Strategic Partner)' },
+        { slug: 'app-development', title: 'App Development' },
+      ],
+    },
+    data: {
+      title: 'Data & Intelligence',
+      courses: [
+        { slug: 'data-science', title: 'Data Science' },
+      ],
+    },
+    operations: {
+      title: 'Operations & Design',
+      courses: [
+        { slug: 'logistics', title: 'Logistics & Operations' },
+        { slug: 'designing', title: 'Designing' },
+      ],
+    },
+  };
+
+  const toggleCategory = (key) => {
+    setOpenCategory(prev => (prev === key ? '' : key));
+  };
   // Mobile menu and nested dropdowns
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showMobileCourses, setShowMobileCourses] = useState(false);
+  const [mobileOpenCategory, setMobileOpenCategory] = useState('');
   const [showMobileSignIn, setShowMobileSignIn] = useState(false);
+  const [showMobileExpertise, setShowMobileExpertise] = useState(false);
   // Banner rotation
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
+  // Banner rotating texts (prevent runtime error if undefined)
+  const bannerTexts = [
+    "Build job-ready skills with hands-on projects",
+    "Get mentored by industry experts",
+    "Launch your career with real internships",
+  ];
+
+  // Simple rotation effect for banner text
+  useEffect(() => {
+    const rotate = setInterval(() => {
+      setIsFading(true);
+      setTimeout(() => {
+        setCurrentTextIndex((i) => (i + 1) % bannerTexts.length);
+        setIsFading(false);
+      }, 300);
+    }, 4000);
+    return () => clearInterval(rotate);
+  }, [bannerTexts.length]);
   // Sign In Dropdown state (hover-based for desktop)
   const [showSignInDropdown, setShowSignInDropdown] = useState(false);
   // Close mobile nested dropdowns when mobile menu closes
@@ -25,60 +105,9 @@ export default function Navbar() {
     if (!isMobileMenuOpen) {
       setShowMobileCourses(false);
       setShowMobileSignIn(false);
+      setShowMobileExpertise(false);
     }
   }, [isMobileMenuOpen]);
-
-  const bannerTexts = [
-    "🚀 Your Success, Our Mission!",
-    "🎓 Next cohort starts on 26th Dec, 2025",
-    "💼 Internship opportunities with real industry projects"
-  ];
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const mql = window.matchMedia('(min-width: 768px)');
-    let intervalId = null;
-
-    const setupRotation = () => {
-      if (mql.matches) {
-        // Laptop/tablet rotation every 5 seconds with smooth fade
-        intervalId = setInterval(() => {
-          setIsFading(true);
-          setTimeout(() => {
-            setCurrentTextIndex(prev => (prev + 1) % bannerTexts.length);
-            setIsFading(false);
-          }, 300);
-        }, 5000);
-      } else {
-        // Ensure no fading state persists on mobile
-        setIsFading(false);
-      }
-    };
-
-    setupRotation();
-
-    const handleChange = () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-        intervalId = null;
-      }
-      setupRotation();
-    };
-
-    mql.addEventListener('change', handleChange);
-    return () => {
-      mql.removeEventListener('change', handleChange);
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [bannerTexts.length]);
 
   // Lock body scroll only for mobile menu
   useEffect(() => {
@@ -91,6 +120,88 @@ export default function Navbar() {
       document.body.style.overflow = "";
     };
   }, [isMobileMenuOpen]);
+  // Lock body scroll when Courses dropdown is open (prevent background scroll)
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (!isDesktopCoursesOpen) return;
+
+    const prevOverflow = document.body.style.overflow;
+    const prevPaddingRight = document.body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      document.body.style.overflow = prevOverflow || "";
+      document.body.style.paddingRight = prevPaddingRight || "";
+    };
+  }, [isDesktopCoursesOpen]);
+
+  // clear openCategory when the dropdown itself closes
+  useEffect(() => {
+    if (!isDesktopCoursesOpen) setOpenCategory('');
+  }, [isDesktopCoursesOpen]);
+
+  // Prevent background scroll and scroll chaining while dropdown is open
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const menuEl = coursesMenuRef.current;
+    if (!isDesktopCoursesOpen || !menuEl) return;
+
+    // Wheel handler on the menu to prevent propagation at boundaries
+    const onMenuWheel = (e) => {
+      // allow if menu can scroll in the delta direction
+      const delta = e.deltaY;
+      const atTop = menuEl.scrollTop === 0;
+      const atBottom = Math.ceil(menuEl.scrollTop + menuEl.clientHeight) >= menuEl.scrollHeight;
+      if ((delta < 0 && atTop) || (delta > 0 && atBottom)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      // otherwise allow scrolling inside menu
+    };
+
+    // Touch handling for mobile/touch devices
+    let startY = 0;
+    const onTouchStart = (e) => {
+      if (e.touches && e.touches.length) startY = e.touches[0].clientY;
+    };
+    const onMenuTouchMove = (e) => {
+      if (!e.touches || !e.touches.length) return;
+      const currentY = e.touches[0].clientY;
+      const delta = startY - currentY;
+      const atTop = menuEl.scrollTop === 0;
+      const atBottom = Math.ceil(menuEl.scrollTop + menuEl.clientHeight) >= menuEl.scrollHeight;
+      if ((delta < 0 && atTop) || (delta > 0 && atBottom)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    // Prevent wheel on document when not over the menu
+    const onDocWheel = (e) => {
+      if (!menuEl.contains(e.target)) {
+        e.preventDefault();
+      }
+    };
+
+    // Use non-passive to allow preventDefault
+    menuEl.addEventListener('wheel', onMenuWheel, { passive: false });
+    menuEl.addEventListener('touchstart', onTouchStart, { passive: true });
+    menuEl.addEventListener('touchmove', onMenuTouchMove, { passive: false });
+    document.addEventListener('wheel', onDocWheel, { passive: false });
+
+    return () => {
+      menuEl.removeEventListener('wheel', onMenuWheel);
+      menuEl.removeEventListener('touchstart', onTouchStart);
+      menuEl.removeEventListener('touchmove', onMenuTouchMove);
+      document.removeEventListener('wheel', onDocWheel);
+    };
+  }, [isDesktopCoursesOpen]);
+  // single body-lock useEffect above; duplicate lines removed
   // No global listeners for desktop hover menus
 
   // No document click listeners for Sign In dropdown (hover only)
@@ -125,19 +236,20 @@ export default function Navbar() {
     <>
       <header
         className={`${styles.navbar} navbar-global ${scrolled ? styles.scrolled : ""}`}
-        onMouseLeave={disableBlur}
       >
-        <div className={styles.container}>
+        <div className={styles.container} onMouseLeave={disableBlur}>
           <div className={styles.leftSection}>
             <button
               type="button"
               className={styles.logoButton}
               onClick={handleLogoClick}
-              aria-label="Refresh LearnBetter homepage"
+              aria-label="Open LearnBetter homepage"
             >
-              <span className={styles.logo}>Learn<span className={styles.logoHighlight}>Better</span></span>
+              <span style={{ marginLeft: 0 }} className={styles.logo}>Learn<span className={styles.logoHighlight}>Better</span></span>
             </button>
-            
+          </div>
+          
+          <nav className={styles.navLinks}>
             <div
               className={styles.coursesDropdown}
               onMouseEnter={() => {
@@ -149,90 +261,102 @@ export default function Navbar() {
                 coursesCloseTimerRef.current = setTimeout(() => setIsDesktopCoursesOpen(false), 120);
               }}
             >
-              <button 
+              <button
                 className={styles.coursesBtn}
                 aria-label="Courses dropdown"
+                aria-expanded={isDesktopCoursesOpen ? 'true' : 'false'}
               >
-                Courses
+                <span className={styles.coursesLabel}>Courses</span>
                 <svg width="12" height="8" viewBox="0 0 12 8" fill="currentColor">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none"/>
                 </svg>
               </button>
-              
+
               {isDesktopCoursesOpen && (
-                <div className={styles.coursesMenu}>
+                <div ref={coursesMenuRef} className={styles.coursesMenu} role="menu" aria-label="Courses menu">
                   <div className={styles.menuContainer}>
                     <div className={styles.categories}>
-                      <ul>
-                        <li className={styles.active}>All Internships <span>(6)</span></li>
-                        <li>Tech Internships <span>(3)</span></li>
-                        <li>Data & AI Internships <span>(2)</span></li>
-                        <li>Web & Software Internships <span>(1)</span></li>
-                      </ul>
-                    </div>
-                    
-                    <div className={styles.internships}>
-                      <div className={styles.internshipCard}>
-                        <div className={styles.partner}>LearnBetter Labs</div>
-                        <div className={styles.title}>Full Stack Web Development Internship</div>
-                        <div className={styles.desc}>Hands-on internship with real-world projects and mentor support</div>
-                        <div className={styles.badge}>Popular</div>
-                        <div className={styles.arrow}>↗</div>
-                      </div>
-                      
-                      <div className={styles.internshipCard}>
-                        <div className={styles.partner}>Industry Partner</div>
-                        <div className={styles.title}>Data Analytics & AI Internship</div>
-                        <div className={styles.desc}>Excel, SQL, Power BI, Python with real datasets</div>
-                        <div className={styles.badge}>Top Rated</div>
-                        <div className={styles.arrow}>↗</div>
-                      </div>
-                      
-                      <div className={styles.internshipCard}>
-                        <div className={styles.partner}>LearnBetter Labs</div>
-                        <div className={styles.title}>Cloud Computing Internship</div>
-                        <div className={styles.desc}>AWS fundamentals, CI/CD exposure, DevOps basics</div>
-                        <div className={styles.badge}>Beginner Friendly</div>
-                        <div className={styles.arrow}>↗</div>
-                      </div>
-                      
-                      <div className={styles.internshipCard}>
-                        <div className={styles.partner}>Industry Partner</div>
-                        <div className={styles.title}>AI & ML Internship</div>
-                        <div className={styles.desc}>Machine Learning basics, real datasets, model training</div>
-                        <div className={styles.badge}>Popular</div>
-                        <div className={styles.arrow}>↗</div>
-                      </div>
-                      
-                      <div className={styles.internshipCard}>
-                        <div className={styles.partner}>LearnBetter Labs</div>
-                        <div className={styles.title}>Software Engineering Internship</div>
-                        <div className={styles.desc}>Problem solving, Git, team projects, code reviews</div>
-                        <div className={styles.badge}>Top Rated</div>
-                        <div className={styles.arrow}>↗</div>
-                      </div>
-                      
-                      <div className={styles.internshipCard}>
-                        <div className={styles.partner}>Industry Partner</div>
-                        <div className={styles.title}>Web & Software Internship</div>
-                        <div className={styles.desc}>HTML, CSS, JavaScript, React development</div>
-                        <div className={styles.badge}>Beginner Friendly</div>
-                        <div className={styles.arrow}>↗</div>
-                      </div>
+                      {Object.entries(categories).map(([key, cat]) => (
+                        <div
+                          key={key}
+                          onMouseEnter={() => setOpenCategory(key)}
+                          onMouseLeave={() => setOpenCategory('')}
+                        >
+                          <button
+                            type="button"
+                            className={styles.domainHeading + ' ' + styles.domainBoard + (selectedDomain === key ? ` ${styles.domainActive}` : '')}
+                            onClick={() => setOpenCategory(prev => (prev === key ? '' : key))}
+                            aria-expanded={openCategory === key ? 'true' : 'false'}
+                          >
+                            {cat.title}
+                          </button>
+
+                          <div className={styles.practiceListWrapper + (openCategory === key ? ` ${styles.open}` : '')}>
+                            {cat.courses.map((c) => (
+                              <Link
+                                key={c.slug}
+                                href={`/courses/${key}/${c.slug}`}
+                                className={styles.practiceItem}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => {
+                                  setSelectedDomain(key);
+                                  setIsDesktopCoursesOpen(false);
+                                  setOpenCategory('');
+                                }}
+                              >
+                                {c.title}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
               )}
             </div>
-          </div>
-          
-          <nav className={styles.navLinks}>
             <a
               href="#placements"
             >Placements</a>
-            <a
-              href="#masterclass"
-            >Masterclass</a>
+            <div
+              className={styles.expertiseDropdown}
+              onMouseEnter={() => {
+                enableBlur();
+                if (expertiseCloseTimerRef.current) clearTimeout(expertiseCloseTimerRef.current);
+                setIsDesktopExpertiseOpen(true);
+              }}
+              onMouseLeave={() => {
+                if (expertiseCloseTimerRef.current) clearTimeout(expertiseCloseTimerRef.current);
+                expertiseCloseTimerRef.current = setTimeout(() => setIsDesktopExpertiseOpen(false), 120);
+                disableBlur();
+              }}
+            >
+              <button className={`${styles.practiceBtn} ${styles.freePracticeLink}`} aria-label="Our Expertise dropdown">
+                <span className={styles.practiceLabel}>Our Expertise</span>
+              </button>
+              {isDesktopExpertiseOpen && (
+                  <div className={styles.expertiseMenu}>
+                    <Link href="/courses/marketing/digital-marketing" className={styles.expertiseItem} target="_blank" rel="noopener noreferrer">Digital Marketing</Link>
+                    <div className={styles.expertiseDivider}></div>
+                    <Link href="/courses/marketing/ecommerce" className={styles.expertiseItem} target="_blank" rel="noopener noreferrer">Ecommerce</Link>
+                    <div className={styles.expertiseDivider}></div>
+                    <Link href="/courses/technology/web-development" className={styles.expertiseItem} target="_blank" rel="noopener noreferrer">Web development - Strategic Partner</Link>
+                    <div className={styles.expertiseDivider}></div>
+                    <Link href="/courses/operations/logistics" className={styles.expertiseItem} target="_blank" rel="noopener noreferrer">Logistics and operations</Link>
+                    <div className={styles.expertiseDivider}></div>
+                    <Link href="/courses/marketing/pr-outreach" className={styles.expertiseItem} target="_blank" rel="noopener noreferrer">Public relation and outreach</Link>
+                    <div className={styles.expertiseDivider}></div>
+                    <Link href="/courses/operations/designing" className={styles.expertiseItem} target="_blank" rel="noopener noreferrer">Designing</Link>
+                    <div className={styles.expertiseDivider}></div>
+                    <Link href="/courses/marketing/social-media" className={styles.expertiseItem} target="_blank" rel="noopener noreferrer">Social Media</Link>
+                    <div className={styles.expertiseDivider}></div>
+                    <Link href="/courses/technology/app-development" className={styles.expertiseItem} target="_blank" rel="noopener noreferrer">App Development</Link>
+                    <div className={styles.expertiseDivider}></div>
+                    <Link href="/courses/data/data-science" className={styles.expertiseItem} target="_blank" rel="noopener noreferrer">Data Science</Link>
+                  </div>
+                )}
+            </div>
             <div
               className={styles.practiceDropdown}
               onMouseEnter={() => {
@@ -268,12 +392,8 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-            <a
-              href="#hire"
-              onMouseEnter={enableBlur}
-              onMouseLeave={disableBlur}
-            >Hire From Us</a>
-            <a href="#contact">Contact Us</a>
+            
+            <a href="/contact" target="_blank" rel="noopener noreferrer">Contact Us</a>
             <a
               href="/about"
               target="_blank"
@@ -341,9 +461,9 @@ export default function Navbar() {
                 type="button"
                 className={styles.mobileLogoButton}
                 onClick={handleLogoClick}
-                aria-label="Refresh LearnBetter homepage"
+                aria-label="Open LearnBetter homepage"
               >
-                <span className={styles.mobileLogo}>Learn<span className={styles.logoHighlight}>Better</span></span>
+                <span style={{ marginLeft: 0 }} className={styles.mobileLogo}>Learn<span className={styles.logoHighlight}>Better</span></span>
               </button>
               <button className={styles.closeBtn} onClick={() => setIsMobileMenuOpen(false)} aria-label="Close menu">×</button>
             </div>
@@ -364,23 +484,77 @@ export default function Navbar() {
                   setShowMobileCourses(prev => !prev);
                 }}
               >
-                Courses
+                <span className={styles.coursesLabel}>Courses</span>
                 <svg className={`${styles.chevron} ${showMobileCourses ? styles.rotated : ''}`} width="12" height="8" viewBox="0 0 12 8" fill="currentColor">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none"/>
                 </svg>
               </button>
               {showMobileCourses && (
                 <div className={styles.mobileSubmenu}>
-                  <a href="#internships" className={styles.mobileSubItem}>All Internships</a>
-                  <a href="#tech" className={styles.mobileSubItem}>Tech Internships</a>
-                  <a href="#data" className={styles.mobileSubItem}>Data & AI Internships</a>
-                  <a href="#web" className={styles.mobileSubItem}>Web & Software Internships</a>
+                  {Object.entries(categories).map(([k, cat]) => (
+                    <div key={k}>
+                      <button
+                        className={styles.mobileSubItem}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setMobileOpenCategory(prev => (prev === k ? '' : k));
+                        }}
+                        style={{ fontWeight: 700, width: '100%', textAlign: 'left' }}
+                      >
+                        {cat.title}
+                      </button>
+                      {mobileOpenCategory === k && (
+                        <div style={{ paddingLeft: 12 }}>
+                          {cat.courses.map(c => (
+                            <Link
+                              key={c.slug}
+                              href={`/courses/${k}/${c.slug}`}
+                              className={styles.mobileSubItem}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={() => {
+                                setSelectedDomain(k);
+                                setIsMobileMenuOpen(false);
+                              }}
+                              style={{ fontWeight: 500 }}
+                            >
+                              {c.title}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+              <button
+                className={styles.mobileMenuItem}
+                onClick={e => {
+                  e.stopPropagation();
+                  setShowMobileExpertise(prev => !prev);
+                }}
+              >
+                Our Expertise
+                <svg className={`${styles.chevron} ${showMobileExpertise ? styles.rotated : ''}`} width="12" height="8" viewBox="0 0 12 8" fill="currentColor">
+                  <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none"/>
+                </svg>
+              </button>
+              {showMobileExpertise && (
+                <div className={styles.mobileSubmenu}>
+                  <Link href="/courses/marketing/digital-marketing" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Digital Marketing</Link>
+                  <Link href="/courses/marketing/ecommerce" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Ecommerce</Link>
+                  <Link href="/courses/technology/web-development" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Web development - Strategic Partner</Link>
+                  <Link href="/courses/operations/logistics" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Logistics and operations</Link>
+                  <Link href="/courses/marketing/pr-outreach" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Public relation and outreach</Link>
+                  <Link href="/courses/operations/designing" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Designing</Link>
+                  <Link href="/courses/marketing/social-media" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Social Media</Link>
+                  <Link href="/courses/technology/app-development" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">App Development</Link>
+                  <Link href="/courses/data/data-science" className={styles.mobileSubItem} target="_blank" rel="noopener noreferrer">Data Science</Link>
                 </div>
               )}
               <a href="#placements" className={styles.mobileMenuItem}>Placements</a>
-              <a href="#masterclass" className={styles.mobileMenuItem}>Masterclass</a>
               <a href="#practice" className={styles.mobileMenuItem}><span className={styles.practiceLabel}>Practice</span><span className={styles.freeText}>FREE</span></a>
-              <a href="#contact" className={styles.mobileMenuItem}>Contact Us</a>
+              <a href="/contact" className={styles.mobileMenuItem} target="_blank" rel="noopener noreferrer">Contact Us</a>
               <a
                 href="/about"
                 target="_blank"
@@ -427,30 +601,32 @@ export default function Navbar() {
         </>
       )}
       
-      <div className={styles.banner}>
-        <div className={styles.bannerContent}>
-          <span className={styles.arrow}></span>
-          <div className={styles.bannerTextGroup}>
-            <span
-              className={`${styles.bannerText} ${isFading ? styles.bannerTextFading : styles.bannerTextVisible}`}
-            >
-              {bannerTexts[currentTextIndex]}
-            </span>
-            <button className={styles.btnBookNow} aria-label="Book a live demo session">Book Now</button>
-          </div>
-          {/* Mobile-specific compact announcement layout */}
-          <div className={styles.mobileBannerRow}>
-            <div className={styles.mobileBannerLeft}>
-              <span className={styles.bannerIcon}>🚀</span>
-              <div className={styles.mobileBannerText}>
-                <div className={styles.mobileBannerHeadline}>Your Success, Our Mission!</div>
-                <div className={styles.mobileBannerSubtext}>Next cohort starts on 26th Dec, 2025</div>
-              </div>
+      {!isCourseRoute && (
+        <div className={styles.banner}>
+          <div className={styles.bannerContent}>
+            <span className={styles.arrow}></span>
+            <div className={styles.bannerTextGroup}>
+              <span
+                className={`${styles.bannerText} ${isFading ? styles.bannerTextFading : styles.bannerTextVisible}`}
+              >
+                {bannerTexts[currentTextIndex]}
+              </span>
+              <button className={styles.btnBookNow} aria-label="Book a live demo session">Book Now</button>
             </div>
-            <button className={styles.btnMobileBook} aria-label="Book a live demo session">Book Now</button>
+            {/* Mobile-specific compact announcement layout */}
+            <div className={styles.mobileBannerRow}>
+              <div className={styles.mobileBannerLeft}>
+                <span className={styles.bannerIcon}>🚀</span>
+                <div className={styles.mobileBannerText}>
+                  <div className={styles.mobileBannerHeadline}>Your Success, Our Mission!</div>
+                  <div className={styles.mobileBannerSubtext}>Next cohort starts on 26th Dec, 2025</div>
+                </div>
+              </div>
+              <button className={styles.btnMobileBook} aria-label="Book a live demo session">Book Now</button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       
       {/* Overlay removed for hover-based dropdown */}
     </>

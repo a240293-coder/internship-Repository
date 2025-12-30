@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import styles from './Mentors.module.css';
 
 export default function Mentors() {
@@ -61,24 +62,24 @@ export default function Mentors() {
   const mentors = [
     {
       name: 'Dr. Rajesh Kumar',
-      role: 'Cloud Architect',
+      role: 'Data science',
       company: 'Google',
       bio: '15+ years in cloud computing, Former AWS Solutions Architect',
-      image: '👨‍💼',
+      image: '/profile.jpg',
     },
     {
       name: 'Sarah Williams',
-      role: 'AI/ML Lead',
+      role: 'App development',
       company: 'Microsoft',
       bio: 'PhD in AI, Published researcher with 50+ papers',
-      image: '👩‍💼',
+      image: '/profile.jpg',
     },
     {
       name: 'Michael Chen',
-      role: 'System Design Expert',
+      role: 'Social media',
       company: 'Amazon',
       bio: 'Built large-scale systems handling 100M+ users',
-      image: '👨‍🏫',
+      image: '/profile.jpg',
     },
   ];
 
@@ -112,7 +113,15 @@ export default function Mentors() {
                   : undefined
               }
             >
-              <div className={styles.mentorImage}>{mentor.image}</div>
+              <div className={styles.mentorImage}>
+                <Image
+                  src={mentor.image}
+                  alt={mentor.name}
+                  width={72}
+                  height={72}
+                  className={styles.mentorAvatar}
+                />
+              </div>
               <h3 className={styles.mentorName}>{mentor.name}</h3>
               <p className={styles.mentorRole}>{mentor.role}</p>
               <p className={styles.mentorCompany}>{mentor.company}</p>
@@ -120,6 +129,23 @@ export default function Mentors() {
             </div>
           ))}
         </div>
+        {/* Mobile pagination dots */}
+        {isMobile && (
+          <div className={styles.mentorDots} aria-hidden={false}>
+            {mentors.map((_, i) => (
+              <button
+                key={i}
+                className={`${styles.mentorDot} ${i === currentIndex ? styles.activeDot : ''}`}
+                onClick={() => {
+                  setCurrentIndex(i);
+                  indexRef.current = i;
+                  pauseAndResume();
+                }}
+                aria-label={`Go to mentor ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -357,8 +357,8 @@
 .navLinks a {
   color: white;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 13px;
+  font-weight: 400;
+  font-size: 14px;
   transition: color 0.2s ease;
   white-space: nowrap;
   font-family: Arial, sans-serif;
@@ -431,7 +431,7 @@
   border: none;
   background: none;
   color: #fff;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
   cursor: pointer;
   transition: color 0.2s ease;
@@ -464,12 +464,68 @@
   overflow: hidden;
 }
 
+/* Expertise dropdown styles */
+.expertiseDropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.expertiseMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #0b0b0b;
+  border-radius: 10px;
+  box-shadow: 0 14px 40px rgba(2,6,23,0.6);
+  padding: 8px 0;
+  width: 260px;
+  z-index: 1600;
+  animation: fadeInDown 0.22s ease-out;
+  border: 1px solid rgba(255,255,255,0.04);
+  overflow: hidden;
+}
+
+.expertiseItem {
+  display: block;
+  padding: 12px 18px;
+  color: #f8fafc;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 14px;
+  transition: background 0.12s ease, color 0.12s ease;
+  text-align: left;
+  font-family: Arial, sans-serif;
+}
+
+.expertiseItem:hover {
+  background: linear-gradient(90deg, rgba(225,6,0,0.06), rgba(255,255,255,0.01));
+  color: #fff;
+}
+
+.expertiseDivider {
+  height: 1px;
+  background: rgba(255,255,255,0.03);
+  margin: 4px 0;
+  width: 100%;
+}
+
+/* Ensure the dropdown aligns well on narrow screens */
+@media (max-width: 900px) {
+  .expertiseMenu {
+    left: auto;
+    right: 0;
+    width: 220px;
+  }
+}
+
 .practiceItem {
   display: block;
   padding: 14px 18px;
   color: #f1f5f9;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
   transition: background 0.15s ease, color 0.15s ease;
   text-align: center;
@@ -511,8 +567,8 @@
 
 .practiceLabel {
   color: #ffffff;
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: 400;
+  font-size: 14px;
   line-height: 1.2;
 }
 
@@ -542,12 +598,16 @@
   color: #cc0000;
   border: none;
   border-radius: 12px;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 13px;
   cursor: pointer;
   transition: all 0.25s ease;
   font-family: Arial, sans-serif;
   height: 36px;
+}
+
+.coursesLabel {
+  font-weight: 700;
 }
 
 .coursesBtn:hover {
@@ -581,7 +641,12 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   z-index: 9999;
   animation: slideDownFade 0.25s ease-out;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
+}
+
+/* Prevent scroll chaining from dropdown to body when user scrolls inside the menu */
+.coursesMenu {
+  overscroll-behavior: contain;
 }
 
 .menuContainer {
@@ -591,10 +656,99 @@
 }
 
 .categories {
-  flex: 0 0 220px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 1.5rem 2.5rem; /* increased gap to prevent visual crowding */
   background: #f9fafb;
   padding: 1.5rem;
   border-radius: 8px;
+  align-items: start;
+}
+
+/* Accordion list wrapper for courses inside each category */
+.practiceListWrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.28s ease, padding 0.22s ease;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.practiceListWrapper.open {
+  max-height: 420px; /* plenty for lists */
+  padding-top: 0.5rem;
+}
+
+/* helper class applied by JS via CSS module mapping when open */
+.open {
+  max-height: 420px !important;
+  padding-top: 0.5rem !important;
+}
+
+/* Column partitions (subtle vertical separators) */
+.categories > div {
+  padding: 0 0.75rem; /* more inner padding so text doesn't touch separators */
+  min-width: 0; /* allow proper wrapping inside grid columns */
+  box-sizing: border-box;
+}
+.categories > div + div {
+  border-left: 1px solid rgba(15, 23, 42, 0.06);
+  padding-left: 1rem;
+}
+
+/* Ensure domain items inside the Courses dropdown are visible and readable
+   Scoped to .coursesMenu to avoid changing other dropdowns / components */
+.coursesMenu .categories .practiceItem,
+.coursesMenu .categories a {
+  color: #0f172a; /* darker for emphasis */
+  opacity: 1;
+  text-align: left;
+  font-size: 14px; /* reduced to match requested size */
+  line-height: 1.6;
+  margin: 8px 0;
+  display: block;
+  position: relative;
+  z-index: 10; /* keep text above background layers */
+  white-space: normal; /* ensure text wraps within its column */
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  font-weight: 400; /* ensure course names are not bold */
+}
+.coursesMenu .categories h4 {
+  margin: 0 0 0.75rem 0;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Ensure the domain heading buttons react to hover: turn red while hovered */
+.coursesMenu .categories .domainHeading,
+.coursesMenu .categories .domainBoard {
+  transition: color 0.12s ease;
+  font-size: 13px; /* reduce domain heading size to 13px */
+  white-space: nowrap; /* keep heading on a single line */
+  overflow-wrap: normal;
+}
+.coursesMenu .categories .domainHeading:hover,
+.coursesMenu .categories .domainBoard:hover {
+  color: #e10600; /* red on hover */
+}
+
+/* Ensure domain items remain visible in all interaction states (click, focus, visited) */
+.coursesMenu .categories a:focus,
+.coursesMenu .categories a:active,
+.coursesMenu .categories a:visited,
+.coursesMenu .categories a:hover,
+.coursesMenu .categories .practiceItem:focus,
+.coursesMenu .categories .practiceItem:active,
+.coursesMenu .categories .practiceItem:visited,
+.coursesMenu .categories .practiceItem:hover {
+  color: #111827 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-decoration: none;
 }
 
 .categories ul {
@@ -789,8 +943,8 @@
   background: none;
   border: none;
   color: white;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
   text-align: left;
   cursor: pointer;
   border-bottom: 1px solid #333;
@@ -813,7 +967,7 @@
 
 .mobileNav .mobileMenuItem .practiceLabel {
   color: #ffffff;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1rem;
 }
 
@@ -842,7 +996,7 @@
   padding: 0.75rem 1rem;
   color: #ccc;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 14px;
   border-bottom: 1px solid #333;
   transition: background 0.2s;
   font-family: Arial, sans-serif;
@@ -853,10 +1007,21 @@
   color: white;
 }
 
-.mobileSubItem:last-child {
-  border-bottom: none;
+/* Mobile: ensure clicked/focused mobile submenu items remain visible on dark background */
+.mobileSubItem:focus,
+.mobileSubItem:active,
+.mobileSubItem:visited {
+  color: #fff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: #111 !important;
 }
 
+.mobileSubItem:last-child {
+  padding: 12px 20px;
+  font-size: 14px;
+  border-bottom: none;
+}
 .mobileSignIn {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
@@ -877,7 +1042,7 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(2px);
   z-index: 999;
   cursor: pointer;
 }
@@ -1494,6 +1659,8 @@
     padding: 0.25rem 0.4rem;
   }
 
+
+
   .bannerText {
     font-size: 0.6rem;
   }
@@ -1533,6 +1700,13 @@
     gap: 8px;
     text-align: center;
   }
+  .coursesMenu .categories {
+    grid-template-columns: 1fr !important;
+  }
+  .categories > div + div {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
   
   .btnBookNow {
     margin-left: 0;
@@ -1541,6 +1715,9 @@
 
 /* Final mobile-only override: enlarge logo and underline without affecting desktop */
 @media (max-width: 768px) {
+
+
+
   .logo {
     font-size: 1.25rem;
     letter-spacing: -0.25px;
@@ -1610,3 +1787,154 @@
     flex-shrink: 0;
   }
   .btnMobileBook:hover { transform: translateY(-1px); }
+
+/* ===== Global Courses dropdown visibility & interaction overrides =====
+   Purpose: Ensure domain items are always readable and visible across
+   default, hover, active, focus, and visited states without changing
+   layout, spacing, or animations. Scoped to .coursesMenu to avoid
+   affecting other dropdowns. */
+.coursesMenu .categories .practiceItem,
+.coursesMenu .categories a {
+  color: #111827 !important; /* dark gray for contrast on the light bg */
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-decoration: none !important;
+  background: transparent !important;
+  pointer-events: auto !important;
+  z-index: 20; /* ensure text sits above background layers */
+}
+
+.coursesMenu .categories a:hover,
+.coursesMenu .categories .practiceItem:hover {
+  background: #f3f4f6 !important; /* subtle light hover */
+  color: #111827 !important;
+}
+
+.coursesMenu .categories a:active,
+.coursesMenu .categories .practiceItem:active,
+.coursesMenu .categories a:focus,
+.coursesMenu .categories .practiceItem:focus,
+.coursesMenu .categories a:focus-visible,
+.coursesMenu .categories .practiceItem:focus-visible,
+.coursesMenu .categories a:visited {
+  background: #e9ecef !important; /* subtle active/focus background */
+  color: #111827 !important;     /* keep text readable */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure category headings remain bold and separated */
+.coursesMenu .categories h4 {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Mobile submenu items (dark background) - ensure visibility on click */
+.mobileSubmenu .mobileSubItem {
+  color: #e5e7eb !important; /* light text on dark mobile submenu */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.mobileSubmenu .mobileSubItem:active,
+.mobileSubmenu .mobileSubItem:focus,
+.mobileSubmenu .mobileSubItem:focus-visible,
+.mobileSubmenu .mobileSubItem:visited {
+  background: #222 !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+/* Remove any accidental opacity/visibility changes applied by other rules */
+.coursesMenu .categories * {
+  -webkit-text-fill-color: unset !important;
+}
+
+
+.domainHeading {
+  display: inline-block;
+  font-size: 18px;
+  color: var(--text-primary, #111);
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.domainActive {
+  color: #e10600; /* match existing theme red */
+  font-weight: 600;
+}
+
+/* Board-like small heading for each domain */
+.domainBoard {
+  /* ensure no background/pill effect and small consistent spacing */
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  font-size: 18px;
+  line-height: 1.4;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.domainBoard:focus {
+  outline: none;
+}
+
+/* underline only on hover (no persistent underline on focus) */
+.domainHeading:hover,
+.domainBoard:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* stronger selectors to override other navbar link rules */
+.navLinks a.domainHeading:hover,
+.coursesMenu .categories a.domainHeading:hover,
+.mobileSubmenu a.domainHeading:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* ensure no unexpected background from parent rules */
+.coursesMenu .categories a.domainHeading,
+.coursesMenu .categories a.domainBoard,
+.mobileSubmenu a.domainBoard,
+.mobileSubmenu a.domainHeading {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* underline submenu items on hover for clarity */
+.coursesMenu .categories a:not(.domainHeading):hover,
+.coursesMenu .categories a.practiceItem:hover,
+.mobileSubmenu a:hover,
+.mobileSubmenu .mobileSubItem:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+/* Make category items and mobile submenu text slightly smaller and consistent */
+.coursesMenu .categories a,
+.mobileSubmenu .mobileSubItem,
+.mobileSubmenu a {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.practiceItem {
+  font-weight: 700;
+}
+/* Keep cursor pointer for clickable domain items */
+.coursesMenu .categories a,
+.coursesMenu .categories .practiceItem {
+  cursor: pointer !important;
+}
+
+/* End overrides */

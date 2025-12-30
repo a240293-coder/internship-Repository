@@ -7,7 +7,7 @@ const TestimonialCard = () => {
       <div className={styles.testimonialCard}>
         <div className={styles.profileHeader}>
           <Image 
-            src="https://randomuser.me/api/portraits/women/44.jpg" 
+            src="/profile.jpg" 
             alt="Profile" 
             className={styles.profileImage} 
             width={64}

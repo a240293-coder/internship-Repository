@@ -70,8 +70,18 @@
 }
 
 .mentorImage {
-  font-size: 6rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mentorAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
 .mentorName {
@@ -99,6 +109,48 @@
   font-size: 0.95rem;
   color: #4b5563;
   line-height: 1.6;
+}
+
+/* Mobile-only pagination dots (placed below the carousel) */
+.mentorDots {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mentorDots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+    z-index: 50; /* above cards but below any overlays */
+    pointer-events: auto;
+  }
+
+  /* ensure dots are reachable and scale across small devices */
+  .mentorDots {
+    padding: 0 10px;
+  }
+
+  .mentorDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d1d5db;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 220ms ease;
+  }
+
+  .mentorDot:hover {
+    background: #9ca3af;
+  }
+
+  .activeDot {
+    background: #2563eb;
+    width: 32px;
+    border-radius: 8px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -178,7 +230,7 @@
   }
 
   .mentorImage {
-    font-size: 3.25rem;
+    margin-bottom: 0.75rem;
   }
 
   .mentorName {

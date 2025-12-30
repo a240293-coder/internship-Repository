@@ -4,9 +4,9 @@ export default function Footer() {
   return (
     <footer className={styles.footer} id="contact">
       <div className={styles.container}>
-        <div className={styles.footerContent}>
+          <div className={styles.footerContent}>
           <div className={styles.footerBrand}>
-            <div className={styles.brandName} aria-label="LearnBetter">
+            <div className={styles.brandName} aria-label="LearnBetter" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span className={styles.brandLogo}>Learn<span className={styles.brandLogoHighlight}>Better</span></span>
             </div>
             <p className={styles.brandTagline}>Empowering careers through world-class education</p>

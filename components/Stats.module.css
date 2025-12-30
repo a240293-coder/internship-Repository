@@ -73,7 +73,7 @@
 
 .statCard {
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(8px);
   padding: 3.5rem 2rem;
   border-radius: 20px;
   text-align: center;
@@ -137,6 +137,51 @@
   z-index: 1;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.6;
+}
+
+/* Reduce card/image sizes on laptop and tablet to improve layout density */
+@media (max-width: 1200px) {
+  .grid {
+    gap: 1.6rem;
+    max-width: 1100px;
+  }
+
+  .statCard {
+    padding: 2rem 1rem;
+    border-radius: 16px;
+  }
+
+  .statIcon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.8rem;
+  }
+
+  .statValue {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .grid {
+    gap: 1.25rem;
+    max-width: 960px;
+  }
+
+  .statCard {
+    padding: 1.25rem 0.8rem;
+    border-radius: 14px;
+  }
+
+  .statIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+
+  .statValue {
+    font-size: 1.9rem;
+  }
 }
 
 /* Mobile-only adjustments: keep desktop/tablet unchanged */
