@@ -111,33 +111,22 @@ export default function Navbar() {
 
   // Lock body scroll only for mobile menu
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
+    // Keep body scroll enabled while mobile menu is open so the announcement banner
+    // and page content can still be scrolled. This avoids trapping the user and
+    // ensures the banner (now sticky) scrolls away naturally.
+    if (typeof document !== 'undefined') {
       document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = "";
+      if (typeof document !== 'undefined') document.body.style.overflow = "";
     };
   }, [isMobileMenuOpen]);
   // Lock body scroll when Courses dropdown is open (prevent background scroll)
   useEffect(() => {
-    if (typeof document === "undefined") return;
-    if (!isDesktopCoursesOpen) return;
-
-    const prevOverflow = document.body.style.overflow;
-    const prevPaddingRight = document.body.style.paddingRight;
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-    document.body.style.overflow = "hidden";
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    }
-
-    return () => {
-      document.body.style.overflow = prevOverflow || "";
-      document.body.style.paddingRight = prevPaddingRight || "";
-    };
+    // Do not lock or modify body scroll when desktop Courses dropdown opens.
+    // Allow the page (including the announcement/banner) to remain scrollable.
+    // This effect intentionally no-ops so we don't trap scroll on desktop.
+    return;
   }, [isDesktopCoursesOpen]);
 
   // clear openCategory when the dropdown itself closes
@@ -147,59 +136,9 @@ export default function Navbar() {
 
   // Prevent background scroll and scroll chaining while dropdown is open
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const menuEl = coursesMenuRef.current;
-    if (!isDesktopCoursesOpen || !menuEl) return;
-
-    // Wheel handler on the menu to prevent propagation at boundaries
-    const onMenuWheel = (e) => {
-      // allow if menu can scroll in the delta direction
-      const delta = e.deltaY;
-      const atTop = menuEl.scrollTop === 0;
-      const atBottom = Math.ceil(menuEl.scrollTop + menuEl.clientHeight) >= menuEl.scrollHeight;
-      if ((delta < 0 && atTop) || (delta > 0 && atBottom)) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      // otherwise allow scrolling inside menu
-    };
-
-    // Touch handling for mobile/touch devices
-    let startY = 0;
-    const onTouchStart = (e) => {
-      if (e.touches && e.touches.length) startY = e.touches[0].clientY;
-    };
-    const onMenuTouchMove = (e) => {
-      if (!e.touches || !e.touches.length) return;
-      const currentY = e.touches[0].clientY;
-      const delta = startY - currentY;
-      const atTop = menuEl.scrollTop === 0;
-      const atBottom = Math.ceil(menuEl.scrollTop + menuEl.clientHeight) >= menuEl.scrollHeight;
-      if ((delta < 0 && atTop) || (delta > 0 && atBottom)) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-
-    // Prevent wheel on document when not over the menu
-    const onDocWheel = (e) => {
-      if (!menuEl.contains(e.target)) {
-        e.preventDefault();
-      }
-    };
-
-    // Use non-passive to allow preventDefault
-    menuEl.addEventListener('wheel', onMenuWheel, { passive: false });
-    menuEl.addEventListener('touchstart', onTouchStart, { passive: true });
-    menuEl.addEventListener('touchmove', onMenuTouchMove, { passive: false });
-    document.addEventListener('wheel', onDocWheel, { passive: false });
-
-    return () => {
-      menuEl.removeEventListener('wheel', onMenuWheel);
-      menuEl.removeEventListener('touchstart', onTouchStart);
-      menuEl.removeEventListener('touchmove', onMenuTouchMove);
-      document.removeEventListener('wheel', onDocWheel);
-    };
+    // Allow normal page scrolling while the desktop Courses dropdown is open.
+    // Avoid attaching handlers that prevent default scrolling on document or menu boundaries.
+    return;
   }, [isDesktopCoursesOpen]);
   // single body-lock useEffect above; duplicate lines removed
   // No global listeners for desktop hover menus

@@ -1125,12 +1125,12 @@
 
 /* Banner */
 .banner {
-  position: fixed;
+  position: sticky; /* allow banner to scroll away with the page */
   top: 70px;
   left: 0;
   width: 100%;
   background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 50%, #e10600 100%);
-  z-index: 999;
+  z-index: 900; /* below the fixed navbar but above content */
   padding: 1rem 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
