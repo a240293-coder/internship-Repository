@@ -1396,6 +1396,53 @@
     display: none;
   }
 
+  /* Hide desktop-style dropdowns on mobile — use mobile menu instead */
+  .coursesMenu,
+  .expertiseMenu,
+  .practiceMenu,
+  .moreMenu,
+  .signInDropdown {
+    display: none !important;
+  }
+
+  /* Tighter mobile menu spacing and smaller type for professional appearance */
+  .mobileMenuHeader {
+    padding: 0.75rem 1rem;
+  }
+
+  .mobileLogo {
+    font-size: 1.15rem;
+  }
+
+  .mobileNav {
+    padding: 0.75rem 1rem;
+  }
+
+  .mobileMenuItem {
+    font-size: 15px;
+    padding: 0.66rem 0;
+    line-height: 1.2;
+  }
+
+  .mobileSubmenu {
+    margin: 0.4rem 0 0.8rem 0;
+    border-radius: 8px;
+    padding: 6px 6px;
+    background: #0f0f0f;
+  }
+
+  .mobileSubItem {
+    font-size: 13px;
+    padding: 0.55rem 0.9rem;
+    color: #d1d5db;
+  }
+
+  /* Reduce the visual prominence of the FREE badge */
+  .mobileNav .mobileMenuItem .freeText {
+    font-size: 0.62rem;
+    margin-left: 0.25rem;
+  }
+
   /* Hide desktop-only controls on mobile top bar */
   .coursesDropdown,
   .signinWrapper {
