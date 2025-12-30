@@ -1405,6 +1405,18 @@
     display: none !important;
   }
 
+  /* Also hide any inner desktop dropdown structures that may bleed through */
+  .coursesMenu .menuContainer,
+  .coursesMenu .categories,
+  .coursesMenu .practiceListWrapper,
+  .coursesMenu .track,
+  .menuContainer,
+  .categories,
+  .practiceListWrapper {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
   /* Tighter mobile menu spacing and smaller type for professional appearance */
   .mobileMenuHeader {
     padding: 0.75rem 1rem;
@@ -1419,27 +1431,31 @@
   }
 
   .mobileMenuItem {
-    font-size: 15px;
+    font-size: 14px;
     padding: 0.66rem 0;
     line-height: 1.2;
   }
 
   .mobileSubmenu {
-    margin: 0.4rem 0 0.8rem 0;
+    margin: 0.3rem 0 0.6rem 0;
     border-radius: 8px;
-    padding: 6px 6px;
-    background: #0f0f0f;
+    padding: 4px 4px;
+    background: #0b0b0b;
+    box-shadow: none;
+    border: 1px solid rgba(255,255,255,0.03);
+    max-height: 48vh;
+    overflow-y: auto;
   }
 
   .mobileSubItem {
-    font-size: 13px;
-    padding: 0.55rem 0.9rem;
+    font-size: 12px;
+    padding: 0.5rem 0.8rem;
     color: #d1d5db;
   }
 
   /* Reduce the visual prominence of the FREE badge */
   .mobileNav .mobileMenuItem .freeText {
-    font-size: 0.62rem;
+    font-size: 0.58rem;
     margin-left: 0.25rem;
   }
 
