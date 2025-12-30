@@ -1,7 +1,10 @@
+"use client";
+
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Contact.module.css';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function Contact() {
   const formRef = useRef(null);
@@ -116,15 +119,34 @@ export default function Contact() {
           </div>
         </div>
       </main>
-      {/* Home icon button (fixed, right side below navbar) */}
-      <Link href="/" legacyBehavior>
-        <a className={styles.homeIconButton} aria-label="Home">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <path d="M3 10.5L12 4l9 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M5 21V11.5h14V21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </a>
-      </Link>
+      {/* Home icon button (portal-mounted so it stays fixed and doesn't scroll) */}
+      <HomeButton />
     </>
+  );
+}
+
+function HomeButton() {
+  const elRef = useRef(null);
+  useEffect(() => {
+    const el = document.createElement('div');
+    elRef.current = el;
+    document.body.appendChild(el);
+    return () => {
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+    };
+  }, []);
+
+  if (!elRef.current) return null;
+
+  return createPortal(
+    <Link href="/" legacyBehavior>
+      <a className={styles.homeIconButton} aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+          <path d="M3 10.5L12 4l9 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M5 21V11.5h14V21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </a>
+    </Link>,
+    elRef.current
   );
 }
