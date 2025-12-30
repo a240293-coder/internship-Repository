@@ -904,6 +904,28 @@
 .mobileLogo {
   font-size: 1.5rem;
   font-weight: 700;
+
+  /* Mobile-specific course category typography and chevron sizing (<=640px target) */
+  @media (max-width: 640px) {
+    .mobileCourseCategory {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #e6e6e6; /* slightly off-white for calmer contrast */
+      padding: 12px 6px; /* ensure comfortable tap area without increasing text size */
+      display: inline-block;
+      vertical-align: middle;
+      white-space: normal;
+    }
+
+    /* Slightly reduce chevron size and vertically center */
+    .chevron {
+      width: 14px !important;
+      height: 14px !important;
+      flex-shrink: 0;
+      align-self: center;
+    }
+  }
   color: white;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -1511,6 +1533,21 @@
 .accordionCourse:hover {
   background: rgba(255,255,255,0.02);
   color: #fff;
+}
+
+/* Keyboard accessibility: visible focus states for accordion rows and course links */
+.accordionRow:focus-visible,
+.accordionRow:focus {
+  outline: 2px solid #e10600;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.accordionCourse:focus-visible,
+.accordionCourse:focus {
+  background: rgba(255,255,255,0.03);
+  color: #fff;
+  outline: none;
 }
 
   .mobileSubItem {

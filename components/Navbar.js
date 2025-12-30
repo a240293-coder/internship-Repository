@@ -498,7 +498,7 @@ export default function Navbar() {
                         onClick={(e) => { e.stopPropagation(); setMobileOpenCategory(prev => (prev === k ? '' : k)); }}
                         aria-expanded={mobileOpenCategory === k ? 'true' : 'false'}
                       >
-                        <span className={styles.accordionTitle}>{cat.title}</span>
+                        <span className={`${styles.accordionTitle} ${styles.mobileCourseCategory}`}>{cat.title}</span>
                         <svg className={`${styles.chevron} ${mobileOpenCategory === k ? styles.rotated : ''}`} width="14" height="10" viewBox="0 0 12 8" fill="none" aria-hidden>
                           <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none"/>
                         </svg>
