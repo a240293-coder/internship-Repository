@@ -1,18 +1,18 @@
 .hero {
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('/hero-background.jpg') center right/cover no-repeat scroll;
   position: relative;
   overflow: hidden;
-  padding-top: 145px;
+  padding-top: 80px;
 }
 
 .container {
   width: 100%;
   max-width: 1400px;
   margin: 0;
-  padding: 4rem 2rem;
+  padding: 3rem 1.5rem;
   position: relative;
   z-index: 1;
 }
@@ -22,11 +22,11 @@
   margin: 0;
   text-align: left;
   color: white;
-  padding-left: 100px;
+  padding-left: 40px;
 }
 
 .headline {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
   line-height: 1.2;
@@ -65,17 +65,17 @@
 }
 
 .btnPrimary {
-  padding: 1rem 2.5rem;
-  font-size: 1rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, opacity 0.2s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, opacity 0.15s ease;
   letter-spacing: -0.01em;
-  background: #e10600;
+  background: #2563EB;
   color: white;
-  box-shadow: 0 8px 20px rgba(225, 6, 0, 0.3);
+  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.18);
   text-align: center;
   display: inline-block;
   font-family: Arial, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -104,23 +104,23 @@
 
 .btnPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(225, 6, 0, 0.4);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.4);
 }
 
 .btnPrimary:focus {
-  outline: 2px solid #e10600;
+  outline: 2px solid #2563EB;
   outline-offset: 2px;
 }
 
 .btnPrimary:active {
   transform: translateY(0);
-  box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 .btnPrimary:disabled {
   cursor: not-allowed;
   transform: none;
-  box-shadow: 0 6px 18px rgba(225, 6, 0, 0.28);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28);
   opacity: 0.85;
 }
 
@@ -128,7 +128,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: #e10600;
+  color: #2563EB;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
@@ -137,12 +137,12 @@
 }
 
 .downloadLink:hover {
-  color: #b30000;
+  color: #1D4ED8;
   transform: translateY(-2px);
 }
 
 .downloadLink:focus {
-  outline: 2px solid #e10600;
+  outline: 2px solid #002147;
   outline-offset: 2px;
 }
 
@@ -166,7 +166,7 @@
 }
 
 .redText {
-  color: #e10600;
+  color: #2563EB;
   font-weight: 400;
 }
 
@@ -183,8 +183,9 @@
 
 @media (max-width: 768px) {
   .headline {
-    font-size: 2.25rem;
-    line-height: 1.2;
+    font-size: 1.6rem; /* ~25.6px */
+    line-height: 1.15;
+    max-width: 90%;
   }
 
   .subheadline {
@@ -292,9 +293,10 @@
   .btnPrimary {
     width: 100%;
     text-align: center;
-    padding: 0.8rem 1rem; /* slimmer vertical padding on mobile */
+    padding: 0.6rem 1rem; /* slimmer vertical padding on small phones */
     font-size: 0.95rem;   /* slightly smaller text */
-    min-height: 40px;     /* ensure comfortable tap target */
+    min-height: 44px;     /* ensure comfortable tap target */
+    border-radius: 12px;
   }
 
   .divider {

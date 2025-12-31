@@ -10,6 +10,7 @@ export default function Mentors() {
   const directionRef = useRef(1); // 1 = forward, -1 = backward
   const indexRef = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const touchRef = useRef({ startX: 0, deltaX: 0, dragging: false });
 
   useEffect(() => {
     const updateIsMobile = () => {
@@ -59,6 +60,42 @@ export default function Mentors() {
     }, 4000);
   }, [isMobile, startAutoScroll]);
 
+  // Touch handlers for manual swipe
+  const handleTouchStart = (e) => {
+    if (!isMobile) return;
+    pauseAndResume();
+    touchRef.current.startX = e.touches[0].clientX;
+    touchRef.current.dragging = true;
+    touchRef.current.deltaX = 0;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isMobile || !touchRef.current.dragging) return;
+    touchRef.current.deltaX = e.touches[0].clientX - touchRef.current.startX;
+    if (Math.abs(touchRef.current.deltaX) > 10) e.preventDefault();
+  };
+
+  const handleTouchEnd = () => {
+    if (!isMobile || !touchRef.current.dragging) return;
+    const threshold = 50;
+    const dx = touchRef.current.deltaX;
+    if (dx < -threshold) {
+      // swipe left -> next
+      const mentorsCount = mentors.length;
+      const nextIndex = (indexRef.current + 1) % mentorsCount;
+      setCurrentIndex(nextIndex);
+      indexRef.current = nextIndex;
+    } else if (dx > threshold) {
+      // swipe right -> previous
+      const mentorsCount = mentors.length;
+      const prevIndex = (indexRef.current - 1 + mentorsCount) % mentorsCount;
+      setCurrentIndex(prevIndex);
+      indexRef.current = prevIndex;
+    }
+    touchRef.current.dragging = false;
+    touchRef.current.deltaX = 0;
+  };
+
   const mentors = [
     {
       name: 'Dr. Rajesh Kumar',
@@ -96,38 +133,61 @@ export default function Mentors() {
         <div
           className={styles.grid}
           ref={carouselRef}
-          onTouchStart={pauseAndResume}
-          onTouchMove={pauseAndResume}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           onMouseDown={pauseAndResume}
         >
-          {mentors.map((mentor, index) => (
+          {isMobile ? (
             <div
-              key={index}
-              className={styles.mentorCard}
-              style={
-                isMobile
-                  ? {
-                      transform: `translateX(${(index - currentIndex) * 100}%)`,
-                      transition: 'transform 0.45s ease-in-out',
-                    }
-                  : undefined
-              }
+              className={styles.mentorTrack}
+              style={{
+                transform: `translateX(-${currentIndex * 100}%)`,
+                transition: 'transform 0.45s ease-in-out',
+                width: `${mentors.length * 100}%`,
+              }}
             >
-              <div className={styles.mentorImage}>
-                <Image
-                  src={mentor.image}
-                  alt={mentor.name}
-                  width={72}
-                  height={72}
-                  className={styles.mentorAvatar}
-                />
-              </div>
-              <h3 className={styles.mentorName}>{mentor.name}</h3>
-              <p className={styles.mentorRole}>{mentor.role}</p>
-              <p className={styles.mentorCompany}>{mentor.company}</p>
-              <p className={styles.mentorBio}>{mentor.bio}</p>
+              {mentors.map((mentor, index) => (
+                <div key={index} className={`${styles.mentorCard} ${styles.mentorCardMobile}`}>
+                  <div className={styles.mentorImage}>
+                    <div className={styles.avatarWrapper}>
+                      <Image
+                        src={mentor.image}
+                        alt={mentor.name}
+                        width={44}
+                        height={44}
+                        className={styles.mentorAvatar}
+                      />
+                    </div>
+                  </div>
+                  <h3 className={styles.mentorName}>{mentor.name}</h3>
+                  <p className={styles.mentorRole}>{mentor.role}</p>
+                  <p className={styles.mentorCompany}>{mentor.company}</p>
+                  <p className={styles.mentorBio}>{mentor.bio}</p>
+                </div>
+              ))}
             </div>
-          ))}
+          ) : (
+            mentors.map((mentor, index) => (
+              <div key={index} className={styles.mentorCard}>
+                <div className={styles.mentorImage}>
+                  <div className={styles.avatarWrapper}>
+                    <Image
+                      src={mentor.image}
+                      alt={mentor.name}
+                      width={44}
+                      height={44}
+                      className={styles.mentorAvatar}
+                    />
+                  </div>
+                </div>
+                <h3 className={styles.mentorName}>{mentor.name}</h3>
+                <p className={styles.mentorRole}>{mentor.role}</p>
+                <p className={styles.mentorCompany}>{mentor.company}</p>
+                <p className={styles.mentorBio}>{mentor.bio}</p>
+              </div>
+            ))
+          )}
         </div>
         {/* Mobile pagination dots */}
         {isMobile && (

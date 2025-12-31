@@ -38,8 +38,8 @@
 
 .infoValue {
   font-size: 1.35rem;
-  font-weight: 500;
-  color: #e10600;
+  font-weight: 700;
+  color: #2563EB;
   margin-bottom: 0.25rem;
 }
 
@@ -57,8 +57,8 @@
 }
 
 .redText {
-  color: #e10600;
-  font-weight: 400;
+  color: #2563EB;
+  font-weight: 700;
 }
 
 /* Emphasize the Degree Eligibility label to match other program stat emphasis */

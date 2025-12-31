@@ -88,7 +88,7 @@ export default function SampleCertificate() {
           width: 760,
           background: '#fff',
           borderRadius: 16,
-          border: '6px solid #e10600',
+          border: '6px solid #002147',
           padding: 40,
           boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
           textAlign: 'center',
@@ -116,7 +116,7 @@ export default function SampleCertificate() {
         <button
           onClick={handleDownloadPDF}
           style={{
-            background: '#e10600',
+            background: '#002147',
             color: '#fff',
             padding: '12px 20px',
             borderRadius: 8,
@@ -133,8 +133,8 @@ export default function SampleCertificate() {
           style={{
             padding: '12px 20px',
             borderRadius: 8,
-            border: '1px solid #e10600',
-            color: '#e10600',
+            border: '1px solid #002147',
+            color: '#002147',
             fontWeight: 600,
             textDecoration: 'none',
           }}

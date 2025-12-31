@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import courses from '../../../data/courses';
-import Navbar from '../../../components/Navbar';
-import Footer from '../../../components/Footer';
 
 const courseDetails = courses;
 
@@ -55,7 +53,7 @@ export default function CoursePage() {
 
   return (
     <>
-      <Navbar />
+      
       <main style={{ padding: 24, maxWidth: 980, margin: '0 auto' }}>
       <h1>{data.title}</h1>
       <p style={{ color: '#444' }}>{overview}</p>
@@ -139,17 +137,17 @@ export default function CoursePage() {
         <p>Internship recruiters, hiring managers for entry-level roles, academic mentors, and industry partners.</p>
 
         <div style={{ marginTop: 16, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <a href="/certificate/sample" target="_blank" rel="noopener noreferrer" style={{ background: '#fff', border: '1px solid #e10600', color: '#e10600', padding: '10px 14px', borderRadius: 8, textDecoration: 'none' }}>View Sample Certificate</a>
+          <a href="/certificate/sample" target="_blank" rel="noopener noreferrer" style={{ background: '#fff', border: '1px solid #002147', color: '#002147', padding: '10px 14px', borderRadius: 8, textDecoration: 'none' }}>View Sample Certificate</a>
           <a href="#" onClick={(ev) => { ev.preventDefault(); const el = document.getElementById('career-heading'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }} style={{ background: '#f3f3f3', color: '#111', padding: '10px 14px', borderRadius: 8, textDecoration: 'none' }}>How Certification Helps My Career</a>
-          <Link href="/apply" style={{ background: '#e10600', color: '#fff', padding: '10px 14px', borderRadius: 8, textDecoration: 'none' }}>Apply for This Course</Link>
+          <Link href="/apply" style={{ background: '#002147', color: '#fff', padding: '10px 14px', borderRadius: 8, textDecoration: 'none' }}>Apply for This Course</Link>
         </div>
 
         <p style={{ marginTop: 12, fontSize: 13, color: '#666' }}><strong>Quality & Trust Note:</strong> LearnBetter certifications are skill-based, project-driven, and mentor-verified to ensure real-world relevance.</p>
       </section>
 
       <div style={{ marginTop: 24, display: 'flex', gap: 12 }}>
-        <Link href="/apply" style={{ background: '#e10600', color: '#fff', padding: '10px 16px', borderRadius: 8, textDecoration: 'none' }}>Apply</Link>
-        <a href="#" style={{ background: '#fff', color: '#e10600', padding: '10px 16px', borderRadius: 8, textDecoration: 'none', border: '1px solid #e10600' }}>Talk to Mentor</a>
+        <Link href="/apply" style={{ background: '#002147', color: '#fff', padding: '10px 16px', borderRadius: 8, textDecoration: 'none' }}>Apply</Link>
+        <a href="#" style={{ background: '#fff', color: '#002147', padding: '10px 16px', borderRadius: 8, textDecoration: 'none', border: '1px solid #002147' }}>Talk to Mentor</a>
       </div>
       </main>
       {/* Floating home icon — appears on the right side, vertically centered */}
@@ -181,7 +179,7 @@ export default function CoursePage() {
         </svg>
       </Link>
 
-      <Footer />
+      
     </>
   );
 }

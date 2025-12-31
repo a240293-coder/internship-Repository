@@ -14,6 +14,7 @@ export default function Contact() {
     const errs = {};
     const name = formData.get('name')?.trim() || '';
     const email = formData.get('email')?.trim() || '';
+    const phone = formData.get('phone')?.trim() || '';
     const domain = formData.get('domain') || '';
     const message = formData.get('message')?.trim() || '';
 
@@ -23,6 +24,8 @@ export default function Contact() {
       const re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
       if (!re.test(email)) errs.email = 'Please enter a valid email address.';
     }
+    if (!phone) errs.phone = 'Please enter your mobile number.';
+    else if (!/^[+]?([0-9][ -]?){7,15}$/.test(phone)) errs.phone = 'Please enter a valid phone number.';
     if (!domain) errs.domain = 'Please select a domain of interest.';
     if (!message || message.length < 10) errs.message = 'Please enter a message (at least 10 characters).';
     return errs;
@@ -81,6 +84,12 @@ export default function Contact() {
               </div>
 
               <div className={styles.formRow}>
+                <label className={styles.label} htmlFor="phone">Mobile No</label>
+                <input id="phone" name="phone" className={styles.input} type="tel" placeholder="E.g. +91 98765 43210" aria-invalid={errors.phone ? 'true' : 'false'} />
+                {errors.phone && <div className={styles.error} role="alert">{errors.phone}</div>}
+              </div>
+
+              <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="domain">Interested In</label>
                 <select id="domain" name="domain" className={styles.select} defaultValue="" aria-invalid={errors.domain ? 'true' : 'false'}>
                   <option value="" disabled>Select domain</option>
@@ -88,7 +97,7 @@ export default function Contact() {
                   <option value="social-media">Social Media</option>
                   <option value="pr-outreach">Public Relation & Outreach</option>
                   <option value="ecommerce">Ecommerce</option>
-                  <option value="web-development">Web Development</option>
+                  <option value="web-development">Web Development – Strategic Partner</option>
                   <option value="app-development">App Development</option>
                   <option value="data-science">Data Science</option>
                   <option value="logistics">Logistics & Operations</option>

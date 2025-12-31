@@ -1,8 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import styles from '../styles/About.module.css';
 
 export default function About() {
@@ -21,6 +19,8 @@ export default function About() {
   const [isMobile, setIsMobile] = useState(false);
   const [currentStat, setCurrentStat] = useState(0);
   const [currentAbout, setCurrentAbout] = useState(0);
+  const statTouch = useRef({ startX: 0, deltaX: 0, dragging: false });
+  const aboutTouch = useRef({ startX: 0, deltaX: 0, dragging: false });
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,6 +47,56 @@ export default function About() {
     return () => clearInterval(id);
   }, [isMobile, aboutCards.length]);
 
+  // Touch handlers for mobile swipe
+  const handleStatTouchStart = (e) => {
+    statTouch.current.startX = e.touches[0].clientX;
+    statTouch.current.dragging = true;
+    statTouch.current.deltaX = 0;
+  };
+
+  const handleStatTouchMove = (e) => {
+    if (!statTouch.current.dragging) return;
+    statTouch.current.deltaX = e.touches[0].clientX - statTouch.current.startX;
+    // prevent vertical page scroll while dragging horizontally
+    if (Math.abs(statTouch.current.deltaX) > 10) e.preventDefault();
+  };
+
+  const handleStatTouchEnd = () => {
+    if (!statTouch.current.dragging) return;
+    const threshold = 50; // px
+    if (statTouch.current.deltaX < -threshold) {
+      setCurrentStat((prev) => (prev + 1) % stats.length);
+    } else if (statTouch.current.deltaX > threshold) {
+      setCurrentStat((prev) => (prev - 1 + stats.length) % stats.length);
+    }
+    statTouch.current.dragging = false;
+    statTouch.current.deltaX = 0;
+  };
+
+  const handleAboutTouchStart = (e) => {
+    aboutTouch.current.startX = e.touches[0].clientX;
+    aboutTouch.current.dragging = true;
+    aboutTouch.current.deltaX = 0;
+  };
+
+  const handleAboutTouchMove = (e) => {
+    if (!aboutTouch.current.dragging) return;
+    aboutTouch.current.deltaX = e.touches[0].clientX - aboutTouch.current.startX;
+    if (Math.abs(aboutTouch.current.deltaX) > 10) e.preventDefault();
+  };
+
+  const handleAboutTouchEnd = () => {
+    if (!aboutTouch.current.dragging) return;
+    const threshold = 50;
+    if (aboutTouch.current.deltaX < -threshold) {
+      setCurrentAbout((prev) => (prev + 1) % aboutCards.length);
+    } else if (aboutTouch.current.deltaX > threshold) {
+      setCurrentAbout((prev) => (prev - 1 + aboutCards.length) % aboutCards.length);
+    }
+    aboutTouch.current.dragging = false;
+    aboutTouch.current.deltaX = 0;
+  };
+
   return (
     <>
       <Head>
@@ -55,7 +105,7 @@ export default function About() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main className={styles.page}>
-        <Navbar />
+        
 
         <section className={styles.hero}>
           <div className={styles.container}>
@@ -70,7 +120,12 @@ export default function About() {
               </div>
               <div className={styles.quickStats}>
                 {isMobile ? (
-                  <div className={styles.statCarousel}>
+                  <div
+                    className={styles.statCarousel}
+                    onTouchStart={handleStatTouchStart}
+                    onTouchMove={handleStatTouchMove}
+                    onTouchEnd={handleStatTouchEnd}
+                  >
                     <div
                       className={styles.statTrack}
                       style={{ transform: `translateX(-${currentStat * 100}%)` }}
@@ -104,13 +159,18 @@ export default function About() {
             </div>
             <div className={styles.cardGrid}>
               {isMobile ? (
-                <div className={styles.cardCarousel}>
                   <div
-                    className={styles.cardTrack}
-                    style={{ transform: `translateX(-${currentAbout * 100}%)` }}
+                    className={styles.cardCarousel}
+                    onTouchStart={handleAboutTouchStart}
+                    onTouchMove={handleAboutTouchMove}
+                    onTouchEnd={handleAboutTouchEnd}
                   >
-                    {aboutCards.map((card) => (
-                      <div className={`${styles.featureCard} ${styles.cardMobile}`} key={card.title}>
+                    <div
+                      className={styles.cardTrack}
+                      style={{ transform: `translateX(-${currentAbout * 100}%)` }}
+                    >
+                      {aboutCards.map((card) => (
+                        <div className={`${styles.featureCard} ${styles.cardMobile}`} key={card.title}>
                         <div className={styles.featureMedia}>
                           <div className={styles.featureMediaText}>{card.mediaTitle || card.title}</div>
                         </div>
@@ -254,7 +314,7 @@ export default function About() {
           </div>
         </section>
 
-        <Footer />
+        
       </main>
     </>
   );

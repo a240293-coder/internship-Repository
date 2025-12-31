@@ -10,10 +10,12 @@ export default function Document() {
           content="Join LearnBetter's globally accredited Masters program in Cloud Computing and AI System Design. Get 100% job assurance, learn from industry experts, and secure high-paying roles at top tech companies."
         />
 
-        {/* Favicon */}
+        {/* Favicons: use favicon.ico as primary, keep SVG fallback and apple-touch */}
         <link rel="icon" href="/favicon.ico" />
-
-        {/* Optional: SVG fallback */}
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
+        <link rel="icon" href="/favicon.ico" sizes="16x16" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
+        <meta name="theme-color" content="#ffffff" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </Head>
 

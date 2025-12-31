@@ -27,6 +27,9 @@ export default function Navbar() {
   const isApplyRoute = router && typeof router.asPath === 'string' && (
     router.asPath === '/apply' || router.asPath === '/apply/'
   );
+  const isContactRoute = router && typeof router.asPath === 'string' && (
+    router.asPath === '/contact' || router.asPath === '/contact/'
+  );
   // Keep selectedDomain in sync with the current route so active state persists
   useEffect(() => {
     if (!router || !router.asPath) return;
@@ -503,11 +506,15 @@ export default function Navbar() {
                             href={`/courses/${k}/${c.slug}`}
                             className={styles.accordionCourse}
                             onClick={(ev) => {
-                              ev.preventDefault();
-                              setSelectedDomain(k);
-                              setIsMobileMenuOpen(false);
-                              try { if (typeof window !== 'undefined') window.scrollTo(0,0); } catch (err) {}
-                              router.push(`/courses/${k}/${c.slug}`);
+                                ev.preventDefault();
+                                setSelectedDomain(k);
+                                setIsMobileMenuOpen(false);
+                                try { if (typeof window !== 'undefined') window.scrollTo(0,0); } catch (err) {}
+                                try {
+                                  if (typeof window !== 'undefined') window.open(`/courses/${k}/${c.slug}`, '_blank');
+                                } catch (err) {
+                                  if (router && typeof router.push === 'function') router.push(`/courses/${k}/${c.slug}`);
+                                }
                             }}
                           >
                             {c.title}
@@ -543,7 +550,7 @@ export default function Navbar() {
                     { title: 'App Development', href: '/courses/technology/app-development' },
                     { title: 'Data Science', href: '/courses/data/data-science' },
                   ].map(item => (
-                    <a key={item.href} href={item.href} className={styles.accordionCourse} onClick={(ev) => { ev.preventDefault(); setIsMobileMenuOpen(false); try { if (typeof window !== 'undefined') window.scrollTo(0,0); } catch(e){}; router.push(item.href); }}>
+                    <a key={item.href} href={item.href} className={styles.accordionCourse} onClick={(ev) => { ev.preventDefault(); setIsMobileMenuOpen(false); try { if (typeof window !== 'undefined') window.scrollTo(0,0); } catch(e){}; try { if (typeof window !== 'undefined') window.open(item.href, '_blank'); } catch(err) { if (router && typeof router.push === 'function') router.push(item.href); } }}>
                       {item.title}
                     </a>
                   ))}
@@ -564,32 +571,43 @@ export default function Navbar() {
                   className={styles.mobileSignInDropdownBtn}
                   aria-haspopup="true"
                   aria-expanded={showMobileSignIn ? "true" : "false"}
-                  onClick={e => {
-                    e.stopPropagation();
-                    setShowMobileSignIn(prev => !prev);
-                  }}
+                    type="button"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setShowMobileSignIn(prev => !prev);
+                    }}
                 >
                   Sign In <span style={{fontSize: '1em', marginLeft: 4}}>▾</span>
                 </button>
                 {showMobileSignIn && (
                   <div className={styles.mobileSignInDropdown}>
-                    <a
-                      href="/auth/signin/student"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.mobileSignInDropdownItem}
-                    >
-                      Student Sign In
-                    </a>
-                    <div className={styles.dropdownDivider} />
-                    <a
-                      href="/auth/signin/mentor"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.mobileSignInDropdownItem}
-                    >
-                      Mentor Sign In
-                    </a>
+                      <a
+                        href="/auth/signin/student"
+                        className={styles.mobileSignInDropdownItem}
+                        onClick={(ev) => {
+                          ev.preventDefault();
+                          setShowMobileSignIn(false);
+                          setIsMobileMenuOpen(false);
+                          try { if (typeof window !== 'undefined') window.scrollTo(0,0); } catch(e){}
+                          try { if (typeof window !== 'undefined') window.open('/auth/signin/student', '_blank'); } catch(err) { if (router && typeof router.push === 'function') router.push('/auth/signin/student'); }
+                        }}
+                      >
+                        Student Sign In
+                      </a>
+                      <div className={styles.dropdownDivider} />
+                      <a
+                        href="/auth/signin/mentor"
+                        className={styles.mobileSignInDropdownItem}
+                        onClick={(ev) => {
+                          ev.preventDefault();
+                          setShowMobileSignIn(false);
+                          setIsMobileMenuOpen(false);
+                          try { if (typeof window !== 'undefined') window.scrollTo(0,0); } catch(e){}
+                          try { if (typeof window !== 'undefined') window.open('/auth/signin/mentor', '_blank'); } catch(err) { if (router && typeof router.push === 'function') router.push('/auth/signin/mentor'); }
+                        }}
+                      >
+                        Mentor Sign In
+                      </a>
                   </div>
                 )}
               </div>
@@ -598,7 +616,7 @@ export default function Navbar() {
         </>
       )}
       
-      {!isCourseRoute && !isApplyRoute && (
+      {!isCourseRoute && !isApplyRoute && !isContactRoute && (
         <div className={styles.banner}>
           <div className={styles.bannerContent}>
             <span className={styles.arrow}></span>

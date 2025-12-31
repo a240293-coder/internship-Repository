@@ -93,8 +93,8 @@
 }
 
 .signInDropdownBtn {
-  background: #e10600;
-  color: #fff;
+  background: #2563EB;
+  color: #FFFFFF;
   border: none;
   border-radius: 6px;
   padding: 0.65rem 1.5rem;
@@ -109,28 +109,24 @@
   gap: 0.5rem;
   font-family: Arial, sans-serif;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
 }
 
 .signInDropdownBtn:hover {
-  background: transparent;
-  box-shadow: none;
-  transform: none;
-  color: #e10600;
+  background: #1D4ED8;
+  color: #FFFFFF;
 }
 
 .signInDropdownBtn:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(225, 6, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
 }
 
 .signInDropdownBtn:focus,
 .signInDropdownBtn:focus-visible,
 .signInDropdownBtn:active {
   outline: none;
-  box-shadow: none;
-  color: #e10600;
-  background: transparent;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
 }
 
 .signInDropdown {
@@ -138,20 +134,20 @@
   top: calc(100% + 8px);
   right: 0;
   min-width: 160px;
-  background: #000;
+  background: #F8FAFF;
   border-radius: 6px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.12);
   display: flex;
   flex-direction: column;
   z-index: 2000;
   padding: 6px 0;
   animation: fadeInDown 0.2s ease-out;
-  border: 1px solid #222;
+  border: 1px solid #C7D8FF;
   overflow: hidden;
 }
 
 .signInDropdownItem {
-  color: #fff;
+  color: #1E293B;
   background: none;
   border: none;
   text-align: left;
@@ -176,8 +172,8 @@
 }
 
 .signInDropdownItem:hover {
-  background: #1a1a1a;
-  color: #fff;
+  background: rgba(37,99,235,0.08);
+  color: #1D4ED8;
 }
 
 /* Mobile Sign In Dropdown */
@@ -190,8 +186,8 @@
 
 .mobileSignInDropdownBtn {
   width: 100%;
-  background: #e10600;
-  color: #fff;
+  background: #2563EB;
+  color: #FFFFFF;
   border: none;
   border-radius: 8px;
   padding: 0.9rem 1.5rem;
@@ -199,7 +195,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
-  box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
   outline: none;
   display: flex;
   align-items: center;
@@ -210,7 +206,7 @@
 
 .mobileSignInDropdownBtn:hover,
 .mobileSignInDropdownBtn:focus {
-  background: #b30000;
+  background: #1D4ED8;
 }
 
 .mobileSignInDropdown {
@@ -218,9 +214,9 @@
   top: 110%;
   left: 0;
   width: 100%;
-  background: #111;
+  background: #F8FAFF;
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 24px rgba(30, 64, 175, 0.12);
   display: flex;
   flex-direction: column;
   z-index: 2000;
@@ -249,7 +245,7 @@
 
 .mobileSignInDropdownItem:hover,
 .mobileSignInDropdownItem:focus {
-  background: #e50914;
+  background: #1D4ED8;
   color: #fff;
 }
 
@@ -269,10 +265,11 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: #000000;
+  background: linear-gradient(180deg, #F0F7FF, #E6F0FF);
+  border-bottom: 1px solid #C7D8FF;
   z-index: 1000;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.12);
   height: 70px;
   display: flex;
   align-items: center;
@@ -280,7 +277,7 @@
 }
 
 .navbar.scrolled {
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 22px rgba(30, 64, 175, 0.12);
 }
 
 .container {
@@ -325,7 +322,7 @@
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
-  color: white;
+  color: #1E3A8A;
   margin: 0;
   white-space: nowrap;
   font-family: Arial, sans-serif;
@@ -341,7 +338,7 @@
 .logoButton:hover .logo,
 .logoButton:focus-visible .logo,
 .logoButton:active .logo {
-  color: white;
+  color: #1E3A8A;
 }
 
 .navLinks {
@@ -355,7 +352,7 @@
 }
 
 .navLinks a {
-  color: white;
+  color: #0f172a !important;
   text-decoration: none;
   font-weight: 400;
   font-size: 14px;
@@ -370,7 +367,8 @@
 }
 
 .navLinks a:hover {
-  color: #e10600;
+  color: #2563EB;
+  border-bottom-color: #93C5FD;
 }
 
 .navLinks a:focus,
@@ -378,7 +376,7 @@
 .navLinks a:active {
   outline: none;
   box-shadow: none;
-  color: #e10600;
+  color: #2563EB;
 }
 
 .freePracticeLink {
@@ -404,7 +402,7 @@
   border-radius: 10px;
   border: none;
   background: none;
-  color: #fff;
+  color: #0f172a;
   font-weight: 400;
   font-size: 14px;
   cursor: pointer;
@@ -420,11 +418,11 @@
   transform: translateX(-50%);
   width: min(92vw, 1320px);
   max-width: 1320px;
-  background: #fff;
+  background: #F8FAFF;
   color: #0b1220;
   border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(2,6,23,0.12);
-  border: 1px solid rgba(15,23,42,0.06);
+  box-shadow: 0 20px 40px rgba(30,64,175,0.08);
+  border: 1px solid #C7D8FF;
   z-index: 1500;
   overflow: hidden;
 }
@@ -433,45 +431,45 @@
 .menuLeft{width:300px;border-right:1.5px solid #eaeaea;display:flex;flex-direction:column;align-items:stretch;padding:12px 24px 12px 12px}
 .menuRight{flex:1;padding:24px;overflow:auto;max-height:calc(100vh - 160px);overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .categoryButton{background:transparent;border:none;text-align:left;padding:14px 12px;font-size:18px;font-weight:600;cursor:pointer;color:#111;position:relative;border-radius:8px;margin-bottom:6px;transition:background 200ms ease,color 200ms ease}
-.categoryButton:hover{color:#e10600;background:rgba(225,6,0,0.02)}
-.categoryButton.categoryActive{color:#e10600;font-weight:700;background:rgba(225,6,0,0.06);position:relative}
+.categoryButton:hover{color:#2563EB;background:rgba(37,99,235,0.02)}
+.categoryButton.categoryActive{color:#2563EB;font-weight:700;background:rgba(37,99,235,0.06);position:relative}
 /* prominent left indicator bar for active category */
-.categoryButton.categoryActive::before{content:'';position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:4px;height:70%;background:#e10600;border-radius:4px}
-.leftIndicator{position:absolute;left:0;top:12px;width:0;height:calc(100% - 24px);background:#e10600;border-radius:2px;opacity:0;transition:opacity 220ms ease,width 220ms}
+.categoryButton.categoryActive::before{content:'';position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:4px;height:70%;background:#2563EB;border-radius:4px}
+.leftIndicator{position:absolute;left:0;top:12px;width:0;height:calc(100% - 24px);background:#2563EB;border-radius:2px;opacity:0;transition:opacity 220ms ease,width 220ms}
 .categoryActive .leftIndicator{width:3px;opacity:1}
 .coursesList{display:flex;flex-direction:column;gap:8px}
 .courseItem{display:block;padding:10px 14px;border-radius:8px;text-decoration:none;color:inherit;background:transparent;border:1px solid transparent;transition:all 160ms ease}
-.courseItem:hover{background:rgba(225,6,0,0.04);border-color:rgba(225,6,0,0.06);transform:none;color:#e10600}
+.courseItem:hover{background:rgba(37,99,235,0.04);border-color:rgba(37,99,235,0.06);transform:none;color:#2563EB}
 .coursesEmpty{padding:28px;color:var(--muted)}
 
 /* Right panel enhancements */
 .rightPanelInner{display:flex;flex-direction:column;gap:16px;padding:16px}
 .panelHeader{padding:8px 0}
-.allCoursesPill{display:inline-block;background:#fff1f1;color:#e10600;font-weight:600;padding:6px 12px;border-radius:999px;font-size:14px;margin-bottom:14px}
+.allCoursesPill{display:inline-block;background:#F0F7FF;color:#2563EB;font-weight:600;padding:6px 12px;border-radius:999px;font-size:14px;margin-bottom:14px}
 .panelTitle{margin:0;font-size:18px;font-weight:700;color:#0b1220}
 .panelSubtitle{margin:6px 0 0;color:rgba(11,18,32,0.7);font-size:13px}
 .cardsGrid{display:block;gap:16px;margin-top:12px}
-.courseCard{display:block;background:#fff6f6;border-radius:18px;padding:32px 36px;border:2px solid rgba(225,6,0,0.25);min-height:180px;margin-bottom:28px;transition:background 200ms ease,border-color 200ms ease,box-shadow 200ms ease;box-shadow:0 6px 20px rgba(2,6,23,0.04)}
-.courseCard:hover{background:#fff1f1;border-color:rgba(192,0,0,0.32);cursor:pointer;box-shadow:0 12px 36px rgba(2,6,23,0.08)}
+.courseCard{display:block;background:#F8FBFF;border-radius:18px;padding:32px 36px;border:2px solid rgba(37,99,235,0.12);min-height:180px;margin-bottom:28px;transition:background 200ms ease,border-color 200ms ease,box-shadow 200ms ease;box-shadow:0 6px 20px rgba(30,64,175,0.04)}
+.courseCard:hover{background:#F0F7FF;border-color:rgba(37,99,235,0.16);cursor:pointer;box-shadow:0 12px 36px rgba(30,64,175,0.06)}
 .courseCardBody{margin-bottom:14px;max-width:100%}
 .courseCardTitle{font-weight:700;color:#111;font-size:22px;margin-bottom:12px}
 .courseCardDesc{font-size:15.5px;color:#444;line-height:1.6;margin-bottom:14px}
-.courseCardCta{display:inline-flex;align-items:center;gap:8px;color:#e10600;text-decoration:none;font-weight:600;margin-top:16px;box-shadow:0 2px 8px rgba(2,6,23,0.06);transition:box-shadow 160ms ease,color 160ms ease,border-color 160ms ease,background 160ms ease;padding:6px 10px;border-radius:8px;white-space:nowrap;align-self:flex-start;width:-moz-fit-content;width:fit-content;max-width:none;border:2px solid rgba(225,6,0,0.18);background:rgba(225,6,0,0.02);font-size:15px}
+.courseCardCta{display:inline-flex;align-items:center;gap:8px;color:#2563EB;text-decoration:none;font-weight:600;margin-top:16px;box-shadow:0 2px 8px rgba(30,64,175,0.06);transition:box-shadow 160ms ease,color 160ms ease,border-color 160ms ease,background 160ms ease;padding:6px 10px;border-radius:8px;white-space:nowrap;align-self:flex-start;width:-moz-fit-content;width:fit-content;max-width:none;border:2px solid rgba(37,99,235,0.12);background:rgba(37,99,235,0.02);font-size:15px}
 /* Keep CTA red in all link states to avoid default visited coloring */
-.courseCardCta:visited,
-.courseCardCta:active,
-.courseCardCta:focus,
-.courseCardCta:focus-visible {
-  color: #e10600;
-}
+  .courseCardCta:visited,
+  .courseCardCta:active,
+  .courseCardCta:focus,
+  .courseCardCta:focus-visible {
+    color: #2563EB;
+  }
 .courseCardCta span{display:inline-block}
 .ctaArrow{display:inline-block;margin-left:6px;transition:transform 140ms ease}
-.courseCardCta:hover{text-decoration:underline;box-shadow:0 8px 28px rgba(2,6,23,0.12);border-color:rgba(225,6,0,0.18);background:rgba(225,6,0,0.02)}
+.courseCardCta:hover{text-decoration:underline;box-shadow:0 8px 28px rgba(30,64,175,0.12);border-color:rgba(37,99,235,0.14);background:rgba(37,99,235,0.02)}
 .courseCardCta:hover .ctaArrow{transform:translateX(4px)}
-.courseCardCta:active{box-shadow:0 6px 20px rgba(2,6,23,0.14);border-color:rgba(225,6,0,0.22);transform:translateY(0)}
-.courseCardCta:focus-visible{outline:none;box-shadow:0 8px 28px rgba(2,6,23,0.12),0 0 0 4px rgba(225,6,0,0.06);border-color:rgba(225,6,0,0.22)}
+.courseCardCta:active{box-shadow:0 6px 20px rgba(30,64,175,0.14);border-color:rgba(37,99,235,0.18);transform:translateY(0)}
+.courseCardCta:focus-visible{outline:none;box-shadow:0 8px 28px rgba(30,64,175,0.12),0 0 0 4px rgba(37,99,235,0.06);border-color:rgba(37,99,235,0.18)}
 .panelFooter{display:flex;justify-content:flex-end;padding-top:6px}
-.viewAllCta{color:#e10600;text-decoration:none;font-weight:700}
+.viewAllCta{color:#2563EB;text-decoration:none;font-weight:700}
 
 @media(max-width:900px){
   .cardsGrid{display:block}
@@ -495,7 +493,7 @@
 }
 
 .practiceBtn:hover {
-  color: #e10600;
+  color: #2563EB;
 }
 
 .practiceBtn:focus,
@@ -503,7 +501,7 @@
 .practiceBtn:active {
   outline: none;
   box-shadow: none;
-  color: #e10600;
+  color: #2563EB;
 }
 
 .moreBtn {
@@ -513,7 +511,7 @@
   padding: 0.45rem 0.75rem;
   border: none;
   background: none;
-  color: #fff;
+  color: #1E293B;
   font-weight: 400;
   font-size: 14px;
   cursor: pointer;
@@ -521,7 +519,7 @@
 }
 
 .moreBtn:hover {
-  color: #e10600;
+  color: #2563EB;
 }
 
 .moreBtn:focus,
@@ -529,21 +527,21 @@
 .moreBtn:active {
   outline: none;
   box-shadow: none;
-  color: #e10600;
+  color: #2563EB;
 }
 
 .practiceMenu {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  background: #000;
+  background: #F8FAFF;
   border-radius: 8px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 30px rgba(30,64,175,0.12);
   padding: 0;
   width: 200px;
   z-index: 1500;
   animation: fadeInDown 0.2s ease-out;
-  border: 1px solid #222;
+  border: 1px solid #C7D8FF;
   overflow: hidden;
 }
 
@@ -559,21 +557,21 @@
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  background: #0b0b0b;
+  background: #F8FAFF;
   border-radius: 10px;
-  box-shadow: 0 14px 40px rgba(2,6,23,0.6);
+  box-shadow: 0 14px 40px rgba(30,64,175,0.08);
   padding: 8px 0;
   width: 260px;
   z-index: 1600;
   animation: fadeInDown 0.22s ease-out;
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid #C7D8FF;
   overflow: hidden;
 }
 
 .expertiseItem {
   display: block;
   padding: 12px 18px;
-  color: #f8fafc;
+  color: #1E293B;
   text-decoration: none;
   font-weight: 400;
   font-size: 14px;
@@ -583,8 +581,8 @@
 }
 
 .expertiseItem:hover {
-  background: linear-gradient(90deg, rgba(225,6,0,0.06), rgba(255,255,255,0.01));
-  color: #fff;
+  background: rgba(37,99,235,0.04);
+  color: #1D4ED8;
 }
 
 .expertiseDivider {
@@ -606,7 +604,7 @@
 .practiceItem {
   display: block;
   padding: 14px 18px;
-  color: #f1f5f9;
+  color: #1E293B;
   text-decoration: none;
   font-weight: 400;
   font-size: 14px;
@@ -616,29 +614,29 @@
 }
 
 .practiceItem:hover {
-  background: #121212;
-  color: #ffffff;
+  background: rgba(37,99,235,0.04);
+  color: #1D4ED8;
 }
 
 .practiceItemHighlight {
-  background: rgba(225, 6, 0, 0.12);
-  color: #ff4f6d;
+  background: rgba(37,99,235,0.08);
+  color: #1D4ED8;
 }
 
 .practiceItemHighlight:hover {
-  background: rgba(225, 6, 0, 0.2);
+  background: rgba(37,99,235,0.12);
   color: #fff;
 }
 
 .practiceDivider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(30,64,175,0.06);
   margin: 2px 0;
   width: 100%;
 }
 
 .freeText {
-  color: #00d6c4;
+  color: #10b981;
   font-weight: 600;
   font-size: 11px;
   line-height: 1.2;
@@ -649,7 +647,7 @@
 }
 
 .practiceLabel {
-  color: #ffffff;
+  color: #0f172a;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.2;
@@ -678,8 +676,8 @@
   gap: 0.5rem;
   padding: 0.45rem 1.1rem;
   background: white;
-  color: #cc0000;
-  border: none;
+  color: #2563EB;
+  border: 1px solid rgba(30,64,175,0.12);
   border-radius: 12px;
   font-weight: 400;
   font-size: 13px;
@@ -687,6 +685,7 @@
   transition: all 0.25s ease;
   font-family: Arial, sans-serif;
   height: 36px;
+  box-shadow: 0 6px 14px rgba(30,64,175,0.04);
 }
 
 .coursesLabel {
@@ -696,7 +695,7 @@
 .coursesBtn:hover {
   background: #f5f5f5;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 22px rgba(30,64,175,0.08);
 }
 
 .coursesBtn:active {
@@ -721,7 +720,8 @@
   overflow-y: auto;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 40px rgba(30,64,175,0.06);
+  border: 1px solid rgba(30,64,175,0.08);
   z-index: 9999;
   animation: slideDownFade 0.25s ease-out;
   backdrop-filter: blur(6px);
@@ -813,10 +813,13 @@
   font-size: 13px; /* reduce domain heading size to 13px */
   white-space: nowrap; /* keep heading on a single line */
   overflow-wrap: normal;
+  color: #111827; /* ensure domain headings are readable */
+  opacity: 1;
+  font-weight: 600;
 }
 .coursesMenu .categories .domainHeading:hover,
 .coursesMenu .categories .domainBoard:hover {
-  color: #e10600; /* red on hover */
+  color: #2563EB; /* blue on hover */
 }
 
 /* Ensure domain items remain visible in all interaction states (click, focus, visited) */
@@ -854,7 +857,7 @@
 }
 
 .categories li.active {
-  color: #dc2626;
+  color: #2563EB;
   font-weight: 600;
 }
 
@@ -936,7 +939,7 @@
   width: 100%;
   max-width: 100%;
   height: 100vh;
-  background: #000000;
+  background: #F8FAFF;
   z-index: 10000;
   display: flex;
   flex-direction: column;
@@ -956,7 +959,7 @@
 .mobileOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.15);
   z-index: 9999;
 }
 
@@ -994,7 +997,7 @@
       font-size: 14px;
       font-weight: 600;
       line-height: 1.4;
-      color: #e6e6e6; /* slightly off-white for calmer contrast */
+      color: #2D3E50; /* darker for readability on pale background */
       padding: 12px 6px; /* ensure comfortable tap area without increasing text size */
       display: inline-block;
       vertical-align: middle;
@@ -1009,7 +1012,7 @@
       align-self: center;
     }
   }
-  color: white;
+  color: #1E3A8A;
   margin: 0;
   font-family: Arial, sans-serif;
 }
@@ -1017,7 +1020,7 @@
 .closeBtn {
   background: none;
   border: none;
-  color: white;
+  color: #1E293B;
   font-size: 2rem;
   cursor: pointer;
   padding: 0;
@@ -1047,7 +1050,7 @@
   padding: 1rem 0;
   background: none;
   border: none;
-  color: white;
+  color: #1E293B;
   font-size: 14px;
   font-weight: 400;
   text-align: left;
@@ -1071,7 +1074,7 @@
 }
 
 .mobileNav .mobileMenuItem .practiceLabel {
-  color: #ffffff;
+  color: #0f172a; /* dark label so 'Practice' is readable on all backgrounds */
   font-weight: 400;
   font-size: 1rem;
 }
@@ -1090,7 +1093,7 @@
 }
 
 .mobileSubmenu {
-  background: #111;
+  background: #F8FAFF;
   border-radius: 8px;
   margin: 0.5rem 0 1rem 0;
   overflow: hidden;
@@ -1099,27 +1102,27 @@
 .mobileSubItem {
   display: block;
   padding: 0.75rem 1rem;
-  color: #ccc;
+  color: #1E293B;
   text-decoration: none;
   font-size: 14px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #e5e7eb;
   transition: background 0.2s;
   font-family: Arial, sans-serif;
 }
 
 .mobileSubItem:hover {
-  background: #222;
-  color: white;
+  background: rgba(37,99,235,0.04);
+  color: #1D4ED8;
 }
 
 /* Mobile: ensure clicked/focused mobile submenu items remain visible on dark background */
 .mobileSubItem:focus,
 .mobileSubItem:active,
 .mobileSubItem:visited {
-  color: #fff !important;
+  color: #1E293B !important;
   opacity: 1 !important;
   visibility: visible !important;
-  background: #111 !important;
+  background: transparent !important;
 }
 
 .mobileSubItem:last-child {
@@ -1130,7 +1133,7 @@
 .mobileSignIn {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background: #e10600;
+  background: #2563EB;
   color: white;
   border: none;
   border-radius: 8px;
@@ -1174,12 +1177,12 @@
 .practiceBtn:hover .practiceLabel,
 .practiceBtn:focus-visible .practiceLabel,
 .practiceBtn:active .practiceLabel {
-  color: #e10600;
+  color: #2563EB;
 }
 
 .btnSignIn {
   padding: 0.7rem 2rem;
-  background: #cc0000;
+  background: #2563EB;
   color: white;
   border: none;
   border-radius: 8px;
@@ -1190,19 +1193,19 @@
   letter-spacing: 0.5px;
   text-transform: uppercase;
   font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  box-shadow: 0 4px 12px rgba(204, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(37,99,235,0.24);
   text-align: center;
   display: inline-block;
 }
 
 .btnSignIn:hover {
-  background: #b30000;
+  background: #1D4ED8;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(204, 0, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(37,99,235,0.28);
 }
 
 .btnSignIn:focus {
-  outline: 2px solid #cc0000;
+  outline: 2px solid #2563EB;
   outline-offset: 2px;
 }
 
@@ -1212,10 +1215,10 @@
   top: 70px;
   left: 0;
   width: 100%;
-  background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 50%, #e10600 100%);
+  background: linear-gradient(90deg, #BEE6FF 0%, #2563EB 50%, #1E3A8A 100%);
   z-index: 900; /* below the fixed navbar but above content */
   padding: 1rem 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(30,64,175,0.08);
 }
 
 .bannerContent {
@@ -1240,7 +1243,7 @@
 }
 
 .bannerText {
-  color: #000;
+  color: #ffffff;
   font-weight: 600;
   font-size: 1rem;
   font-family: Arial, sans-serif;
@@ -1252,25 +1255,25 @@
 
 .btnBookNow {
   padding: 0.6rem 1.5rem;
-  background: #e10600;
+  background: #0056b3;
   color: white;
   border: none;
   border-radius: 8px;
   font-weight: 600;
   font-size: 13.5px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.18s ease;
   font-family: Arial, sans-serif;
-  box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
+  box-shadow: 0 6px 18px rgba(0,86,179,0.18);
 }
 
 /* Hide mobile-only banner row by default to protect desktop layout */
 .mobileBannerRow { display: none; }
 
 .btnBookNow:hover {
-  background: #b30000;
+  background: #004a99;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(225, 6, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(0,86,179,0.22);
 }
 
 .hamburger {
@@ -1290,7 +1293,7 @@
 .hamburger span {
   width: 100%;
   height: 2.5px;
-  background: white;
+  background: #1E40AF;
   transition: all 0.3s ease;
   border-radius: 1px;
 }
@@ -1308,34 +1311,34 @@
   bottom: -6px;
   width: 100%;
   height: 4px;
-  background-color: #e10600; /* AlmaBetter red underline */
+  background-color: #1E3A8A; /* make logo underline match footer/logo color */
   transition: background-color 0.2s ease;
 }
 
 .logoButton:hover .logoHighlight,
 .logoButton:focus-visible .logoHighlight,
 .logoButton:active .logoHighlight {
-  color: white;
+  color: #1E3A8A;
 }
 
 .logoButton:hover .logoHighlight::after,
 .logoButton:focus-visible .logoHighlight::after,
 .logoButton:active .logoHighlight::after {
-  background-color: #e10600;
+  background-color: #2563EB;
 }
 
 .moreMenu {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  background: #000;
+  background: #F8FAFF;
   border-radius: 6px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(30,64,175,0.12);
   padding: 8px 0;
   width: 160px;
   z-index: 1500;
   animation: fadeInDown 0.2s ease-out;
-  border: 1px solid #222;
+  border: 1px solid #C7D8FF;
   min-width: 150px;
 }
 
@@ -1444,30 +1447,28 @@
 
 /* Laptop-only: slightly smaller mobile menu text without affecting phones */
 @media (min-width: 769px) and (max-width: 1200px) {
-  .mobileMenuItem {
-    font-size: 0.92rem;
-    padding: 0.85rem 0;
+  .moreMenu a {
+    display: block;
+    padding: 11px 16px;
+    color: #1E293B;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 13px;
+    transition: background 0.15s ease;
+    text-align: left;
+    font-family: Arial, sans-serif;
   }
-
-  .mobileSubItem {
-    font-size: 0.86rem;
-    padding: 0.65rem 0.9rem;
+  .moreMenu a:first-child {
+    border-radius: 5px 5px 0 0;
   }
-
-  .mobileLogo {
-    font-size: 1.3rem;
+  .moreMenu a:last-child {
+    border-radius: 0 0 5px 5px;
   }
-
-  .mobileSignIn {
-    font-size: 0.95rem;
-    padding: 0.65rem 1.25rem;
+  .moreMenu a:hover {
+    background: rgba(37,99,235,0.04);
+    color: #1D4ED8;
   }
-
-  .mobileSignInDropdownBtn {
-    font-size: 0.95rem;
-    padding: 0.75rem 1.25rem;
-  }
-
+  
   .mobileSignInDropdownItem {
     font-size: 0.95rem;
     padding: 10px 16px;
@@ -1588,6 +1589,21 @@
   padding-left: 8px;
 }
 
+  /* Make navbar accordion title navy and accordion content title dark on mobile */
+  .navbar_accordionTitel {
+    color: #1E3A8A !important; /* navy/brand blue on mobile */
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+  }
+
+  .accordionTitle {
+    color: #111827 !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+  }
+
 .accordionContent {
   max-height: 0;
   overflow: hidden;
@@ -1624,7 +1640,7 @@
 /* Keyboard accessibility: visible focus states for accordion rows and course links */
 .accordionRow:focus-visible,
 .accordionRow:focus {
-  outline: 2px solid #e10600;
+  outline: 2px solid #2563EB;
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -1725,6 +1741,69 @@
     padding: 0.7rem 1rem;
     font-size: 0.9rem;
   }
+
+  /* Make mobile sign-in dropdown visible and high-contrast */
+  .mobileSignInDropdownWrapper {
+    position: relative;
+    z-index: 13000; /* sit above overlays */
+  }
+
+  .mobileSignInDropdownBtn {
+    background: #1E3A8A !important; /* navy brand */
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 6px 18px rgba(30,64,175,0.14) !important;
+    padding: 0.45rem 0.9rem !important; /* slightly smaller */
+    font-size: 14px !important;
+    min-height: 40px !important;
+    border-radius: 8px !important;
+  }
+
+  .mobileSignInDropdownBtn:hover,
+  .mobileSignInDropdownBtn:focus {
+    background: #16325f !important;
+    color: #ffffff !important;
+  }
+
+  .mobileSignInDropdown {
+    background: #ffffff !important; /* white panel for contrast */
+    border: 1px solid #E5E7EB !important;
+    box-shadow: 0 12px 30px rgba(15,23,42,0.06) !important;
+    padding: 6px 8px !important;
+    border-radius: 8px !important;
+    z-index: 13001 !important;
+    width: calc(100% - 2rem) !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    /* Make dropdown render in-flow inside the mobile menu to avoid extra scrolling */
+    position: static !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    margin: 6px 0 12px 0 !important;
+  }
+
+  .mobileSignInDropdownItem {
+    color: #0F172A !important; /* dark item text */
+    background: transparent !important;
+    padding: 10px 12px !important; /* smaller touch area but still comfortable */
+    min-height: 40px !important;
+    font-size: 14px !important;
+    border-radius: 6px !important;
+  }
+
+  .mobileSignInDropdownItem:hover,
+  .mobileSignInDropdownItem:focus {
+    background: rgba(37,99,235,0.06) !important;
+    color: #1D4ED8 !important;
+  }
+
+  /* Make the dropdown divider visible on mobile */
+  .dropdownDivider {
+    height: 1px !important;
+    background: #E5E7EB !important;
+    margin: 6px 0 !important;
+    width: 100% !important;
+  }
 }
 
 /* Mobile announcement bar compaction (<=768px only) */
@@ -1760,6 +1839,86 @@
     padding: 0.45rem 0.9rem; /* compact but tappable */
     font-size: 11px;
     min-height: 40px; /* ensure comfortable tap target as per guidance */
+  }
+}
+
+/* Mobile-only: Improve readability for the Courses panel (colors only) */
+@media (max-width: 768px) {
+  /* Panel background should be plain white for clarity on mobile */
+  .coursesMenu {
+    background: #ffffff !important;
+    color: #2D3E50; /* base color */
+  }
+
+  /* Courses title */
+  .coursesMenu .categories > h3,
+  .coursesMenu .coursesTitle,
+  .mobileMenu .coursesTitle,
+  .coursesMenuHeader,
+  .coursesTitle {
+    color: #2D3E50 !important;
+    font-weight: 600 !important;
+  }
+
+  /* Domain headings (Marketing, Technology, etc.) */
+  .coursesMenu .categories h4,
+  .coursesMenu .categories .domainHeading,
+  .coursesMenu .categories .domainBoard {
+    color: #2D3E50 !important;
+    font-weight: 600 !important;
+  }
+
+  /* Chevron / arrow icons in the courses panel */
+  .coursesMenu .chevron,
+  .mobileMenu .chevron {
+    color: #334155 !important;
+    opacity: 1 !important;
+  }
+  /* Active/hover chevron */
+  .coursesMenu .domainHeading:hover .chevron,
+  .coursesMenu .domainBoard:hover .chevron,
+  .coursesMenu .domainHeading.categoryActive .chevron,
+  .coursesMenu .domainBoard.categoryActive .chevron {
+    color: #1D4ED8 !important;
+  }
+
+  /* Dropdown list items */
+  .coursesMenu .categories a,
+  .coursesMenu .categories .practiceItem,
+  .coursesMenu .categories .courseItem {
+    color: #334155 !important;
+    font-weight: 500 !important;
+    background: transparent !important;
+  }
+
+  /* Divider between items */
+  .coursesMenu .categories a + a,
+  .coursesMenu .categories .practiceItem + .practiceItem,
+  .coursesMenu .categories .courseItem + .courseItem {
+    border-top: 1px solid #E5E7EB !important;
+  }
+
+  /* Hover / tap state for items */
+  .coursesMenu .categories a:hover,
+  .coursesMenu .categories .practiceItem:hover,
+  .coursesMenu .categories .courseItem:hover {
+    background: rgba(29,78,216,0.06) !important;
+    color: #1D4ED8 !important;
+  }
+
+  /* Disabled / inactive state */
+  .coursesMenu .categories a[disabled],
+  .coursesMenu .categories .disabled,
+  .coursesMenu .categories .practiceItem.disabled {
+    color: #64748B !important;
+    opacity: 1 !important;
+  }
+
+  /* Ensure any subtle text-shadow / faint rules are overridden on mobile */
+  .coursesMenu .categories h4,
+  .coursesMenu .categories a,
+  .coursesMenu .categories .practiceItem {
+    text-shadow: none !important;
   }
 }
 
@@ -2022,6 +2181,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #ffffff;
   }
   .mobileBannerSubtext {
     font-family: Arial, sans-serif;
@@ -2031,23 +2191,41 @@
     opacity: 0.95;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: rgba(255,255,255,0.92);
   }
   .btnMobileBook {
     padding: 0.4rem 0.9rem;
-    background: #e10600;
+    background: #0056b3;
     color: white;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     font-size: 11.5px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.18s ease;
     font-family: Arial, sans-serif;
-    box-shadow: 0 4px 12px rgba(225, 6, 0, 0, 0.25);
+    box-shadow: 0 6px 18px rgba(0,86,179,0.18);
     min-height: 36px;
     flex-shrink: 0;
   }
   .btnMobileBook:hover { transform: translateY(-1px); }
+
+/* Ensure domain headings and category labels are readable on small screens */
+@media (max-width: 768px) {
+  .coursesMenu .categories .domainHeading,
+  .coursesMenu .categories .domainBoard,
+  .coursesMenu .categories h4,
+  .coursesMenu .categories .practiceItem {
+    color: #2D3E50 !important;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+    text-shadow: none !important;
+  }
+  .coursesMenu .categories a {
+    color: #2D3E50 !important;
+    opacity: 1 !important;
+  }
+}
 
 /* ===== Global Courses dropdown visibility & interaction overrides =====
    Purpose: Ensure domain items are always readable and visible across
@@ -2093,7 +2271,7 @@
 
 /* Mobile submenu items (dark background) - ensure visibility on click */
 .mobileSubmenu .mobileSubItem {
-  color: #e5e7eb !important; /* light text on dark mobile submenu */
+  color: #1E293B !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
@@ -2101,8 +2279,8 @@
 .mobileSubmenu .mobileSubItem:focus,
 .mobileSubmenu .mobileSubItem:focus-visible,
 .mobileSubmenu .mobileSubItem:visited {
-  background: #222 !important;
-  color: #fff !important;
+  background: rgba(37,99,235,0.04) !important;
+  color: #1D4ED8 !important;
   opacity: 1 !important;
 }
 
@@ -2122,7 +2300,7 @@
 }
 
 .domainActive {
-  color: #e10600; /* match existing theme red */
+  color: #2563EB; /* match new theme blue */
   font-weight: 600;
 }
 
@@ -2199,3 +2377,38 @@
 }
 
 /* End overrides */
+
+/* Mobile-specific: reduce Digital Marketing badge size for compact layout */
+@media (max-width: 768px) {
+  .DigitalMarketing_badge,
+  .digitalMarketing_badge,
+  .digital-marketing-badge,
+  .badge.digital-marketing,
+  .badge[data-badge="digital-marketing"] {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+    min-height: 28px !important;
+    line-height: 1 !important;
+    border-radius: 6px !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+  }
+
+  /* Slightly reduce general badge sizing on small screens where appropriate */
+  .badge {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+  }
+}
+
+/* Mobile-only: ensure accordion course items are dark and readable */
+@media (max-width: 768px) {
+  .navbar_accordionCourse,
+  .accordionCourse {
+    color: #111827 !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    background: transparent !important;
+  }
+}

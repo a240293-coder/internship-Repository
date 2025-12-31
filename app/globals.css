@@ -20,7 +20,7 @@ body {
   font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #1f2937;
+  color: var(--body-color);
   background: white;
   line-height: 1.75;
   font-size: 16px;
@@ -30,6 +30,9 @@ body {
 /* CSS Custom Properties (global) */
 :root {
   --primary: #2563eb;
+  --heading-color: #111827; /* Main Headings */
+  --body-color: #4B5563;    /* Body Paragraphs */
+  --link-color: #0056b3;    /* Links / Action */
   --muted: #6b7280;
   --bg: #fbfdfe;
   --card: #ffffff;
@@ -60,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 800;
   line-height: 1.2;
-  color: #1f2937;
+  color: var(--heading-color);
   letter-spacing: -0.02em;
 }
 
@@ -102,20 +105,20 @@ h6 {
 
 p {
   margin-bottom: 1.25rem;
-  color: #4b5563;
+  color: var(--body-color);
   line-height: 1.75;
   font-weight: 400;
 }
 
 a {
-  color: #667eea;
+  color: var(--link-color);
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-weight: 500;
+  transition: color 0.18s ease;
+  font-weight: 600;
 }
 
 a:hover {
-  color: #764ba2;
+  color: #004a99;
 }
 
 strong {
@@ -139,29 +142,30 @@ button {
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.18s ease;
   letter-spacing: -0.01em;
-  background: #e10600;
+  background: var(--link-color);
   color: white;
-  box-shadow: 0 4px 12px rgba(225, 6, 0, 0.2);
-  border: 1px solid rgba(225,6,0,0.18);
+  box-shadow: 0 4px 12px rgba(0,86,179,0.12);
+  border: 1px solid rgba(0,86,179,0.12);
   text-align: center;
   display: inline-block;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(225, 6, 0, 0.3);
+  box-shadow: 0 6px 18px rgba(0,86,179,0.14);
+  background: #004a99;
 }
 
 .btn-primary:focus {
-  outline: 2px solid #e10600;
+  outline: 2px solid rgba(0,86,179,0.18);
   outline-offset: 2px;
 }
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(225, 6, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0,86,179,0.12);
 }
 
 /* Secondary Button */
@@ -398,6 +402,116 @@ button:focus {
     opacity: 0;
     transform: scale(0.9);
   }
+
+/* Mobile-first safety and consistency rules for all domain pages
+   - Prevent horizontal scrolling
+   - Ensure text wraps and never overflows viewport
+   - Stack buttons, wrap chips, and add safe side padding
+   Applied only for screens <= 768px so desktops are unaffected */
+@media (max-width: 768px) {
+  html, body, #__next {
+    overflow-x: hidden;
+  }
+
+  /* Mobile safe page padding */
+  .page,
+  .container,
+  main,
+  .section,
+  .hero,
+  .learn,
+  .content {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  /* Universal text wrapping safety */
+  h1, h2, h3, h4, h5, h6, p, span, a, li, button {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+  }
+
+  /* Domain hero heading and description sizing */
+  .hero h1,
+  .hero-title,
+  .page .hero h1 {
+    font-size: 22px !important;
+    line-height: 1.45 !important;
+    max-width: 100%;
+  }
+
+  .hero p,
+  .hero .subtitle,
+  .page p,
+  .hero-desc {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    max-width: 100%;
+  }
+
+  /* Chips / badges: wrap and reduce size */
+  .badges,
+  .chips,
+  .chips-wrapper,
+  .badge-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .badge,
+  .chip,
+  .pill {
+    padding: 6px 10px;
+    font-size: 13px;
+    white-space: normal;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Stack CTAs and make buttons full-width on mobile */
+  .heroCtas,
+  .cta-group,
+  .button-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .heroCtas a,
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .apply-now,
+  .download-syllabus {
+    width: 100% !important;
+    display: block !important;
+    text-align: center;
+    box-sizing: border-box;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Tweak hero art size to avoid overflow */
+  .heroArt,
+  .hero-image,
+  .hero-graphic {
+    max-width: 140px;
+    width: auto;
+    height: auto;
+  }
+
+  /* Ensure media and cards don't force horizontal scroll */
+  img, iframe, .card, .course-card {
+    max-width: 100%;
+    height: auto;
+  }
+}
   to {
     opacity: 1;
     transform: scale(1);

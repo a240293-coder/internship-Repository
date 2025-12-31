@@ -77,7 +77,7 @@ export default function DomainPage() {
   const content = domainContent[domain];
   if (!content) {
     return (
-      <main style={{ padding: 24 }}>
+      <main style={{ padding: 24, paddingTop: 96 }}>
         <h1>Domain not found</h1>
         <p>We could not find the domain you requested.</p>
         <p>
@@ -88,7 +88,7 @@ export default function DomainPage() {
   }
 
   return (
-    <main style={{ padding: 24, maxWidth: 980, margin: '0 auto' }}>
+    <main style={{ padding: 24, paddingTop: 96, maxWidth: 980, margin: '0 auto' }}>
       <h1 style={{ marginBottom: 8, fontWeight: 400 }}>{content.title}</h1>
       <p style={{ color: '#444', marginTop: 0 }}>{content.about}</p>
 

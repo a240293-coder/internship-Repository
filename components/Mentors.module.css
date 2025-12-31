@@ -1,6 +1,6 @@
 .mentors {
-  background: #f9fafb;
-  padding: 2.5rem 0;
+  background: linear-gradient(180deg, #F8FAFF 0%, #EFF6FF 100%);
+  padding: 6rem 0;
   font-family: Arial, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -12,9 +12,9 @@
 
 .title {
   font-size: 2.375rem;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
-  color: #1f2937;
+  color: #0F172A;
   margin-bottom: 1rem;
 }
 
@@ -30,105 +30,240 @@
   right: 0;
   bottom: -6px;
   height: 3px;
-  background: #e10600;
-  border-radius: 999px;
+  background: #1D4ED8;
+  border-radius: 2px;
+  width: 60%;
 }
 
 .subtitle {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   text-align: center;
-  color: #6b7280;
+  color: #475569;
   margin-bottom: 3rem;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 1.8vw, 2.5rem);
+  align-items: stretch;
+}
+
+/* Allow vertical scrolling while preventing page horizontal scroll during card swipes */
+.grid {
+  touch-action: pan-y;
 }
 
 .mentorCard {
-  background: linear-gradient(180deg, #fff7fb 0%, #fef2f8 100%);
-  padding: 2.5rem;
-  border-radius: 16px;
+  background: #FFFFFF;
+  padding: 28px;
+  border-radius: 20px;
+  position: relative;
   text-align: center;
-  border: 1px solid #fbcfe8;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  transition: transform 180ms ease-out, box-shadow 220ms ease-out;
+  border: 1px solid #DBEAFE;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
+  transition: transform 200ms ease, box-shadow 200ms ease;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  height: 100%;
 }
 
 .mentorCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
-  background: linear-gradient(180deg, #ffe4f1 0%, #ffd7ec 100%);
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.12);
 }
 
 .mentorCard:active {
-  transform: translateY(0) scale(0.985);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(0) scale(0.995);
 }
 
 .mentorImage {
-  margin-bottom: 1.5rem;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.avatarWrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #EFF6FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(37,99,235,0.06);
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
 .mentorAvatar {
-  width: 72px;
-  height: 72px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
 }
 
+.mentorCard:focus-visible {
+  outline: none;
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.12), 0 0 0 6px rgba(37,99,235,0.08);
+  border-color: #1D4ED8;
+}
+
+.mentorCard::before {
+  /* small top accent bar for visual interest */
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background: rgba(29,78,216,0.12);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
 .mentorName {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #0F172A;
+  margin-bottom: 0.35rem;
 }
 
 .mentorRole {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2563eb;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: #2563EB;
   margin-bottom: 0.25rem;
 }
 
 .mentorCompany {
-  font-size: 1rem;
-  color: #6b7280;
-  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: #334155;
+  margin-bottom: 0.6rem;
   font-weight: 500;
 }
 
 .mentorBio {
   font-size: 0.95rem;
-  color: #4b5563;
+  color: #475569;
   line-height: 1.6;
 }
 
-/* Mobile-only pagination dots (placed below the carousel) */
 .mentorDots {
   display: none;
 }
 
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
+  .mentors {
+    padding: 3rem 0;
+  }
+
+  .title {
+    text-align: left;
+  }
+
+  .titleHighlight::after {
+    left: 0;
+    width: 40%;
+    bottom: -5px;
+  }
+
+  .subtitle {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* grid layout replaced by horizontal track on mobile */
+
+  .grid {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+
+  .mentorTrack {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    /* make the track tall enough to avoid huge empty space and match testimonial sizing */
+    min-height: clamp(160px, 24vh, 260px);
+    will-change: transform;
+  }
+
+  .mentorCardMobile {
+    flex: 0 0 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 8px 8px;
+    display: block;
+  }
+
+  /* constrain inner content so the visible card looks like the testimonial card */
+  .mentorCardMobile > * {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .mentorCard {
+    padding: 12px;
+    border-radius: 12px;
+    min-height: auto;
+    border: 1px solid #DBEAFE;
+  }
+
+  .avatarWrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mentorAvatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .mentorName {
+    font-size: 1rem;
+  }
+
+  .mentorRole {
+    font-size: 0.92rem;
+  }
+
+  .mentorCompany {
+    font-size: 0.9rem;
+  }
+
+  .mentorBio {
+    font-size: 0.88rem;
+    line-height: 1.35;
+  }
+
   .mentorDots {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
     margin-top: 0.9rem;
-    z-index: 50; /* above cards but below any overlays */
+    z-index: 50;
     pointer-events: auto;
-  }
-
-  /* ensure dots are reachable and scale across small devices */
-  .mentorDots {
-    padding: 0 10px;
   }
 
   .mentorDot {
@@ -150,103 +285,5 @@
     background: #2563eb;
     width: 32px;
     border-radius: 8px;
-  }
-}
-
-@media (max-width: 768px) {
-  .mentors {
-    padding: 1.1rem 0;
-  }
-
-  .container {
-    overflow: visible;
-    height: auto;
-  }
-
-  .grid {
-    display: flex;
-    gap: 0;
-    overflow: hidden;
-    position: relative;
-    padding: 0;
-    margin: 0;
-    min-height: 320px; /* reserve space so the absolute cards stay visible */
-  }
-
-  .mentorCard {
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding: 1rem;
-    border-radius: 12px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: linear-gradient(180deg, #fff7fb 0%, #fef2f8 100%);
-    box-shadow: none;
-    border: 1px solid #f9a8d4;
-    cursor: default;
-    transition: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-.mentorCard:hover,
-  .mentorCard:active,
-  .mentorCard:focus {
-    box-shadow: none;
-    transform: translateX(0); /* prevent accidental jumps on tap */
-    outline: none;
-  }
-
-  .mentorCard:active {
-    background: linear-gradient(180deg, #ffe4f1 0%, #ffd7ec 100%);
-  }
-
-  .title {
-    font-size: 1.875rem;
-    font-weight: 600;
-    display: block;
-    visibility: visible;
-    opacity: 1;
-    color: #1f2937;
-    transform: none;
-    transition: none;
-    animation: none;
-  }
-
-  .titleHighlight::after {
-    bottom: -5px;
-    height: 2.5px;
-  }
-
-  .subtitle {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-    color: #6b7280;
-    transform: none;
-    transition: none;
-    animation: none;
-  }
-
-  .mentorImage {
-    margin-bottom: 0.75rem;
-  }
-
-  .mentorName {
-    font-size: 1.25rem;
-  }
-
-  .mentorRole {
-    font-size: 1rem;
-  }
-
-  .mentorCompany {
-    font-size: 0.95rem;
-  }
-
-  .mentorBio {
-    font-size: 0.95rem;
-    line-height: 1.45;
   }
 }

@@ -1,5 +1,21 @@
-.page{padding:0 1rem 6rem;max-width:1200px;margin:0 auto;font-family:Inter,Arial,sans-serif}
-.hero{display:flex;gap:2rem;align-items:center;margin-top:2rem;padding:2rem 1rem}
+.page{padding:3rem 1.5rem 6rem;max-width:1400px;margin:0 auto;font-family:Inter,Arial,sans-serif}
+.hero{display:flex;gap:1.5rem;align-items:center;margin-top:1.25rem;padding:1.25rem 0.75rem}
+
+@media (max-width: 640px) {
+  .hero { margin-top: 3.5rem; margin-bottom:0.2rem; padding-bottom:0.2rem }
+  .badge {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 0.18rem 0.45rem;
+    font-size: 0.72rem;
+    line-height: 1;
+  }
+  .learn { margin-top: 0.2rem; }
+  .badges{margin-bottom:0.3rem}
+  .heroCtas{margin-top:0.2rem}
+  .hero h1{margin-bottom:0.3rem}
+  .heroArt{width:120px;height:80px}
+}
 .heroContent{flex:1;max-width:720px}
 .hero h1{font-size:2rem;margin:0 0 .5rem;color:#0b1220}
 .lede{color:var(--muted);margin-bottom:1rem}
@@ -11,15 +27,19 @@
 .heroArt{width:160px;height:120px;display:flex;align-items:center;justify-content:center}
 .boxIcon{font-size:40px;background:linear-gradient(180deg,#fff,#f6f8ff);width:96px;height:96px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(15,23,42,0.08);box-shadow:0 6px 18px rgba(15,23,42,0.04)}
 
-.learn{padding:1.25rem 1rem;margin-top:1rem}
-.learn h2{margin:0 0 .75rem}
-.learnGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
-.learnItem{display:flex;align-items:flex-start;gap:.6rem;padding:.5rem 0}
+@media (max-width: 640px) {
+  .boxIcon { display: none !important; }
+}
+
+.learn{padding:1rem 0.75rem;margin-top:0.75rem}
+.learn h2{margin:0 0 .6rem}
+.learnGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}
+.learnItem{display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0}
 .check{color:var(--primary);font-weight:700}
 
-.skills{padding:1.25rem 1rem}
+.skills{padding:1rem 0.75rem}
 .chips{display:flex;flex-wrap:wrap;gap:.5rem}
-.chip{padding:.45rem .6rem;border-radius:999px;border:1px solid rgba(15,23,42,0.08);background:var(--card);font-size:.9rem;box-shadow:0 6px 18px rgba(15,23,42,0.04)}
+.chip{padding:.28rem .45rem;border-radius:999px;border:1px solid rgba(15,23,42,0.08);background:var(--card);font-size:.8rem;box-shadow:0 6px 18px rgba(15,23,42,0.04)}
 
 .modules{padding:1.25rem 1rem}
 .accordion{border-top:1px solid rgba(15,23,42,0.08)}
