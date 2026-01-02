@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import './Demo.css';
+// import './Demo.css';
 
 const OurMentors = () => {
   const router = useRouter();
