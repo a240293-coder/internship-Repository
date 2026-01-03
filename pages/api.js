@@ -8,6 +8,8 @@ const getBaseUrl = () => {
   return null;
 };
 
+export const API_HOST = getBaseUrl();
+
 // In-memory mock user store used when no real API is configured
 const _mockStore = {
   students: {},
