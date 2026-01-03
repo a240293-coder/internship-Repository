@@ -1006,6 +1006,9 @@ select:focus {
   .auth-page {
     padding: 20px;
   }
+  .auth-page.auth-page-with-nav {
+    padding-top: 9rem !important;
+  }
   .auth-visual {
     padding: 28px;
   }
@@ -1025,6 +1028,9 @@ select:focus {
 @media (max-width: 520px) {
   .auth-page {
     padding: 14px;
+  }
+  .auth-page.auth-page-with-nav {
+    padding-top: 9rem !important;
   }
   .auth-visual {
     padding: 24px 20px;
