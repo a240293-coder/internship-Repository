@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import api from '../lib/api';
-import '../auth/Auth.css';
-import AuthVisualPanel from '../../components/auth/AuthVisualPanel';
+import './auth/Auth.css';
+import AuthVisualPanel from '../components/auth/AuthVisualPanel';
 
 const AdminLogin = () => {
   const router = useRouter();
